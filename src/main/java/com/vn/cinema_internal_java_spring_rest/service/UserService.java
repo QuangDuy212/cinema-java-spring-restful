@@ -14,6 +14,10 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    public boolean isExistByEmail(String email) {
+        return this.userRepository.existsByEmail(email);
+    }
+
     public User createUser(User reqUser) {
         return this.userRepository.save(reqUser);
     }
