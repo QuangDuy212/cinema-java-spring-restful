@@ -11,6 +11,8 @@ public class ResCreateUserDTO {
     private long id;
     private String email;
     private String fullName;
+    private String address;
+    private String phone;
     private Instant createdAt;
     private Instant updatedAt;
 }

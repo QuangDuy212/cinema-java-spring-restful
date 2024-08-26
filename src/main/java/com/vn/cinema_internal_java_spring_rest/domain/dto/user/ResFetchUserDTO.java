@@ -11,6 +11,8 @@ public class ResFetchUserDTO {
     private long id;
     private String email;
     private String fullName;
+    private String phone;
+    private String address;
     private Instant createdAt;
     private Instant updatedAt;
     private String createdBy;
