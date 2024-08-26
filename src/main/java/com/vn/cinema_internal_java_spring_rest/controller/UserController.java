@@ -5,13 +5,19 @@ import org.springframework.web.bind.annotation.RestController;
 import com.vn.cinema_internal_java_spring_rest.domain.User;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.RestResponse;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.user.ResCreateUserDTO;
+import com.vn.cinema_internal_java_spring_rest.domain.dto.user.ResFetchUserDTO;
 import com.vn.cinema_internal_java_spring_rest.service.UserService;
 import com.vn.cinema_internal_java_spring_rest.util.error.CommonException;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 public class UserController {
@@ -32,7 +38,16 @@ public class UserController {
         reqUser.setPassword(passwordEncoder.encode(reqUser.getPassword()));
         User user = this.userService.createUser(reqUser);
 
-        return ResponseEntity.ok().body(this.userService.convertUserToResUserCreateUserDTO(user));
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.userService.convertUserToResUserCreateUserDTO(user));
+    }
+
+    @GetMapping("/users/{id}")
+    public ResponseEntity<ResFetchUserDTO> fetchUserById(@PathVariable("id") long id) throws CommonException {
+        User user = this.userService.fetchUserById(id);
+        if (user == null) {
+            throw new CommonException("User not found");
+        }
+        return ResponseEntity.ok().body(this.userService.convertUserToResFetchUserDTO(user));
     }
 
 }
