@@ -3,6 +3,8 @@ package com.vn.cinema_internal_java_spring_rest.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,7 @@ import com.vn.cinema_internal_java_spring_rest.repository.RoleRepository;
 
 @Service
 public class RoleService {
+    private final Logger log = LoggerFactory.getLogger(RoleService.class);
     private final RoleRepository roleRepository;
 
     public RoleService(RoleRepository roleRepository) {
@@ -28,6 +31,7 @@ public class RoleService {
     }
 
     public Role fetchRoleById(long id) {
+        log.debug("Request to fetch Role by id : {}", id);
         Optional<Role> roleOptional = this.roleRepository.findById(id);
         if (roleOptional.isPresent())
             return roleOptional.get();
@@ -35,6 +39,7 @@ public class RoleService {
     }
 
     public ResultPaginationDTO fetchAllRoles(Pageable page) {
+        log.debug("Request to fetch all Roles");
         Page<Role> roles = this.roleRepository.findAll(page);
 
         ResultPaginationDTO res = new ResultPaginationDTO();
@@ -51,6 +56,7 @@ public class RoleService {
     }
 
     public Role hanldeUpdateRole(Role reqRole) {
+        log.debug("Request to update Role : {}", reqRole);
         Role currentRole = this.fetchRoleById(reqRole.getId());
         if (reqRole.getName() != null) {
             boolean checkExistName = this.isExistsByName(reqRole.getName());
