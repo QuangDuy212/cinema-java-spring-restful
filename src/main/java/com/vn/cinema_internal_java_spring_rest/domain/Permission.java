@@ -1,17 +1,17 @@
 package com.vn.cinema_internal_java_spring_rest.domain;
 
 import java.time.Instant;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vn.cinema_internal_java_spring_rest.util.SecurityUtil;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
@@ -20,32 +20,33 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "users")
+@Table(name = "permissions")
 @Getter
 @Setter
-public class User {
+public class Permission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotBlank(message = "Email must not empty")
-    private String email;
+    @NotBlank(message = "Name không được để trống")
+    private String name;
 
-    @NotBlank(message = "password must not empty")
-    private String password;
-    private String fullName;
-    private String phone;
-    private String address;
-    @Column(columnDefinition = "MEDIUMTEXT")
-    private String refreshToken;
+    @NotBlank(message = "Apipath không được để trống")
+    private String apiPath;
+
+    @NotBlank(message = "Method không được để trống")
+    private String method;
+
+    @NotBlank(message = "Module không được để trống")
+    private String module;
     private Instant createdAt;
     private Instant updatedAt;
     private String createdBy;
     private String updatedBy;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id")
-    private Role role;
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "permissions")
+    @JsonIgnore
+    private List<Role> roles;
 
     @PrePersist
     private void handleBeforeCreate() {
