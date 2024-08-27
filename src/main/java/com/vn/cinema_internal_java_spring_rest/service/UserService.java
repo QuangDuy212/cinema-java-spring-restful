@@ -126,4 +126,16 @@ public class UserService {
             this.userRepository.save(currentUser);
         }
     }
+
+    public User getUserByRefreshTokenAndEmail(String refreshToken, String email) {
+        Optional<User> user = this.userRepository.findByRefreshTokenAndEmail(refreshToken, email);
+        if (user.isPresent())
+            return user.get();
+        return null;
+    }
+
+    public void handleLogout(User user) {
+        user.setRefreshToken(null);
+        this.userRepository.save(user);
+    }
 }
