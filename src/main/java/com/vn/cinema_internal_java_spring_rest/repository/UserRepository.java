@@ -6,7 +6,11 @@ import org.springframework.stereotype.Repository;
 
 import com.vn.cinema_internal_java_spring_rest.domain.User;
 
+import java.util.Optional;
+
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
     boolean existsByEmail(String email);
+
+    Optional<User> findByEmail(String email);
 }
