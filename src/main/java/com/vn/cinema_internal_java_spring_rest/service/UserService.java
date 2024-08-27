@@ -13,6 +13,7 @@ import com.vn.cinema_internal_java_spring_rest.domain.User;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.ResultPaginationDTO;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.user.ResCreateUserDTO;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.user.ResFetchUserDTO;
+import com.vn.cinema_internal_java_spring_rest.domain.dto.user.ResUpdateUserDTO;
 import com.vn.cinema_internal_java_spring_rest.repository.UserRepository;
 
 @Service
@@ -27,7 +28,7 @@ public class UserService {
         return this.userRepository.existsByEmail(email);
     }
 
-    public User createUser(User reqUser) {
+    public User handleCreateUser(User reqUser) {
         return this.userRepository.save(reqUser);
     }
 
@@ -79,6 +80,35 @@ public class UserService {
 
         res.setMeta(meta);
         res.setResult(users);
+        return res;
+    }
+
+    public User handleUpdateUser(User reqUser) {
+        User user = this.fetchUserById(reqUser.getId());
+        if (reqUser.getEmail() != null) {
+            if (!this.isExistByEmail(reqUser.getEmail())) {
+                user.setEmail(reqUser.getEmail());
+            }
+        }
+        if (reqUser.getFullName() != null)
+            user.setFullName(reqUser.getFullName());
+        if (reqUser.getPhone() != null)
+            user.setPhone(reqUser.getPhone());
+        if (reqUser.getAddress() != null)
+            user.setAddress(reqUser.getAddress());
+        return this.userRepository.save(user);
+    }
+
+    public ResUpdateUserDTO convertUserToResUpdateUserDTO(User user) {
+        ResUpdateUserDTO res = new ResUpdateUserDTO();
+        res.setId(user.getId());
+        res.setEmail(user.getEmail());
+        res.setFullName(user.getFullName());
+        res.setEmail(user.getEmail());
+        res.setAddress(user.getAddress());
+        res.setPhone(user.getPhone());
+        res.setCreatedAt(user.getCreatedAt());
+        res.setUpdatedAt(user.getUpdatedAt());
         return res;
     }
 }

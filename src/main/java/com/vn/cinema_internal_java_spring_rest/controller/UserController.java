@@ -7,6 +7,7 @@ import com.vn.cinema_internal_java_spring_rest.domain.dto.RestResponse;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.ResultPaginationDTO;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.user.ResCreateUserDTO;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.user.ResFetchUserDTO;
+import com.vn.cinema_internal_java_spring_rest.domain.dto.user.ResUpdateUserDTO;
 import com.vn.cinema_internal_java_spring_rest.service.UserService;
 import com.vn.cinema_internal_java_spring_rest.util.error.CommonException;
 
@@ -40,7 +41,7 @@ public class UserController {
             throw new CommonException("User's email exist");
         }
         reqUser.setPassword(passwordEncoder.encode(reqUser.getPassword()));
-        User user = this.userService.createUser(reqUser);
+        User user = this.userService.handleCreateUser(reqUser);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(this.userService.convertUserToResUserCreateUserDTO(user));
     }
@@ -57,6 +58,22 @@ public class UserController {
     @GetMapping("/users")
     public ResponseEntity<ResultPaginationDTO> fetchAllUsers(Pageable page) {
         ResultPaginationDTO res = this.userService.fetchAllUsers(page);
+        return ResponseEntity.ok().body(res);
+    }
+
+    @PutMapping("/users")
+    public ResponseEntity<ResUpdateUserDTO> updateAUser(@RequestBody User reqUser) throws CommonException {
+        User user = this.userService.fetchUserById(reqUser.getId());
+        if (user == null) {
+            throw new CommonException("User not found");
+        }
+        if (reqUser.getEmail() != null) {
+            boolean checkExistEmail = this.userService.isExistByEmail(reqUser.getEmail());
+            if (checkExistEmail)
+                throw new CommonException("Email existed");
+        }
+        User currentUser = this.userService.handleUpdateUser(reqUser);
+        ResUpdateUserDTO res = this.userService.convertUserToResUpdateUserDTO(currentUser);
         return ResponseEntity.ok().body(res);
     }
 
