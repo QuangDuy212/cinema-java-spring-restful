@@ -2,10 +2,8 @@ package com.vn.cinema_internal_java_spring_rest.domain;
 
 import java.time.Instant;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vn.cinema_internal_java_spring_rest.util.SecurityUtil;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,31 +16,25 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "users")
+@Table(name = "roles")
 @Getter
 @Setter
-public class User {
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotBlank(message = "Email must not empty")
-    private String email;
-
-    @NotBlank(message = "password must not empty")
-    private String password;
-    private String fullName;
-    private String phone;
-    private String address;
-    @Column(columnDefinition = "MEDIUMTEXT")
-    private String refreshToken;
+    @NotBlank(message = "Name không được để trống")
+    private String name;
+    private String description;
+    private boolean active;
     private Instant createdAt;
-    private Instant updatedAt;
     private String createdBy;
+    private Instant updatedAt;
     private String updatedBy;
 
     @PrePersist
-    private void handleBeforeCreate() {
+    public void handleBeforeCreate() {
         String email = SecurityUtil.getCurrentUserLogin().isPresent()
                 ? SecurityUtil.getCurrentUserLogin().get()
                 : "";
@@ -51,7 +43,7 @@ public class User {
     }
 
     @PreUpdate
-    private void handleBeforeUpdate() {
+    public void handleBeforeUpdate() {
         String email = SecurityUtil.getCurrentUserLogin().isPresent()
                 ? SecurityUtil.getCurrentUserLogin().get()
                 : "";
