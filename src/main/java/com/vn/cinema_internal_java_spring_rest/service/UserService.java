@@ -5,6 +5,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -18,6 +20,7 @@ import com.vn.cinema_internal_java_spring_rest.repository.UserRepository;
 
 @Service
 public class UserService {
+    private final Logger log = LoggerFactory.getLogger(UserService.class);
     private final UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
@@ -45,6 +48,7 @@ public class UserService {
     }
 
     public User fetchUserById(long id) {
+        log.debug("Request to get User by id : {}", id);
         Optional<User> userOptional = this.userRepository.findById(id);
         if (userOptional.isPresent())
             return userOptional.get();
@@ -67,6 +71,7 @@ public class UserService {
     }
 
     public ResultPaginationDTO fetchAllUsers(Pageable page) {
+        log.debug("Request to get all Users");
         Page<User> listUsers = this.userRepository.findAll(page);
         List<ResFetchUserDTO> users = listUsers.stream().map(i -> this.convertUserToResFetchUserDTO(i))
                 .collect(Collectors.toList());
@@ -84,6 +89,7 @@ public class UserService {
     }
 
     public User handleUpdateUser(User reqUser) {
+        log.debug("Request to update User  : {}", reqUser);
         User user = this.fetchUserById(reqUser.getId());
         if (reqUser.getEmail() != null) {
             if (!this.isExistByEmail(reqUser.getEmail())) {
@@ -113,6 +119,7 @@ public class UserService {
     }
 
     public User handleGetUserByUsername(String email) {
+        log.debug("Request to get User  by username: {}", email);
         Optional<User> user = this.userRepository.findByEmail(email);
         if (user.isPresent())
             return user.get();
@@ -120,6 +127,7 @@ public class UserService {
     }
 
     public void updateUserToken(String token, String email) {
+        log.debug("Request to update refreshToken");
         User currentUser = this.handleGetUserByUsername(email);
         if (currentUser != null) {
             currentUser.setRefreshToken(token);
@@ -128,6 +136,7 @@ public class UserService {
     }
 
     public User getUserByRefreshTokenAndEmail(String refreshToken, String email) {
+        log.debug("Request to get User  by username: {} and refreshToken: {}", email, refreshToken);
         Optional<User> user = this.userRepository.findByRefreshTokenAndEmail(refreshToken, email);
         if (user.isPresent())
             return user.get();
@@ -135,6 +144,7 @@ public class UserService {
     }
 
     public void handleLogout(User user) {
+        log.debug("Request to logout");
         user.setRefreshToken(null);
         this.userRepository.save(user);
     }

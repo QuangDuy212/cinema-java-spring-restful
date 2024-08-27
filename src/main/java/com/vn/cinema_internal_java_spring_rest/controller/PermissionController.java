@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.vn.cinema_internal_java_spring_rest.domain.Permission;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.ResultPaginationDTO;
 import com.vn.cinema_internal_java_spring_rest.service.PermissionService;
+import com.vn.cinema_internal_java_spring_rest.util.annotation.ApiMessage;
 import com.vn.cinema_internal_java_spring_rest.util.error.CommonException;
 
 import jakarta.validation.Valid;
@@ -33,6 +34,7 @@ public class PermissionController {
     }
 
     @PostMapping("/permissions")
+    @ApiMessage(value = "Create a permission success")
     public ResponseEntity<Permission> createAPermission(@Valid @RequestBody Permission reqPer) throws CommonException {
         log.debug("REST request to create Permission : {}", reqPer);
         boolean checkExists = this.permissionService.isExists(reqPer.getApiPath(), reqPer.getMethod());
@@ -43,6 +45,7 @@ public class PermissionController {
     }
 
     @PutMapping("/permissions")
+    @ApiMessage(value = "Update a permission success")
     public ResponseEntity<Permission> updateAPermission(@RequestBody Permission reqPer) throws CommonException {
         log.debug("REST request to update Permission : {}", reqPer);
         Permission per = this.permissionService.fetchPermissionById(reqPer.getId());
@@ -53,6 +56,7 @@ public class PermissionController {
     }
 
     @GetMapping("/permissions/{id}")
+    @ApiMessage(value = "Fetch permission by id success")
     public ResponseEntity<Permission> fetchPermissionById(@PathVariable("id") long id) throws CommonException {
         log.debug("REST request to get Permission by id: {}", id);
         Permission per = this.permissionService.fetchPermissionById(id);
@@ -62,6 +66,7 @@ public class PermissionController {
     }
 
     @GetMapping("/permissions")
+    @ApiMessage(value = "Fetch all permissions success")
     public ResponseEntity<ResultPaginationDTO> fetchAllPermissions(Pageable page) {
         ResultPaginationDTO res = this.permissionService.fetchAllPermissions(page);
         return ResponseEntity.ok().body(res);

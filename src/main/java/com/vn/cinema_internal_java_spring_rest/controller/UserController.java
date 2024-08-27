@@ -13,6 +13,8 @@ import com.vn.cinema_internal_java_spring_rest.util.error.CommonException;
 
 import jakarta.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +29,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RestController
 @RequestMapping("/api/v1")
 public class UserController {
+    private final Logger log = LoggerFactory.getLogger(UserController.class);
     private final UserService userService;
     private PasswordEncoder passwordEncoder;
 
@@ -38,6 +41,7 @@ public class UserController {
     @PostMapping("/users")
     @ApiMessage(value = "Create a user success")
     public ResponseEntity<ResCreateUserDTO> createUser(@RequestBody User reqUser) throws CommonException {
+        log.debug("REST request to create User : {}", reqUser);
         boolean checkExist = this.userService.isExistByEmail(reqUser.getEmail());
         if (checkExist) {
             throw new CommonException("User's email exist");
@@ -52,6 +56,7 @@ public class UserController {
     @GetMapping("/users/{id}")
     @ApiMessage(value = "Fetch user success")
     public ResponseEntity<ResFetchUserDTO> fetchUserById(@PathVariable("id") long id) throws CommonException {
+        log.debug("REST request to get a User by id : {}", id);
         User user = this.userService.fetchUserById(id);
         if (user == null) {
             throw new CommonException("User not found");
@@ -60,15 +65,17 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    @ApiMessage(value = "Fetch all users success")
+    @ApiMessage(value = "Fetch all Users success")
     public ResponseEntity<ResultPaginationDTO> fetchAllUsers(Pageable page) {
+        log.debug("REST request to get all users ");
         ResultPaginationDTO res = this.userService.fetchAllUsers(page);
         return ResponseEntity.ok().body(res);
     }
 
     @PutMapping("/users")
-    @ApiMessage(value = "Update a user success")
+    @ApiMessage(value = "Update a User success")
     public ResponseEntity<ResUpdateUserDTO> updateAUser(@RequestBody User reqUser) throws CommonException {
+        log.debug("REST request to update user : {}", reqUser);
         if (reqUser.getId() == 0) {
             throw new CommonException("Id is empty");
         }
