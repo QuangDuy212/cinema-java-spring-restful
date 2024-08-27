@@ -28,16 +28,16 @@ public class Permission {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotBlank(message = "Name không được để trống")
+    @NotBlank(message = "Name must not empty")
     private String name;
 
-    @NotBlank(message = "Apipath không được để trống")
+    @NotBlank(message = "Apipath must not empty")
     private String apiPath;
 
-    @NotBlank(message = "Method không được để trống")
+    @NotBlank(message = "Method must not empty")
     private String method;
 
-    @NotBlank(message = "Module không được để trống")
+    @NotBlank(message = "Module must not empty")
     private String module;
     private Instant createdAt;
     private Instant updatedAt;

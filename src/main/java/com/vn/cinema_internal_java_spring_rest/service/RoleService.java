@@ -1,5 +1,6 @@
 package com.vn.cinema_internal_java_spring_rest.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -65,5 +66,9 @@ public class RoleService {
             currentRole.setActive(reqRole.isActive());
         }
         return this.roleRepository.save(currentRole);
+    }
+
+    public List<Role> fetchListRoleByListId(List<Long> listIds) {
+        return this.roleRepository.findByIdIn(listIds);
     }
 }
