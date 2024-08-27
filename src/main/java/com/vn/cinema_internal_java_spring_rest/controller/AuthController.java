@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.vn.cinema_internal_java_spring_rest.domain.User;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.auth.ReqLoginDTO;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.auth.ResLoginDTO;
+import com.vn.cinema_internal_java_spring_rest.domain.dto.user.ResCreateUserDTO;
 import com.vn.cinema_internal_java_spring_rest.service.UserService;
 import com.vn.cinema_internal_java_spring_rest.util.SecurityUtil;
 import com.vn.cinema_internal_java_spring_rest.util.annotation.ApiMessage;
@@ -14,6 +15,7 @@ import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -186,6 +188,21 @@ public class AuthController {
                 return ResponseEntity.ok()
                                 .header(HttpHeaders.SET_COOKIE, deleteSpringCookie.toString())
                                 .body(null);
+        }
+
+        @PostMapping("/auth/register")
+        @ApiMessage("Register a new user")
+        public ResponseEntity<ResCreateUserDTO> register(@Valid @RequestBody User user) throws CommonException {
+                boolean isExists = this.userService.isExistByEmail(user.getEmail());
+                if (isExists) {
+                        throw new CommonException("Email đã tồn tại, vui lòng nhập lại!");
+                }
+                String hashPass = passwordEncoder.encode(user.getPassword());
+                user.setPassword(hashPass);
+                User ericUser = this.userService.handleCreateUser(user);
+                // convert to ResCreateUserDTO to display
+                ResCreateUserDTO res = this.userService.convertUserToResUserCreateUserDTO(ericUser);
+                return ResponseEntity.status(HttpStatus.CREATED).body(res);
         }
 
 }
