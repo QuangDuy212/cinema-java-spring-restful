@@ -4,6 +4,7 @@ import java.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,12 +28,12 @@ public class User {
     @NotBlank(message = "Email must not empty")
     private String email;
 
-    @JsonIgnore
     @NotBlank(message = "password must not empty")
     private String password;
     private String fullName;
     private String phone;
     private String address;
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String refreshToken;
     private Instant createdAt;
     private Instant updatedAt;

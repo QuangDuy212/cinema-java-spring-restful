@@ -27,63 +27,63 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/api/v1")
 public class AuthController {
 
-    @Value("${quangduy.jwt.refresh-token-validity-in-seconds}")
-    private long refreshTokenExpiration;
-    private final SecurityUtil securityUtil;
-    private final AuthenticationManagerBuilder authenticationManagerBuilder;
-    private final UserService userService;
+        @Value("${quangduy.jwt.refresh-token-validity-in-seconds}")
+        private long refreshTokenExpiration;
+        private final SecurityUtil securityUtil;
+        private final AuthenticationManagerBuilder authenticationManagerBuilder;
+        private final UserService userService;
 
-    public AuthController(SecurityUtil securityUtil, AuthenticationManagerBuilder authenticationManagerBuilder,
-            UserService userService) {
-        this.securityUtil = securityUtil;
-        this.authenticationManagerBuilder = authenticationManagerBuilder;
-        this.userService = userService;
-    }
-
-    @PostMapping("/auth/login")
-    @ApiMessage("Login success")
-    public ResponseEntity<ResLoginDTO> login(@Valid @RequestBody ReqLoginDTO loginDTO) {
-        // Nạp input gồm username/password vào Security
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                loginDTO.getUsername(), loginDTO.getPassword());
-
-        // xác thực người dùng => cần viết hàm loadUserByUsername
-        Authentication authentication = authenticationManagerBuilder.getObject()
-                .authenticate(authenticationToken);
-
-        // save info auth into security context
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        // return api
-        ResLoginDTO res = new ResLoginDTO();
-        User currentUserDB = this.userService.handleGetUserByUsername(loginDTO.getUsername());
-        if (currentUserDB != null) {
-            ResLoginDTO.UserLogin userLogin = new ResLoginDTO.UserLogin(
-                    currentUserDB.getId(),
-                    currentUserDB.getEmail(),
-                    currentUserDB.getFullName());
-            res.setUser(userLogin);
+        public AuthController(SecurityUtil securityUtil, AuthenticationManagerBuilder authenticationManagerBuilder,
+                        UserService userService) {
+                this.securityUtil = securityUtil;
+                this.authenticationManagerBuilder = authenticationManagerBuilder;
+                this.userService = userService;
         }
-        // create a token
-        String access_token = this.securityUtil.createAccessToken(authentication.getName(), res);
-        res.setAccessToken(access_token);
 
-        // create refesh token
-        String refresh_token = this.securityUtil.createRefreshToken(loginDTO.getUsername(), res);
+        @PostMapping("/auth/login")
+        @ApiMessage("Login success")
+        public ResponseEntity<ResLoginDTO> login(@Valid @RequestBody ReqLoginDTO loginDTO) {
+                // Nạp input gồm username/password vào Security
+                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                                loginDTO.getUsername(), loginDTO.getPassword());
 
-        this.userService.updateUserToken(refresh_token, loginDTO.getUsername());
+                // xác thực người dùng => cần viết hàm loadUserByUsername
+                Authentication authentication = authenticationManagerBuilder.getObject()
+                                .authenticate(authenticationToken);
 
-        // set cookies
-        ResponseCookie resCookies = ResponseCookie
-                .from("refresh_token", refresh_token)
-                .httpOnly(true)
-                .secure(true)
-                .path("/")
-                .maxAge(refreshTokenExpiration)
-                .build();
-        return ResponseEntity.ok()
-                .header(HttpHeaders.SET_COOKIE, resCookies.toString())
-                .body(res);
-    }
+                // save info auth into security context
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+
+                // return api
+                ResLoginDTO res = new ResLoginDTO();
+                User currentUserDB = this.userService.handleGetUserByUsername(loginDTO.getUsername());
+                if (currentUserDB != null) {
+                        ResLoginDTO.UserLogin userLogin = new ResLoginDTO.UserLogin(
+                                        currentUserDB.getId(),
+                                        currentUserDB.getEmail(),
+                                        currentUserDB.getFullName());
+                        res.setUser(userLogin);
+                }
+                // create a token
+                String access_token = this.securityUtil.createAccessToken(authentication.getName(), res);
+                res.setAccessToken(access_token);
+
+                // create refesh token
+                String refresh_token = this.securityUtil.createRefreshToken(loginDTO.getUsername(), res);
+
+                this.userService.updateUserToken(refresh_token, loginDTO.getUsername());
+
+                // set cookies
+                ResponseCookie resCookies = ResponseCookie
+                                .from("refresh_token", refresh_token)
+                                .httpOnly(true)
+                                .secure(true)
+                                .path("/")
+                                .maxAge(refreshTokenExpiration)
+                                .build();
+                return ResponseEntity.ok()
+                                .header(HttpHeaders.SET_COOKIE, resCookies.toString())
+                                .body(res);
+        }
 
 }

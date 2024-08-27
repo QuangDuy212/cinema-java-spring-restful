@@ -3,7 +3,6 @@ package com.vn.cinema_internal_java_spring_rest.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vn.cinema_internal_java_spring_rest.domain.User;
-import com.vn.cinema_internal_java_spring_rest.domain.dto.RestResponse;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.ResultPaginationDTO;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.user.ResCreateUserDTO;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.user.ResFetchUserDTO;
@@ -12,10 +11,10 @@ import com.vn.cinema_internal_java_spring_rest.service.UserService;
 import com.vn.cinema_internal_java_spring_rest.util.annotation.ApiMessage;
 import com.vn.cinema_internal_java_spring_rest.util.error.CommonException;
 
+import jakarta.validation.Valid;
+
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -44,7 +42,8 @@ public class UserController {
         if (checkExist) {
             throw new CommonException("User's email exist");
         }
-        reqUser.setPassword(passwordEncoder.encode(reqUser.getPassword()));
+        String newPassword = this.passwordEncoder.encode(reqUser.getPassword());
+        reqUser.setPassword(newPassword);
         User user = this.userService.handleCreateUser(reqUser);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(this.userService.convertUserToResUserCreateUserDTO(user));
