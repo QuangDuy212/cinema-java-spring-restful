@@ -9,6 +9,7 @@ import com.vn.cinema_internal_java_spring_rest.domain.dto.user.ResCreateUserDTO;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.user.ResFetchUserDTO;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.user.ResUpdateUserDTO;
 import com.vn.cinema_internal_java_spring_rest.service.UserService;
+import com.vn.cinema_internal_java_spring_rest.util.annotation.ApiMessage;
 import com.vn.cinema_internal_java_spring_rest.util.error.CommonException;
 
 import org.springframework.data.domain.Pageable;
@@ -35,6 +36,7 @@ public class UserController {
     }
 
     @PostMapping("/users")
+    @ApiMessage(value = "Create a user success")
     public ResponseEntity<ResCreateUserDTO> createUser(@RequestBody User reqUser) throws CommonException {
         boolean checkExist = this.userService.isExistByEmail(reqUser.getEmail());
         if (checkExist) {
@@ -47,6 +49,7 @@ public class UserController {
     }
 
     @GetMapping("/users/{id}")
+    @ApiMessage(value = "Fetch user success")
     public ResponseEntity<ResFetchUserDTO> fetchUserById(@PathVariable("id") long id) throws CommonException {
         User user = this.userService.fetchUserById(id);
         if (user == null) {
@@ -56,12 +59,14 @@ public class UserController {
     }
 
     @GetMapping("/users")
+    @ApiMessage(value = "Fetch all users success")
     public ResponseEntity<ResultPaginationDTO> fetchAllUsers(Pageable page) {
         ResultPaginationDTO res = this.userService.fetchAllUsers(page);
         return ResponseEntity.ok().body(res);
     }
 
     @PutMapping("/users")
+    @ApiMessage(value = "Update a user success")
     public ResponseEntity<ResUpdateUserDTO> updateAUser(@RequestBody User reqUser) throws CommonException {
         User user = this.userService.fetchUserById(reqUser.getId());
         if (user == null) {
