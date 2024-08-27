@@ -69,6 +69,9 @@ public class UserController {
     @PutMapping("/users")
     @ApiMessage(value = "Update a user success")
     public ResponseEntity<ResUpdateUserDTO> updateAUser(@RequestBody User reqUser) throws CommonException {
+        if (reqUser.getId() == 0) {
+            throw new CommonException("Id is empty");
+        }
         User user = this.userService.fetchUserById(reqUser.getId());
         if (user == null) {
             throw new CommonException("User not found");
