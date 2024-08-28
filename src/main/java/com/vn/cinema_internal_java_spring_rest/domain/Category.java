@@ -3,6 +3,7 @@ package com.vn.cinema_internal_java_spring_rest.domain;
 import java.time.Instant;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vn.cinema_internal_java_spring_rest.util.SecurityUtil;
 
 import jakarta.persistence.Entity;

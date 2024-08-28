@@ -11,4 +11,6 @@ import com.vn.cinema_internal_java_spring_rest.domain.Film;
 @Repository
 public interface FilmRepository extends JpaRepository<Film, Long>, JpaSpecificationExecutor<Film> {
     List<Film> findByIdIn(List<Long> listIds);
+
+    boolean existsByNameAndDirector(String name, String director);
 }

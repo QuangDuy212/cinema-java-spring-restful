@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vn.cinema_internal_java_spring_rest.domain.Category;
-import com.vn.cinema_internal_java_spring_rest.domain.User;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.ResultPaginationDTO;
-import com.vn.cinema_internal_java_spring_rest.domain.dto.user.ResUpdateUserDTO;
 import com.vn.cinema_internal_java_spring_rest.service.CategoryService;
 import com.vn.cinema_internal_java_spring_rest.util.annotation.ApiMessage;
 import com.vn.cinema_internal_java_spring_rest.util.error.CommonException;
