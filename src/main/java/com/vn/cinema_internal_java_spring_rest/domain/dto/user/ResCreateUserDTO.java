@@ -15,4 +15,12 @@ public class ResCreateUserDTO {
     private String phone;
     private Instant createdAt;
     private Instant updatedAt;
+    private RoleUser role;
+
+    @Setter
+    @Getter
+    public static class RoleUser {
+        private long id;
+        private String name;
+    }
 }

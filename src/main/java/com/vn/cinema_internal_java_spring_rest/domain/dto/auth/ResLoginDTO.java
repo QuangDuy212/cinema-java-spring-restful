@@ -1,6 +1,7 @@
 package com.vn.cinema_internal_java_spring_rest.domain.dto.auth;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.vn.cinema_internal_java_spring_rest.domain.Role;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,6 +23,7 @@ public class ResLoginDTO {
         private long id;
         private String email;
         private String name;
+        private Role role;
     }
 
     @Getter

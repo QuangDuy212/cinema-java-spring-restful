@@ -11,20 +11,24 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
+import com.vn.cinema_internal_java_spring_rest.domain.Role;
 import com.vn.cinema_internal_java_spring_rest.domain.User;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.ResultPaginationDTO;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.user.ResCreateUserDTO;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.user.ResFetchUserDTO;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.user.ResUpdateUserDTO;
+import com.vn.cinema_internal_java_spring_rest.repository.RoleRepository;
 import com.vn.cinema_internal_java_spring_rest.repository.UserRepository;
 
 @Service
 public class UserService {
     private final Logger log = LoggerFactory.getLogger(UserService.class);
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
     }
 
     public boolean isExistByEmail(String email) {
@@ -32,6 +36,11 @@ public class UserService {
     }
 
     public User handleCreateUser(User reqUser) {
+        if (reqUser.getRole() != null) {
+            Optional<Role> role = this.roleRepository.findById(reqUser.getRole().getId());
+            if (role.isPresent())
+                reqUser.setRole(role.get());
+        }
         return this.userRepository.save(reqUser);
     }
 
@@ -44,6 +53,10 @@ public class UserService {
         res.setPhone(user.getPhone());
         res.setCreatedAt(user.getCreatedAt());
         res.setUpdatedAt(user.getUpdatedAt());
+        ResCreateUserDTO.RoleUser role = new ResCreateUserDTO.RoleUser();
+        role.setId(user.getRole().getId());
+        role.setName(user.getRole().getName());
+        res.setRole(role);
         return res;
     }
 
@@ -67,6 +80,10 @@ public class UserService {
         res.setUpdatedAt(user.getUpdatedAt());
         res.setCreatedBy(user.getCreatedBy());
         res.setCreatedBy(user.getCreatedBy());
+        ResFetchUserDTO.RoleUser role = new ResFetchUserDTO.RoleUser();
+        role.setId(user.getRole().getId());
+        role.setName(user.getRole().getName());
+        res.setRole(role);
         return res;
     }
 
@@ -91,7 +108,7 @@ public class UserService {
     public User handleUpdateUser(User reqUser) {
         log.debug("Request to update User  : {}", reqUser);
         User user = this.fetchUserById(reqUser.getId());
-        if (reqUser.getEmail() != null) {
+        if (reqUser.getEmail() != null && !reqUser.getEmail().equals(user.getEmail())) {
             if (!this.isExistByEmail(reqUser.getEmail())) {
                 user.setEmail(reqUser.getEmail());
             }
@@ -102,6 +119,12 @@ public class UserService {
             user.setPhone(reqUser.getPhone());
         if (reqUser.getAddress() != null)
             user.setAddress(reqUser.getAddress());
+        if (reqUser.getRole() != null) {
+            Role role = this.roleRepository.findById(reqUser.getId()).isPresent()
+                    ? this.roleRepository.findById(reqUser.getId()).get()
+                    : null;
+            user.setRole(role);
+        }
         return this.userRepository.save(user);
     }
 
@@ -115,6 +138,10 @@ public class UserService {
         res.setPhone(user.getPhone());
         res.setCreatedAt(user.getCreatedAt());
         res.setUpdatedAt(user.getUpdatedAt());
+        ResUpdateUserDTO.RoleUser role = new ResUpdateUserDTO.RoleUser();
+        role.setId(user.getRole().getId());
+        role.setName(user.getRole().getName());
+        res.setRole(role);
         return res;
     }
 

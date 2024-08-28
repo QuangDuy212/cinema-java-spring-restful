@@ -83,7 +83,7 @@ public class UserController {
         if (user == null) {
             throw new CommonException("User not found");
         }
-        if (reqUser.getEmail() != null) {
+        if (reqUser.getEmail() != null && !reqUser.getEmail().equals(user.getEmail())) {
             boolean checkExistEmail = this.userService.isExistByEmail(reqUser.getEmail());
             if (checkExistEmail)
                 throw new CommonException("Email existed");

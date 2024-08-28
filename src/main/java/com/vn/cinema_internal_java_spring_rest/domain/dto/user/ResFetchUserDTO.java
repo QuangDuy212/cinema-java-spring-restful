@@ -17,4 +17,12 @@ public class ResFetchUserDTO {
     private Instant updatedAt;
     private String createdBy;
     private String udpatedBy;
+    private RoleUser role;
+
+    @Setter
+    @Getter
+    public static class RoleUser {
+        private long id;
+        private String name;
+    }
 }

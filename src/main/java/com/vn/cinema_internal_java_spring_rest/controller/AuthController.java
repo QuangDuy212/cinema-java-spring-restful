@@ -71,7 +71,8 @@ public class AuthController {
                         ResLoginDTO.UserLogin userLogin = new ResLoginDTO.UserLogin(
                                         currentUserDB.getId(),
                                         currentUserDB.getEmail(),
-                                        currentUserDB.getFullName());// to do add role
+                                        currentUserDB.getFullName(),
+                                        currentUserDB.getRole());
                         res.setUser(userLogin);
                 }
                 // create a token
@@ -108,7 +109,7 @@ public class AuthController {
                         userLogin.setId(currentUserDB.getId());
                         userLogin.setEmail(currentUserDB.getEmail());
                         userLogin.setName(currentUserDB.getFullName());
-                        // to do add role
+                        userLogin.setRole(currentUserDB.getRole());
                         userGetAccount.setUser(userLogin);
                 }
                 return ResponseEntity.ok().body(userGetAccount);
@@ -139,7 +140,8 @@ public class AuthController {
                         ResLoginDTO.UserLogin userLogin = new ResLoginDTO.UserLogin(
                                         currentUserDB.getId(),
                                         currentUserDB.getEmail(),
-                                        currentUserDB.getFullName());// to do add role
+                                        currentUserDB.getFullName(),
+                                        currentUserDB.getRole());
                         res.setUser(userLogin);
                 }
                 // create a token
