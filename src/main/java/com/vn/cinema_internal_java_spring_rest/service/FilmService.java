@@ -13,10 +13,12 @@ import org.springframework.stereotype.Service;
 
 import com.vn.cinema_internal_java_spring_rest.domain.Category;
 import com.vn.cinema_internal_java_spring_rest.domain.Film;
+import com.vn.cinema_internal_java_spring_rest.domain.Show;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.ResultPaginationDTO;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.film.ResFilmDTO;
 import com.vn.cinema_internal_java_spring_rest.repository.CategoryRepository;
 import com.vn.cinema_internal_java_spring_rest.repository.FilmRepository;
+import com.vn.cinema_internal_java_spring_rest.repository.ShowRepository;
 import com.vn.cinema_internal_java_spring_rest.util.error.CommonException;
 
 @Service
@@ -24,10 +26,13 @@ public class FilmService {
     private final Logger log = LoggerFactory.getLogger(FilmService.class);
     private final FilmRepository filmRepository;
     private final CategoryRepository categoryRepository;
+    private final ShowRepository showRepository;
 
-    public FilmService(FilmRepository filmRepository, CategoryRepository categoryRepository) {
+    public FilmService(FilmRepository filmRepository, CategoryRepository categoryRepository,
+            ShowRepository showRepository) {
         this.filmRepository = filmRepository;
         this.categoryRepository = categoryRepository;
+        this.showRepository = showRepository;
     }
 
     public boolean isExistsByNameAndDirector(String name, String director) {
@@ -36,6 +41,13 @@ public class FilmService {
 
     public Film handlCreateAFilm(Film reqFilm) {
         log.debug("Request to save Film : {}", reqFilm);
+        if (reqFilm.getShows() != null) {
+            List<Long> listIds = reqFilm.getShows()
+                    .stream().map(i -> i.getId())
+                    .collect(Collectors.toList());
+            List<Show> shows = this.showRepository.findByIdIn(listIds);
+            reqFilm.setShows(shows);
+        }
         return this.filmRepository.save(reqFilm);
     }
 

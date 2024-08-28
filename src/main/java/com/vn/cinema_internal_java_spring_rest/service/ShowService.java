@@ -10,8 +10,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.vn.cinema_internal_java_spring_rest.domain.Category;
+import com.vn.cinema_internal_java_spring_rest.domain.Film;
 import com.vn.cinema_internal_java_spring_rest.domain.Show;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.ResultPaginationDTO;
+import com.vn.cinema_internal_java_spring_rest.repository.FilmRepository;
 import com.vn.cinema_internal_java_spring_rest.repository.ShowRepository;
 import com.vn.cinema_internal_java_spring_rest.util.error.CommonException;
 
@@ -19,9 +21,11 @@ import com.vn.cinema_internal_java_spring_rest.util.error.CommonException;
 public class ShowService {
     private final Logger log = LoggerFactory.getLogger(ShowService.class);
     private final ShowRepository showRepository;
+    private final FilmRepository filmRepository;
 
-    public ShowService(ShowRepository showRepository) {
+    public ShowService(ShowRepository showRepository, FilmRepository filmRepository) {
         this.showRepository = showRepository;
+        this.filmRepository = filmRepository;
     }
 
     public boolean isExistsByZoomNumberAndTime(int zNumber, Instant time) {
@@ -30,6 +34,11 @@ public class ShowService {
 
     public Show handleCreateAShow(Show reqShow) {
         log.debug("Request to create Show : {}", reqShow);
+        if (reqShow.getFilm() != null) {
+            Optional<Film> film = this.filmRepository.findById(reqShow.getFilm().getId());
+            if (film.isPresent())
+                reqShow.setFilm(film.get());
+        }
         return this.showRepository.save(reqShow);
     }
 
