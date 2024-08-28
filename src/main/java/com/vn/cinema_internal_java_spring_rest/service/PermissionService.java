@@ -31,6 +31,10 @@ public class PermissionService {
         return this.permissionRepository.existsByApiPathAndMethod(apiPath, method);
     }
 
+    public List<Permission> fetchListPerByListIds(List<Long> listIds) {
+        return this.permissionRepository.findByIdIn(listIds);
+    }
+
     public Permission handleCreatePermission(Permission reqPer) {
         log.debug("Request to create Permission : {}", reqPer);
         if (reqPer.getRoles() != null) {

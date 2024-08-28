@@ -2,6 +2,7 @@ package com.vn.cinema_internal_java_spring_rest.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,17 +10,21 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.vn.cinema_internal_java_spring_rest.domain.Permission;
 import com.vn.cinema_internal_java_spring_rest.domain.Role;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.ResultPaginationDTO;
+import com.vn.cinema_internal_java_spring_rest.repository.PermissionRepository;
 import com.vn.cinema_internal_java_spring_rest.repository.RoleRepository;
 
 @Service
 public class RoleService {
     private final Logger log = LoggerFactory.getLogger(RoleService.class);
     private final RoleRepository roleRepository;
+    private final PermissionRepository permissionRepository;
 
-    public RoleService(RoleRepository roleRepository) {
+    public RoleService(RoleRepository roleRepository, PermissionRepository permissionRepository) {
         this.roleRepository = roleRepository;
+        this.permissionRepository = permissionRepository;
     }
 
     public boolean isExistsByName(String name) {
@@ -27,6 +32,13 @@ public class RoleService {
     }
 
     public Role handleCreateRole(Role reqRole) {
+        if (reqRole.getPermissions() != null) {
+            List<Long> listIds = reqRole.getPermissions()
+                    .stream().map(i -> i.getId())
+                    .collect(Collectors.toList());
+            List<Permission> listPers = this.permissionRepository.findByIdIn(listIds);
+            reqRole.setPermissions(listPers);
+        }
         return this.roleRepository.save(reqRole);
     }
 
