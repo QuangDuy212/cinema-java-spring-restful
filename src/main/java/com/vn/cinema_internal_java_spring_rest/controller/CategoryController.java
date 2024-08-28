@@ -34,7 +34,7 @@ public class CategoryController {
 
     @PostMapping("/categories")
     @ApiMessage(value = "Create a category success")
-    public ResponseEntity<Category> createUser(@Valid @RequestBody Category reqCa) throws CommonException {
+    public ResponseEntity<Category> createACategory(@Valid @RequestBody Category reqCa) throws CommonException {
         log.debug("REST request to create Category : {}", reqCa);
         boolean checkExist = this.categoryService.isExistsByName(reqCa.getName());
         if (checkExist)
@@ -57,7 +57,7 @@ public class CategoryController {
 
     @GetMapping("/categories")
     @ApiMessage(value = "Fetch all Categories success")
-    public ResponseEntity<ResultPaginationDTO> fetchallCategories(Pageable page) {
+    public ResponseEntity<ResultPaginationDTO> fetchAllCategories(Pageable page) {
         log.debug("REST request to get all Categories ");
         ResultPaginationDTO res = this.categoryService.fetchAllCategories(page);
         return ResponseEntity.ok().body(res);
@@ -65,7 +65,7 @@ public class CategoryController {
 
     @PutMapping("/categories")
     @ApiMessage(value = "Update a Category success")
-    public ResponseEntity<Category> updateAUser(@RequestBody Category reqCa) throws CommonException {
+    public ResponseEntity<Category> updateACategory(@RequestBody Category reqCa) throws CommonException {
         log.debug("REST request to update Category : {}", reqCa);
         Category category = this.categoryService.fetchCategoryById(reqCa.getId());
         if (category == null) {
