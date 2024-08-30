@@ -1,37 +1,35 @@
 package com.vn.cinema_internal_java_spring_rest.domain;
 
-import com.vn.cinema_internal_java_spring_rest.util.constant.SeatNameEnum;
+import org.hibernate.mapping.Set;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
-@Table(name = "seats")
-@Getter
+@Table(name = "bills")
 @Setter
-public class Seat {
+@Getter
+public class Bill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    private double total;
+    private long quantity;
 
-    @Enumerated(EnumType.STRING)
-    private SeatNameEnum name;
-    private boolean isActive;
-
-    @ManyToOne
-    @JoinColumn(name = "show_id")
-    private Show show;
+    @OneToMany(mappedBy = "bill")
+    private List<Seat> seats;
 
     @ManyToOne
-    @JoinColumn(name = "bill_id")
-    private Bill bill;
+    @JoinColumn(name = "user_id")
+    private User user;
 }
