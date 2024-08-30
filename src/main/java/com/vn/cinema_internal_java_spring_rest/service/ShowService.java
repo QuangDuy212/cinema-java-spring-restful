@@ -58,7 +58,7 @@ public class ShowService {
         meta.setPageSize(page.getPageSize());
 
         meta.setPages(listShows.getTotalPages());
-        meta.setTotal(listShows.getSize());
+        meta.setTotal(listShows.getTotalElements());
 
         res.setMeta(meta);
         res.setResult(listShows.getContent());

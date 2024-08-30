@@ -71,7 +71,7 @@ public class FilmService {
         meta.setPageSize(page.getPageSize());
 
         meta.setPages(listFilms.getTotalPages());
-        meta.setTotal(listFilms.getSize());
+        meta.setTotal(listFilms.getTotalElements());
 
         res.setMeta(meta);
         res.setResult(listResFilm);

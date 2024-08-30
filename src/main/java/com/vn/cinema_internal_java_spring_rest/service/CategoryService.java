@@ -55,7 +55,7 @@ public class CategoryService {
         meta.setPageSize(page.getPageSize());
 
         meta.setPages(listcates.getTotalPages());
-        meta.setTotal(listcates.getSize());
+        meta.setTotal(listcates.getTotalElements());
 
         res.setMeta(meta);
         res.setResult(listcates.getContent());

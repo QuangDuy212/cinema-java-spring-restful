@@ -1,9 +1,13 @@
 package com.vn.cinema_internal_java_spring_rest.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.vn.cinema_internal_java_spring_rest.domain.Seat;
 import com.vn.cinema_internal_java_spring_rest.domain.Show;
+import com.vn.cinema_internal_java_spring_rest.domain.dto.ResultPaginationDTO;
+import com.vn.cinema_internal_java_spring_rest.domain.dto.film.ResFilmDTO;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.seat.ResSeatDTO;
 import com.vn.cinema_internal_java_spring_rest.repository.SeatRepository;
 import com.vn.cinema_internal_java_spring_rest.repository.ShowRepository;
@@ -67,5 +71,49 @@ public class SeatService {
         List<Long> listIds = listSeats.stream().map(i -> i.getId())
                 .collect(Collectors.toList());
         this.seatRepository.deleteAllById(listIds);
+    }
+
+    public ResultPaginationDTO fetchListSeatsByShow(Show reqShow, Pageable page) {
+        Page<Seat> listSeats = this.seatRepository.findByShow(reqShow, page);
+        List<ResSeatDTO> listResSeats = listSeats.getContent()
+                .stream().map(i -> this.convertSeatToResSeatDTO(i))
+                .collect(Collectors.toList());
+        ResultPaginationDTO res = new ResultPaginationDTO();
+        ResultPaginationDTO.Meta meta = new ResultPaginationDTO.Meta();
+        meta.setPage(page.getPageNumber() + 1);
+        meta.setPageSize(page.getPageSize());
+
+        meta.setPages(listSeats.getTotalPages());
+        meta.setTotal(listSeats.getTotalElements());
+
+        res.setMeta(meta);
+        res.setResult(listResSeats);
+        return res;
+
+    }
+
+    public ResultPaginationDTO fetchAllSeats(Pageable page) {
+        Page<Seat> listSeats = this.seatRepository.findAll(page);
+        List<ResSeatDTO> listResSeats = listSeats.getContent()
+                .stream().map(i -> this.convertSeatToResSeatDTO(i))
+                .collect(Collectors.toList());
+        ResultPaginationDTO res = new ResultPaginationDTO();
+        ResultPaginationDTO.Meta meta = new ResultPaginationDTO.Meta();
+        meta.setPage(page.getPageNumber() + 1);
+        meta.setPageSize(page.getPageSize());
+
+        meta.setPages(listSeats.getTotalPages());
+        meta.setTotal(listSeats.getTotalElements());
+
+        res.setMeta(meta);
+        res.setResult(listResSeats);
+        return res;
+    }
+
+    public Seat fetchSeatById(long id) {
+        Optional<Seat> seat = this.seatRepository.findById(id);
+        if (seat.isPresent())
+            return seat.get();
+        return null;
     }
 }

@@ -98,7 +98,7 @@ public class UserService {
         meta.setPageSize(page.getPageSize());
 
         meta.setPages(listUsers.getTotalPages());
-        meta.setTotal(listUsers.getSize());
+        meta.setTotal(listUsers.getTotalElements());
 
         res.setMeta(meta);
         res.setResult(users);
