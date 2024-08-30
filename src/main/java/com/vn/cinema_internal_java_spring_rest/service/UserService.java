@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
+import com.vn.cinema_internal_java_spring_rest.domain.Permission;
 import com.vn.cinema_internal_java_spring_rest.domain.Role;
 import com.vn.cinema_internal_java_spring_rest.domain.User;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.ResultPaginationDTO;
@@ -87,9 +88,9 @@ public class UserService {
         return res;
     }
 
-    public ResultPaginationDTO fetchAllUsers(Pageable page) {
+    public ResultPaginationDTO fetchAllUsers(Specification<User> spe, Pageable page) {
         log.debug("Request to get all Users");
-        Page<User> listUsers = this.userRepository.findAll(page);
+        Page<User> listUsers = this.userRepository.findAll(spe, page);
         List<ResFetchUserDTO> users = listUsers.stream().map(i -> this.convertUserToResFetchUserDTO(i))
                 .collect(Collectors.toList());
         ResultPaginationDTO res = new ResultPaginationDTO();

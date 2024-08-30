@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.vn.cinema_internal_java_spring_rest.domain.Permission;
@@ -50,9 +51,9 @@ public class RoleService {
         return null;
     }
 
-    public ResultPaginationDTO fetchAllRoles(Pageable page) {
+    public ResultPaginationDTO fetchAllRoles(Specification<Role> spe, Pageable page) {
         log.debug("Request to fetch all Roles");
-        Page<Role> roles = this.roleRepository.findAll(page);
+        Page<Role> roles = this.roleRepository.findAll(spe, page);
 
         ResultPaginationDTO res = new ResultPaginationDTO();
         ResultPaginationDTO.Meta meta = new ResultPaginationDTO.Meta();

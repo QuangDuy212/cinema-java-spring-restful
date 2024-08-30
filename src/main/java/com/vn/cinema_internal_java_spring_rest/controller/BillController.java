@@ -3,6 +3,7 @@ package com.vn.cinema_internal_java_spring_rest.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.turkraft.springfilter.boot.Filter;
 import com.vn.cinema_internal_java_spring_rest.domain.Bill;
 import com.vn.cinema_internal_java_spring_rest.domain.Category;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.ResultPaginationDTO;
@@ -60,9 +62,10 @@ public class BillController {
 
     @GetMapping("/bills")
     @ApiMessage(value = "Fetch Bill success")
-    public ResponseEntity<ResultPaginationDTO> fetchAllBills(Pageable page) throws CommonException {
+    public ResponseEntity<ResultPaginationDTO> fetchAllBills(@Filter Specification<Bill> spe, Pageable page)
+            throws CommonException {
         log.debug("REST request to get all Bills");
-        ResultPaginationDTO res = this.billService.fetchAllBills(page);
+        ResultPaginationDTO res = this.billService.fetchAllBills(spe, page);
         return ResponseEntity.ok().body(res);
     }
 

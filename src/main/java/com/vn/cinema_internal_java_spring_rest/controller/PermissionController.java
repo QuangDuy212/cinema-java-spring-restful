@@ -3,6 +3,7 @@ package com.vn.cinema_internal_java_spring_rest.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.turkraft.springfilter.boot.Filter;
 import com.vn.cinema_internal_java_spring_rest.domain.Permission;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.ResultPaginationDTO;
 import com.vn.cinema_internal_java_spring_rest.service.PermissionService;
@@ -14,6 +15,7 @@ import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -67,8 +69,9 @@ public class PermissionController {
 
     @GetMapping("/permissions")
     @ApiMessage(value = "Fetch all permissions success")
-    public ResponseEntity<ResultPaginationDTO> fetchAllPermissions(Pageable page) {
-        ResultPaginationDTO res = this.permissionService.fetchAllPermissions(page);
+    public ResponseEntity<ResultPaginationDTO> fetchAllPermissions(@Filter Specification<Permission> spe,
+            Pageable page) {
+        ResultPaginationDTO res = this.permissionService.fetchAllPermissions(spe, page);
         return ResponseEntity.ok().body(res);
     }
 

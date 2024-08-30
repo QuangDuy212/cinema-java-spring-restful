@@ -2,6 +2,8 @@ package com.vn.cinema_internal_java_spring_rest.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.turkraft.springfilter.boot.Filter;
+import com.vn.cinema_internal_java_spring_rest.domain.Permission;
 import com.vn.cinema_internal_java_spring_rest.domain.Role;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.ResultPaginationDTO;
 import com.vn.cinema_internal_java_spring_rest.service.RoleService;
@@ -11,6 +13,7 @@ import com.vn.cinema_internal_java_spring_rest.util.error.CommonException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -55,9 +58,10 @@ public class RoleController {
 
     @GetMapping("/roles")
     @ApiMessage("Fetch all roles success")
-    public ResponseEntity<ResultPaginationDTO> fetchAllRoles(Pageable page) throws CommonException {
+    public ResponseEntity<ResultPaginationDTO> fetchAllRoles(@Filter Specification<Role> spe, Pageable page)
+            throws CommonException {
         log.debug("REST request to fetch all Roles ");
-        ResultPaginationDTO res = this.roleService.fetchAllRoles(page);
+        ResultPaginationDTO res = this.roleService.fetchAllRoles(spe, page);
         return ResponseEntity.ok().body(res);
     }
 

@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.vn.cinema_internal_java_spring_rest.domain.Permission;
@@ -55,8 +56,8 @@ public class PermissionService {
         return null;
     }
 
-    public ResultPaginationDTO fetchAllPermissions(Pageable page) {
-        Page<Permission> pers = this.permissionRepository.findAll(page);
+    public ResultPaginationDTO fetchAllPermissions(Specification<Permission> spe, Pageable page) {
+        Page<Permission> pers = this.permissionRepository.findAll(spe, page);
 
         ResultPaginationDTO res = new ResultPaginationDTO();
         ResultPaginationDTO.Meta meta = new ResultPaginationDTO.Meta();

@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.vn.cinema_internal_java_spring_rest.domain.Category;
@@ -59,9 +60,9 @@ public class FilmService {
         return null;
     }
 
-    public ResultPaginationDTO fetchAllFilms(Pageable page) {
+    public ResultPaginationDTO fetchAllFilms(Specification<Film> spe, Pageable page) {
         log.debug("Request to get all Films");
-        Page<Film> listFilms = this.filmRepository.findAll(page);
+        Page<Film> listFilms = this.filmRepository.findAll(spe, page);
         List<ResFilmDTO> listResFilm = listFilms.getContent()
                 .stream().map(i -> this.convertFilmToResFilmDTO(i))
                 .collect(Collectors.toList());

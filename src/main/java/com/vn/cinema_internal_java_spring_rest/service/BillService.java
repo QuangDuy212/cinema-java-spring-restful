@@ -2,6 +2,7 @@ package com.vn.cinema_internal_java_spring_rest.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.vn.cinema_internal_java_spring_rest.domain.Bill;
@@ -73,8 +74,8 @@ public class BillService {
         return null;
     }
 
-    public ResultPaginationDTO fetchAllBills(Pageable page) {
-        Page<Bill> listBills = this.billRepository.findAll(page);
+    public ResultPaginationDTO fetchAllBills(Specification<Bill> spe, Pageable page) {
+        Page<Bill> listBills = this.billRepository.findAll(spe, page);
         List<ResBillDTO> listResBills = listBills.getContent()
                 .stream().map(i -> this.converBillToResBillDTO(i))
                 .collect(Collectors.toList());

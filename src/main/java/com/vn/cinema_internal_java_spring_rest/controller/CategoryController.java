@@ -3,6 +3,7 @@ package com.vn.cinema_internal_java_spring_rest.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.turkraft.springfilter.boot.Filter;
 import com.vn.cinema_internal_java_spring_rest.domain.Category;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.ResultPaginationDTO;
 import com.vn.cinema_internal_java_spring_rest.service.CategoryService;
@@ -57,9 +59,9 @@ public class CategoryController {
 
     @GetMapping("/categories")
     @ApiMessage(value = "Fetch all Categories success")
-    public ResponseEntity<ResultPaginationDTO> fetchAllCategories(Pageable page) {
+    public ResponseEntity<ResultPaginationDTO> fetchAllCategories(@Filter Specification<Category> spe, Pageable page) {
         log.debug("REST request to get all Categories ");
-        ResultPaginationDTO res = this.categoryService.fetchAllCategories(page);
+        ResultPaginationDTO res = this.categoryService.fetchAllCategories(spe, page);
         return ResponseEntity.ok().body(res);
     }
 

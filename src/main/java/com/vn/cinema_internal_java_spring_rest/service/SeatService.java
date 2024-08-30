@@ -2,8 +2,10 @@ package com.vn.cinema_internal_java_spring_rest.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import com.vn.cinema_internal_java_spring_rest.domain.Permission;
 import com.vn.cinema_internal_java_spring_rest.domain.Seat;
 import com.vn.cinema_internal_java_spring_rest.domain.Show;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.ResultPaginationDTO;
@@ -92,8 +94,8 @@ public class SeatService {
 
     }
 
-    public ResultPaginationDTO fetchAllSeats(Pageable page) {
-        Page<Seat> listSeats = this.seatRepository.findAll(page);
+    public ResultPaginationDTO fetchAllSeats(Specification<Seat> spe, Pageable page) {
+        Page<Seat> listSeats = this.seatRepository.findAll(spe, page);
         List<ResSeatDTO> listResSeats = listSeats.getContent()
                 .stream().map(i -> this.convertSeatToResSeatDTO(i))
                 .collect(Collectors.toList());

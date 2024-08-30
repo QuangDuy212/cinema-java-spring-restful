@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.vn.cinema_internal_java_spring_rest.domain.Category;
@@ -46,9 +47,9 @@ public class CategoryService {
         return null;
     }
 
-    public ResultPaginationDTO fetchAllCategories(Pageable page) {
+    public ResultPaginationDTO fetchAllCategories(Specification<Category> spe, Pageable page) {
         log.debug("Request to get all Categories");
-        Page<Category> listcates = this.categoryRepository.findAll(page);
+        Page<Category> listcates = this.categoryRepository.findAll(spe, page);
         ResultPaginationDTO res = new ResultPaginationDTO();
         ResultPaginationDTO.Meta meta = new ResultPaginationDTO.Meta();
         meta.setPage(page.getPageNumber() + 1);

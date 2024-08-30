@@ -3,6 +3,7 @@ package com.vn.cinema_internal_java_spring_rest.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.turkraft.springfilter.boot.Filter;
 import com.vn.cinema_internal_java_spring_rest.domain.Film;
+import com.vn.cinema_internal_java_spring_rest.domain.Permission;
 import com.vn.cinema_internal_java_spring_rest.domain.Seat;
 import com.vn.cinema_internal_java_spring_rest.domain.Show;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.ResultPaginationDTO;
@@ -95,10 +98,10 @@ public class SeatController {
 
     @GetMapping("/seats")
     @ApiMessage(value = "Fetch all seats success")
-    public ResponseEntity<ResultPaginationDTO> fetchAllSeat(Pageable page)
+    public ResponseEntity<ResultPaginationDTO> fetchAllSeat(@Filter Specification<Seat> spe, Pageable page)
             throws CommonException {
         log.debug("REST request to fetch all Seats");
-        ResultPaginationDTO res = this.seatService.fetchAllSeats(page);
+        ResultPaginationDTO res = this.seatService.fetchAllSeats(spe, page);
         return ResponseEntity.ok().body(res);
     }
 
