@@ -34,11 +34,16 @@ public class SecurityConfiguration {
                                 .authorizeHttpRequests(
                                                 authz -> authz
                                                                 .requestMatchers(whileList).permitAll()
-                                                                .requestMatchers(HttpMethod.GET, "/api/v1/companies/**")
+                                                                .requestMatchers(HttpMethod.GET, "/api/v1/films/**")
                                                                 .permitAll()
-                                                                .requestMatchers(HttpMethod.GET, "/api/v1/jobs/**")
+                                                                .requestMatchers(HttpMethod.GET, "/api/v1/seats/**")
                                                                 .permitAll()
-                                                                .requestMatchers(HttpMethod.GET, "/api/v1/skills/**")
+                                                                .requestMatchers(HttpMethod.GET, "/api/v1/shows/**")
+                                                                .permitAll()
+                                                                .requestMatchers(HttpMethod.GET,
+                                                                                "/api/v1/categories/**")
+                                                                .permitAll()
+                                                                .requestMatchers(HttpMethod.GET, "/api/v1/names/**")
                                                                 .permitAll()
                                                                 .anyRequest().authenticated())
                                 .oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults())
