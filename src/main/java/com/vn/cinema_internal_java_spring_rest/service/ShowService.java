@@ -99,6 +99,12 @@ public class ShowService {
         if (reqShow.isActive() != currentShow.isActive()) {
             currentShow.setActive(reqShow.isActive());
         }
+
+        if (reqShow.getFilm() != null) {
+            Optional<Film> film = this.filmRepository.findById(reqShow.getFilm().getId());
+            if (film.isPresent())
+                currentShow.setFilm(film.get());
+        }
         return this.showRepository.save(currentShow);
     }
 }
