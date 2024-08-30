@@ -2,6 +2,8 @@ package com.vn.cinema_internal_java_spring_rest.service;
 
 import java.time.Instant;
 import java.util.Optional;
+import java.util.List;
+import java.util.ArrayList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +17,7 @@ import com.vn.cinema_internal_java_spring_rest.domain.Show;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.ResultPaginationDTO;
 import com.vn.cinema_internal_java_spring_rest.repository.FilmRepository;
 import com.vn.cinema_internal_java_spring_rest.repository.ShowRepository;
+import com.vn.cinema_internal_java_spring_rest.util.constant.SeatNameEnum;
 import com.vn.cinema_internal_java_spring_rest.util.error.CommonException;
 
 @Service
