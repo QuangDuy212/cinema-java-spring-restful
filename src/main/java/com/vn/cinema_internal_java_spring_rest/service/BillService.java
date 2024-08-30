@@ -1,0 +1,64 @@
+package com.vn.cinema_internal_java_spring_rest.service;
+
+import org.springframework.stereotype.Service;
+
+import com.vn.cinema_internal_java_spring_rest.domain.Bill;
+import com.vn.cinema_internal_java_spring_rest.domain.Seat;
+import com.vn.cinema_internal_java_spring_rest.domain.User;
+import com.vn.cinema_internal_java_spring_rest.domain.dto.bill.ResBillDTO;
+import com.vn.cinema_internal_java_spring_rest.repository.BillRepository;
+import com.vn.cinema_internal_java_spring_rest.repository.SeatRepository;
+import com.vn.cinema_internal_java_spring_rest.repository.UserRepository;
+import com.vn.cinema_internal_java_spring_rest.util.SecurityUtil;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@Service
+public class BillService {
+    private final BillRepository billRepository;
+    private final UserRepository userRepository;
+    private final SeatRepository seatRepository;
+
+    public BillService(BillRepository billRepository, UserRepository userRepository, SeatRepository seatRepository) {
+        this.billRepository = billRepository;
+        this.userRepository = userRepository;
+        this.seatRepository = seatRepository;
+    }
+
+    public Bill handleCreateABill(Bill reqBill) {
+        String email = SecurityUtil.getCurrentUserLogin().isPresent()
+                ? SecurityUtil.getCurrentUserLogin().get()
+                : "";
+        Optional<User> user = this.userRepository.findByEmail(email);
+        if (user.isPresent())
+            reqBill.setUser(user.get());
+        if (reqBill.getSeats() != null) {
+            List<Long> listIds = reqBill.getSeats()
+                    .stream().map(i -> i.getId())
+                    .collect(Collectors.toList());
+            List<Seat> seats = this.seatRepository.findByIdIn(listIds);
+            reqBill.setSeats(seats);
+        }
+        return this.billRepository.save(reqBill);
+
+    }
+
+    public ResBillDTO converBillToResBillDTO(Bill bill) {
+        ResBillDTO res = new ResBillDTO();
+        ResBillDTO.BillUser user = new ResBillDTO.BillUser();
+        res.setId(bill.getId());
+        res.setQuantity(bill.getQuantity());
+        res.setTotal(bill.getTotal());
+        res.setStatus(bill.getStatus());
+        user.setEmail(bill.getUser().getEmail());
+        res.setUser(user);
+        res.setCreatedAt(bill.getCreatedAt());
+        res.setUpdatedAt(bill.getUpdatedAt());
+        res.setCreatedBy(bill.getCreatedBy());
+        res.setUpdatedBy(bill.getUpdatedBy());
+        res.setSeats(bill.getSeats());
+        return res;
+    }
+}

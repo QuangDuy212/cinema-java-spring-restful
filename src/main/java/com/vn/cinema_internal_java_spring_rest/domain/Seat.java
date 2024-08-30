@@ -1,5 +1,7 @@
 package com.vn.cinema_internal_java_spring_rest.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.vn.cinema_internal_java_spring_rest.util.constant.SeatNameEnum;
 
 import jakarta.persistence.Entity;
@@ -29,9 +31,11 @@ public class Seat {
 
     @ManyToOne
     @JoinColumn(name = "show_id")
+
     private Show show;
 
     @ManyToOne
     @JoinColumn(name = "bill_id")
+    @JsonIgnore
     private Bill bill;
 }

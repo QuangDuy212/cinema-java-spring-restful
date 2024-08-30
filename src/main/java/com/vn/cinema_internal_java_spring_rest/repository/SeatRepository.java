@@ -21,4 +21,6 @@ public interface SeatRepository extends JpaRepository<Seat, Long>, JpaSpecificat
     boolean existsByNameAndShow(SeatNameEnum name, Show show);
 
     Page<Seat> findByShow(Show show, Pageable page);
+
+    List<Seat> findByIdIn(List<Long> listIds);
 }
