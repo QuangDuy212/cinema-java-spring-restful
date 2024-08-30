@@ -1,11 +1,15 @@
 package com.vn.cinema_internal_java_spring_rest.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.vn.cinema_internal_java_spring_rest.domain.Bill;
 import com.vn.cinema_internal_java_spring_rest.domain.Seat;
 import com.vn.cinema_internal_java_spring_rest.domain.User;
+import com.vn.cinema_internal_java_spring_rest.domain.dto.ResultPaginationDTO;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.bill.ResBillDTO;
+import com.vn.cinema_internal_java_spring_rest.domain.dto.seat.ResSeatDTO;
 import com.vn.cinema_internal_java_spring_rest.repository.BillRepository;
 import com.vn.cinema_internal_java_spring_rest.repository.SeatRepository;
 import com.vn.cinema_internal_java_spring_rest.repository.UserRepository;
@@ -60,5 +64,48 @@ public class BillService {
         res.setUpdatedBy(bill.getUpdatedBy());
         res.setSeats(bill.getSeats());
         return res;
+    }
+
+    public Bill fetchBillById(long id) {
+        Optional<Bill> billOptional = this.billRepository.findById(id);
+        if (billOptional.isPresent())
+            return billOptional.get();
+        return null;
+    }
+
+    public ResultPaginationDTO fetchAllBills(Pageable page) {
+        Page<Bill> listBills = this.billRepository.findAll(page);
+        List<ResBillDTO> listResBills = listBills.getContent()
+                .stream().map(i -> this.converBillToResBillDTO(i))
+                .collect(Collectors.toList());
+        ResultPaginationDTO res = new ResultPaginationDTO();
+        ResultPaginationDTO.Meta meta = new ResultPaginationDTO.Meta();
+        meta.setPage(page.getPageNumber() + 1);
+        meta.setPageSize(page.getPageSize());
+
+        meta.setPages(listBills.getTotalPages());
+        meta.setTotal(listBills.getTotalElements());
+
+        res.setMeta(meta);
+        res.setResult(listResBills);
+        return res;
+    }
+
+    public List<ResBillDTO> fetchListBillsByUser() {
+        String email = SecurityUtil.getCurrentUserLogin().isPresent()
+                ? SecurityUtil.getCurrentUserLogin().get()
+                : "";
+        Optional<User> user = this.userRepository.findByEmail(email);
+        List<Bill> listBills = this.billRepository.findByUser(user.get());
+        List<ResBillDTO> res = listBills.stream().map(i -> this.converBillToResBillDTO(i))
+                .collect(Collectors.toList());
+        return res;
+    }
+
+    public Bill handleUpdateABill(Bill reqBill) {
+        Bill currentBill = this.fetchBillById(reqBill.getId());
+        if (reqBill.getStatus() != null)
+            currentBill.setStatus(reqBill.getStatus());
+        return this.billRepository.save(currentBill);
     }
 }
