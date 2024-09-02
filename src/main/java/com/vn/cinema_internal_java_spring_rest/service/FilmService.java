@@ -143,7 +143,7 @@ public class FilmService {
         res.setPremiere(film.getPremiere());
         res.setShortDesc(film.getShortDesc());
         res.setContentModeration(film.getContentModeration());
-        res.setDuration(film.getDuration());
+        res.setDuration(film.getDuration() > 0 ? film.getDuration() : 0);
         res.setTrailer(film.getTrailer());
         res.setCreatedAt(film.getCreatedAt());
         res.setCreatedBy(film.getCreatedBy());

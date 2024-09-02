@@ -16,9 +16,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -53,7 +51,6 @@ public class Film {
     @NotBlank(message = "ContentModeration must not empty")
     private String contentModeration;
 
-    @Min(value = 60, message = "Minium time is 60")
     private long duration;
 
     @NotBlank(message = "Trailer must not empty")

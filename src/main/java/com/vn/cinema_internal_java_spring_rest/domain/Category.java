@@ -36,6 +36,7 @@ public class Category {
     private String updatedBy;
 
     @OneToMany(mappedBy = "category")
+    @JsonIgnore
     List<Film> films;
 
     @PrePersist

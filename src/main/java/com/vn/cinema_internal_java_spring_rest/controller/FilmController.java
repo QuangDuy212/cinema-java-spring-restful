@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.turkraft.springfilter.boot.Filter;
-import com.vn.cinema_internal_java_spring_rest.domain.Category;
 import com.vn.cinema_internal_java_spring_rest.domain.Film;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.ResultPaginationDTO;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.film.ResFilmDTO;
@@ -39,10 +38,6 @@ public class FilmController {
     @ApiMessage(value = "Create a film success")
     public ResponseEntity<ResFilmDTO> createUser(@Valid @RequestBody Film reqFilm) throws CommonException {
         log.debug("REST request to create Film : {}", reqFilm);
-        boolean checkExist = this.filmService.isExistsByNameAndDirector(reqFilm.getName(), reqFilm.getDirector());
-        if (checkExist) {
-            throw new CommonException("Film existed");
-        }
         Film film = this.filmService.handlCreateAFilm(reqFilm);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(this.filmService.convertFilmToResFilmDTO(film));
@@ -54,7 +49,7 @@ public class FilmController {
         log.debug("REST request to get a Film by id : {}", id);
         Film film = this.filmService.fetchFilmById(id);
         if (film == null) {
-            throw new CommonException("Category not found");
+            throw new CommonException("Film not found");
         }
 
         return ResponseEntity.ok().body(this.filmService.convertFilmToResFilmDTO(film));
