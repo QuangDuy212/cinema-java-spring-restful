@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.turkraft.springfilter.boot.Filter;
 import com.vn.cinema_internal_java_spring_rest.domain.Permission;
+import com.vn.cinema_internal_java_spring_rest.domain.User;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.ResultPaginationDTO;
 import com.vn.cinema_internal_java_spring_rest.service.PermissionService;
 import com.vn.cinema_internal_java_spring_rest.util.annotation.ApiMessage;
@@ -20,6 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -73,6 +75,17 @@ public class PermissionController {
             Pageable page) {
         ResultPaginationDTO res = this.permissionService.fetchAllPermissions(spe, page);
         return ResponseEntity.ok().body(res);
+    }
+
+    @DeleteMapping("/permissions")
+    @ApiMessage(value = "Delete a permission success")
+    public ResponseEntity<Void> deleteAPer(@RequestBody Permission reqPer) throws CommonException {
+        log.debug("REST request to delete Permission : {}", reqPer);
+        Permission per = this.permissionService.fetchPermissionById(reqPer.getId());
+        if (per == null)
+            throw new CommonException("Permission not found");
+        this.permissionService.handleDeletePer(reqPer);
+        return ResponseEntity.ok().body(null);
     }
 
 }

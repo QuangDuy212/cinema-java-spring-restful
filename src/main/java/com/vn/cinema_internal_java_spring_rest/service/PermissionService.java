@@ -114,4 +114,8 @@ public class PermissionService {
             currentPer.setModule(reqPer.getModule());
         return this.permissionRepository.save(currentPer);
     }
+
+    public void handleDeletePer(Permission reqPer) {
+        this.permissionRepository.deleteById(reqPer.getId());
+    }
 }
