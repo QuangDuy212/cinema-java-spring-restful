@@ -45,6 +45,8 @@ public class SecurityConfiguration {
                                                                 .permitAll()
                                                                 .requestMatchers(HttpMethod.GET, "/api/v1/names/**")
                                                                 .permitAll()
+                                                                .requestMatchers(HttpMethod.GET, "/api/v1/times/**")
+                                                                .permitAll()
                                                                 .anyRequest().authenticated())
                                 .oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults())
                                                 // config for handle exception

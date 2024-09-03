@@ -75,9 +75,8 @@ public class Film {
     @JoinTable(name = "show_film", joinColumns = @JoinColumn(name = "film_id"), inverseJoinColumns = @JoinColumn(name = "show_id"))
     private List<Show> shows;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    // @JsonIgnoreProperties(value = { "roles" })
-    @JoinTable(name = "time_film", joinColumns = @JoinColumn(name = "film_id"), inverseJoinColumns = @JoinColumn(name = "time_id"))
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "films")
+    @JsonIgnore
     private List<Time> times;
 
     @PrePersist
