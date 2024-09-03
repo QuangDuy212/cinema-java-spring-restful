@@ -2,6 +2,7 @@ package com.vn.cinema_internal_java_spring_rest.domain;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Entity;
@@ -28,8 +29,7 @@ public class Time {
 
     private String date;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    // @JsonIgnoreProperties(value = { "roles" })
-    @JoinTable(name = "time_film", joinColumns = @JoinColumn(name = "time_id"), inverseJoinColumns = @JoinColumn(name = "film_id"))
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "times")
+    @JsonIgnore
     private List<Film> films;
 }

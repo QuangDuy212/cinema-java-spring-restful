@@ -149,6 +149,8 @@ public class FilmService {
         res.setCreatedBy(film.getCreatedBy());
         res.setUpdatedAt(film.getUpdatedAt());
         res.setUpdatedBy(film.getUpdatedBy());
+        res.setOrigin(film.getOrigin());
+        res.setShows(film.getShows());
         ResFilmDTO.CategoryFilm category = new ResFilmDTO.CategoryFilm();
         category.setId(film.getCategory() != null ? film.getCategory().getId() : null);
         category.setName(film.getCategory() != null ? film.getCategory().getName() : null);

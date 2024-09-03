@@ -14,6 +14,8 @@ import lombok.Setter;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "shows")
 @Getter
@@ -34,6 +36,7 @@ public class Show {
 
     @ManyToOne
     @JoinColumn(name = "film_id")
+    @JsonIgnore
     private Film film;
 
     @OneToMany(mappedBy = "show")

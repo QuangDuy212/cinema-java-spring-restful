@@ -13,6 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -72,8 +73,9 @@ public class Film {
     @OneToMany(mappedBy = "film")
     private List<Show> shows;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "films")
-    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY)
+    // @JsonIgnoreProperties(value = { "roles" })
+    @JoinTable(name = "time_film", joinColumns = @JoinColumn(name = "film_id"), inverseJoinColumns = @JoinColumn(name = "time_id"))
     private List<Time> times;
 
     @PrePersist
