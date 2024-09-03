@@ -156,4 +156,8 @@ public class FilmService {
         return res;
     }
 
+    public void handleDeleteAFilm(Film reqFilm) {
+        this.filmRepository.deleteById(reqFilm.getId());
+    }
+
 }

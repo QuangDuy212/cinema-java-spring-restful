@@ -3,14 +3,17 @@ package com.vn.cinema_internal_java_spring_rest.domain;
 import java.time.Instant;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vn.cinema_internal_java_spring_rest.util.SecurityUtil;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
@@ -55,6 +58,8 @@ public class Film {
 
     @NotBlank(message = "Trailer must not empty")
     private String trailer;
+    @NotBlank(message = "Origin must not empty")
+    private String origin;
     private Instant createdAt;
     private Instant updatedAt;
     private String createdBy;
@@ -66,6 +71,10 @@ public class Film {
 
     @OneToMany(mappedBy = "film")
     private List<Show> shows;
+
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "films")
+    @JsonIgnore
+    private List<Time> times;
 
     @PrePersist
     private void handleBeforeCreate() {

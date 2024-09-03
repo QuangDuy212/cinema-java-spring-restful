@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -74,4 +75,16 @@ public class FilmController {
         Film updatedFilm = this.filmService.handleUpdateAFilm(reqFilm);
         return ResponseEntity.ok().body(this.filmService.convertFilmToResFilmDTO(updatedFilm));
     }
+
+    @DeleteMapping("/films")
+    @ApiMessage(value = "Delete a Film success")
+    public ResponseEntity<Void> deleteAFilm(@RequestBody Film reqFilm) throws CommonException {
+        log.debug("REST request to delete Film : {}", reqFilm);
+        Film film = this.filmService.fetchFilmById(reqFilm.getId());
+        if (film == null)
+            throw new CommonException("Film not found");
+        this.filmService.handleDeleteAFilm(reqFilm);
+        return ResponseEntity.ok().body(null);
+    }
+
 }
