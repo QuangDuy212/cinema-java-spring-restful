@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.turkraft.springfilter.boot.Filter;
 import com.vn.cinema_internal_java_spring_rest.domain.Category;
+import com.vn.cinema_internal_java_spring_rest.domain.User;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.ResultPaginationDTO;
 import com.vn.cinema_internal_java_spring_rest.service.CategoryService;
 import com.vn.cinema_internal_java_spring_rest.util.annotation.ApiMessage;
@@ -80,5 +82,16 @@ public class CategoryController {
         }
         Category newCate = this.categoryService.hanldeUpdateACategory(reqCa);
         return ResponseEntity.ok().body(newCate);
+    }
+
+    @DeleteMapping("/categories")
+    @ApiMessage(value = "Delete a Category success")
+    public ResponseEntity<Void> deleteACategory(@RequestBody Category reqCate) throws CommonException {
+        log.debug("REST request to delete Category : {}", reqCate);
+        Category cate = this.categoryService.fetchCategoryById(reqCate.getId());
+        if (cate == null)
+            throw new CommonException("Category not found");
+        this.categoryService.handleDeleteCate(reqCate);
+        return ResponseEntity.ok().body(null);
     }
 }
