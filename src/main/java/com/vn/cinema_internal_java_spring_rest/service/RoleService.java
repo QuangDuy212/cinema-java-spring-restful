@@ -90,4 +90,8 @@ public class RoleService {
     public List<Role> fetchListRoleByListId(List<Long> listIds) {
         return this.roleRepository.findByIdIn(listIds);
     }
+
+    public void handleDeleteRole(Role reqRole) {
+        this.roleRepository.deleteById(reqRole.getId());
+    }
 }

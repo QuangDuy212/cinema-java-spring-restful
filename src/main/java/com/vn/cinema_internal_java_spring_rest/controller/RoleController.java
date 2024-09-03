@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.turkraft.springfilter.boot.Filter;
 import com.vn.cinema_internal_java_spring_rest.domain.Permission;
 import com.vn.cinema_internal_java_spring_rest.domain.Role;
+import com.vn.cinema_internal_java_spring_rest.domain.User;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.ResultPaginationDTO;
 import com.vn.cinema_internal_java_spring_rest.service.RoleService;
 import com.vn.cinema_internal_java_spring_rest.util.annotation.ApiMessage;
@@ -19,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -74,6 +76,17 @@ public class RoleController {
             throw new CommonException("Role not found");
         Role currentRole = this.roleService.hanldeUpdateRole(reqRole);
         return ResponseEntity.ok().body(currentRole);
+    }
+
+    @DeleteMapping("/roles")
+    @ApiMessage(value = "Delete a Role success")
+    public ResponseEntity<Void> deleteARole(@RequestBody Role reqRole) throws CommonException {
+        log.debug("REST request to delete Role : {}", reqRole);
+        Role role = this.roleService.fetchRoleById(reqRole.getId());
+        if (role == null)
+            throw new CommonException("Role not found");
+        this.roleService.handleDeleteRole(reqRole);
+        return ResponseEntity.ok().body(null);
     }
 
 }
