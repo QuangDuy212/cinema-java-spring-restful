@@ -12,14 +12,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import com.vn.cinema_internal_java_spring_rest.domain.Category;
 import com.vn.cinema_internal_java_spring_rest.domain.Film;
-import com.vn.cinema_internal_java_spring_rest.domain.Permission;
 import com.vn.cinema_internal_java_spring_rest.domain.Show;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.ResultPaginationDTO;
 import com.vn.cinema_internal_java_spring_rest.repository.FilmRepository;
 import com.vn.cinema_internal_java_spring_rest.repository.ShowRepository;
-import com.vn.cinema_internal_java_spring_rest.util.constant.SeatNameEnum;
 import com.vn.cinema_internal_java_spring_rest.util.error.CommonException;
 
 @Service
@@ -33,7 +30,7 @@ public class ShowService {
         this.filmRepository = filmRepository;
     }
 
-    public boolean isExistsByZoomNumberAndTime(int zNumber, Instant time) {
+    public boolean isExistsByZoomNumberAndTime(int zNumber, String time) {
         return this.showRepository.existsByZoomNumberAndTime(zNumber, time);
     }
 
@@ -111,5 +108,9 @@ public class ShowService {
                 currentShow.setFilm(film.get());
         }
         return this.showRepository.save(currentShow);
+    }
+
+    public void handleDeleteAShow(Show reqShow) {
+        this.showRepository.deleteById(reqShow.getId());
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,8 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.turkraft.springfilter.boot.Filter;
-import com.vn.cinema_internal_java_spring_rest.domain.Category;
-import com.vn.cinema_internal_java_spring_rest.domain.Permission;
+import com.vn.cinema_internal_java_spring_rest.domain.Film;
 import com.vn.cinema_internal_java_spring_rest.domain.Show;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.ResultPaginationDTO;
 import com.vn.cinema_internal_java_spring_rest.service.ShowService;
@@ -77,6 +77,17 @@ public class ShowController {
         }
         Show updatedShow = this.showService.handleUpdateAShow(reqShow);
         return ResponseEntity.ok().body(updatedShow);
+    }
+
+    @DeleteMapping("/shows")
+    @ApiMessage(value = "Delete a Show success")
+    public ResponseEntity<Void> deleteAShow(@RequestBody Show reqShow) throws CommonException {
+        log.debug("REST request to delete Show : {}", reqShow);
+        Show show = this.showService.fetchShowById(reqShow.getId());
+        if (show == null)
+            throw new CommonException("Show not found");
+        this.showService.handleDeleteAShow(reqShow);
+        return ResponseEntity.ok().body(null);
     }
 
 }

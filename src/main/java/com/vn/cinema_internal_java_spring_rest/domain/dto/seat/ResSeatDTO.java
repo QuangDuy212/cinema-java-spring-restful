@@ -6,8 +6,6 @@ import com.vn.cinema_internal_java_spring_rest.util.constant.SeatNameEnum;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.Instant;
-
 @Getter
 @Setter
 public class ResSeatDTO {
@@ -24,6 +22,6 @@ public class ResSeatDTO {
         private double price;
         private Film film;
         private boolean isActive;
-        private Instant time;
+        private String time;
     }
 }

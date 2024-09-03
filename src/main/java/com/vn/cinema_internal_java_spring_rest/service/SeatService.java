@@ -5,11 +5,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import com.vn.cinema_internal_java_spring_rest.domain.Permission;
 import com.vn.cinema_internal_java_spring_rest.domain.Seat;
 import com.vn.cinema_internal_java_spring_rest.domain.Show;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.ResultPaginationDTO;
-import com.vn.cinema_internal_java_spring_rest.domain.dto.film.ResFilmDTO;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.seat.ResSeatDTO;
 import com.vn.cinema_internal_java_spring_rest.repository.SeatRepository;
 import com.vn.cinema_internal_java_spring_rest.repository.ShowRepository;
