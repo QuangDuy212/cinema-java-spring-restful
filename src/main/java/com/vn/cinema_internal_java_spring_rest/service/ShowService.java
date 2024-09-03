@@ -2,6 +2,7 @@ package com.vn.cinema_internal_java_spring_rest.service;
 
 import java.time.Instant;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -36,10 +37,11 @@ public class ShowService {
 
     public Show handleCreateAShow(Show reqShow) {
         log.debug("Request to create Show : {}", reqShow);
-        if (reqShow.getFilm() != null) {
-            Optional<Film> film = this.filmRepository.findById(reqShow.getFilm().getId());
-            if (film.isPresent())
-                reqShow.setFilm(film.get());
+        if (reqShow.getFilms() != null) {
+            List<Long> listIds = reqShow.getFilms().stream().map(i -> i.getId())
+                    .collect(Collectors.toList());
+            List<Film> films = this.filmRepository.findByIdIn(listIds);
+            reqShow.setFilms(films);
         }
         return this.showRepository.save(reqShow);
     }
@@ -102,10 +104,11 @@ public class ShowService {
             currentShow.setActive(reqShow.isActive());
         }
 
-        if (reqShow.getFilm() != null) {
-            Optional<Film> film = this.filmRepository.findById(reqShow.getFilm().getId());
-            if (film.isPresent())
-                currentShow.setFilm(film.get());
+        if (reqShow.getFilms() != null) {
+            List<Long> listIds = reqShow.getFilms().stream().map(i -> i.getId())
+                    .collect(Collectors.toList());
+            List<Film> films = this.filmRepository.findByIdIn(listIds);
+            currentShow.setFilms(films);
         }
         return this.showRepository.save(currentShow);
     }

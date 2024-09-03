@@ -1,5 +1,7 @@
 package com.vn.cinema_internal_java_spring_rest.domain.dto.seat;
 
+import java.util.List;
+
 import com.vn.cinema_internal_java_spring_rest.domain.Film;
 import com.vn.cinema_internal_java_spring_rest.util.constant.SeatNameEnum;
 
@@ -20,7 +22,7 @@ public class ResSeatDTO {
         private long id;
         private int zoomNumber;
         private double price;
-        private Film film;
+        private List<Film> films;
         private boolean isActive;
         private String time;
     }

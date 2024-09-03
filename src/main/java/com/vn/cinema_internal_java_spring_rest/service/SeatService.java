@@ -62,7 +62,7 @@ public class SeatService {
         show.setPrice(seat.getShow().getPrice());
         show.setActive(seat.getShow().isActive());
         show.setTime(seat.getShow().getTime());
-        show.setFilm(seat.getShow().getFilm());
+        show.setFilms(seat.getShow().getFilms());
         res.setShow(show);
         return res;
     }

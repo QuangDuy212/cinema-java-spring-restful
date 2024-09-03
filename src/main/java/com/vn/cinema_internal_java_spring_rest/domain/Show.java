@@ -1,10 +1,12 @@
 package com.vn.cinema_internal_java_spring_rest.domain;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -34,10 +36,9 @@ public class Show {
 
     private boolean isActive;
 
-    @ManyToOne
-    @JoinColumn(name = "film_id")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "shows")
     @JsonIgnore
-    private Film film;
+    private List<Film> films;
 
     @OneToMany(mappedBy = "show")
     private List<Seat> seats;
