@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.turkraft.springfilter.boot.Filter;
 import com.vn.cinema_internal_java_spring_rest.domain.Bill;
 import com.vn.cinema_internal_java_spring_rest.domain.Category;
+import com.vn.cinema_internal_java_spring_rest.domain.User;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.ResultPaginationDTO;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.bill.ResBillDTO;
 import com.vn.cinema_internal_java_spring_rest.service.BillService;
@@ -88,5 +90,16 @@ public class BillController {
         Bill updatedBill = this.billService.handleUpdateABill(reqBill);
         ResBillDTO res = this.billService.converBillToResBillDTO(updatedBill);
         return ResponseEntity.ok().body(res);
+    }
+
+    @DeleteMapping("/bills")
+    @ApiMessage(value = "Delete a Bill success")
+    public ResponseEntity<Void> deleteABill(@RequestBody Bill reqBill) throws CommonException {
+        log.debug("REST request to delete Bill : {}", reqBill);
+        Bill bill = this.billService.fetchBillById(reqBill.getId());
+        if (bill == null)
+            throw new CommonException("Bill not found");
+        this.billService.handleDeleteBill(reqBill);
+        return ResponseEntity.ok().body(null);
     }
 }

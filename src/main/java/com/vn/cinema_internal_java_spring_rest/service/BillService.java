@@ -109,4 +109,8 @@ public class BillService {
             currentBill.setStatus(reqBill.getStatus());
         return this.billRepository.save(currentBill);
     }
+
+    public void handleDeleteBill(Bill reqBill) {
+        this.billRepository.deleteById(reqBill.getId());
+    }
 }
