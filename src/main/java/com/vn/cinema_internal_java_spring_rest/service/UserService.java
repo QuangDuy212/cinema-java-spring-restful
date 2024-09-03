@@ -176,4 +176,8 @@ public class UserService {
         user.setRefreshToken(null);
         this.userRepository.save(user);
     }
+
+    public void handleDeleteUser(User user) {
+        this.userRepository.deleteById(user.getId());
+    }
 }
