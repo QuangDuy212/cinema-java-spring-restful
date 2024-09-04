@@ -1,6 +1,7 @@
 package com.vn.cinema_internal_java_spring_rest.service;
 
 import java.util.Optional;
+import java.util.ArrayList;
 import java.util.List;
 
 import java.util.stream.Collectors;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.vn.cinema_internal_java_spring_rest.domain.Category;
 import com.vn.cinema_internal_java_spring_rest.domain.Film;
 import com.vn.cinema_internal_java_spring_rest.domain.Show;
+import com.vn.cinema_internal_java_spring_rest.domain.Time;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.ResultPaginationDTO;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.film.ResFilmDTO;
 import com.vn.cinema_internal_java_spring_rest.repository.CategoryRepository;
@@ -151,6 +153,15 @@ public class FilmService {
         res.setUpdatedBy(film.getUpdatedBy());
         res.setOrigin(film.getOrigin());
         res.setShows(film.getShows());
+        List<Time> listTimes = film.getTimes();
+        List<ResFilmDTO.TimeFilm> times = new ArrayList<ResFilmDTO.TimeFilm>();
+        for (Time item : listTimes) {
+            ResFilmDTO.TimeFilm time = new ResFilmDTO.TimeFilm();
+            time.setId(item.getId());
+            time.setDate(item.getDate());
+            times.add(time);
+        }
+        res.setTimes(times);
         ResFilmDTO.CategoryFilm category = new ResFilmDTO.CategoryFilm();
         category.setId(film.getCategory() != null ? film.getCategory().getId() : null);
         category.setName(film.getCategory() != null ? film.getCategory().getName() : null);

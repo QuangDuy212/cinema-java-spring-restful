@@ -25,6 +25,7 @@ public class ResFilmDTO {
     private String trailer;
     private String origin;
     private List<Show> shows;
+    private List<TimeFilm> times;
     private Instant createdAt;
     private Instant updatedAt;
     private String createdBy;
@@ -36,5 +37,12 @@ public class ResFilmDTO {
     public static class CategoryFilm {
         private long id;
         private String name;
+    }
+
+    @Getter
+    @Setter
+    public static class TimeFilm {
+        private long id;
+        private String date;
     }
 }
