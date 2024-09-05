@@ -15,9 +15,12 @@ import org.springframework.stereotype.Service;
 
 import com.vn.cinema_internal_java_spring_rest.domain.Film;
 import com.vn.cinema_internal_java_spring_rest.domain.Show;
+import com.vn.cinema_internal_java_spring_rest.domain.Time;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.ResultPaginationDTO;
+import com.vn.cinema_internal_java_spring_rest.domain.dto.show.ResShowDTO;
 import com.vn.cinema_internal_java_spring_rest.repository.FilmRepository;
 import com.vn.cinema_internal_java_spring_rest.repository.ShowRepository;
+import com.vn.cinema_internal_java_spring_rest.repository.TimeRepository;
 import com.vn.cinema_internal_java_spring_rest.util.error.CommonException;
 
 @Service
@@ -25,10 +28,12 @@ public class ShowService {
     private final Logger log = LoggerFactory.getLogger(ShowService.class);
     private final ShowRepository showRepository;
     private final FilmRepository filmRepository;
+    private final TimeRepository timeRepository;
 
-    public ShowService(ShowRepository showRepository, FilmRepository filmRepository) {
+    public ShowService(ShowRepository showRepository, FilmRepository filmRepository, TimeRepository timeRepository) {
         this.showRepository = showRepository;
         this.filmRepository = filmRepository;
+        this.timeRepository = timeRepository;
     }
 
     public boolean isExistsByZoomNumberAndTime(int zNumber, String time) {
@@ -43,6 +48,13 @@ public class ShowService {
             List<Film> films = this.filmRepository.findByIdIn(listIds);
             reqShow.setFilms(films);
         }
+
+        if (reqShow.getTimeShow() != null) {
+            long id = reqShow.getTimeShow().getId();
+            Optional<Time> timeShow = this.timeRepository.findById(id);
+            if (timeShow.isPresent())
+                reqShow.setTimeShow(timeShow.get());
+        }
         return this.showRepository.save(reqShow);
     }
 
@@ -56,6 +68,8 @@ public class ShowService {
     public ResultPaginationDTO fetchAllShows(Specification<Show> spe, Pageable page) {
         log.debug("Request to get all Categories");
         Page<Show> listShows = this.showRepository.findAll(spe, page);
+        List<ResShowDTO> shows = listShows.stream().map(i -> this.convertShowToResShowDTO(i))
+                .collect(Collectors.toList());
         ResultPaginationDTO res = new ResultPaginationDTO();
         ResultPaginationDTO.Meta meta = new ResultPaginationDTO.Meta();
         meta.setPage(page.getPageNumber() + 1);
@@ -65,7 +79,7 @@ public class ShowService {
         meta.setTotal(listShows.getTotalElements());
 
         res.setMeta(meta);
-        res.setResult(listShows.getContent());
+        res.setResult(shows);
         return res;
     }
 
@@ -115,5 +129,18 @@ public class ShowService {
 
     public void handleDeleteAShow(Show reqShow) {
         this.showRepository.deleteById(reqShow.getId());
+    }
+
+    public ResShowDTO convertShowToResShowDTO(Show show) {
+        ResShowDTO res = new ResShowDTO();
+        res.setId(show.getId());
+        res.setZoomNumber(show.getZoomNumber());
+        res.setPrice(show.getPrice());
+        res.setSeats(show.getSeats());
+        ResShowDTO.TimeShow time = new ResShowDTO.TimeShow();
+        time.setId(show.getTimeShow().getId());
+        time.setDate(show.getTimeShow().getDate());
+        res.setTimeShow(time);
+        return res;
     }
 }

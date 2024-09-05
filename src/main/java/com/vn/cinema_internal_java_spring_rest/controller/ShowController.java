@@ -19,6 +19,7 @@ import com.turkraft.springfilter.boot.Filter;
 import com.vn.cinema_internal_java_spring_rest.domain.Film;
 import com.vn.cinema_internal_java_spring_rest.domain.Show;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.ResultPaginationDTO;
+import com.vn.cinema_internal_java_spring_rest.domain.dto.show.ResShowDTO;
 import com.vn.cinema_internal_java_spring_rest.service.ShowService;
 import com.vn.cinema_internal_java_spring_rest.util.annotation.ApiMessage;
 import com.vn.cinema_internal_java_spring_rest.util.error.CommonException;
@@ -37,26 +38,28 @@ public class ShowController {
 
     @PostMapping("/shows")
     @ApiMessage(value = "Create a Show success")
-    public ResponseEntity<Show> createAShow(@Valid @RequestBody Show reqShow) throws CommonException {
+    public ResponseEntity<ResShowDTO> createAShow(@Valid @RequestBody Show reqShow) throws CommonException {
         log.debug("REST request to create Show : {}", reqShow);
         boolean checkExist = this.showService.isExistsByZoomNumberAndTime(reqShow.getZoomNumber(), reqShow.getTime());
         if (checkExist) {
             throw new CommonException("Show existed");
         }
         Show show = this.showService.handleCreateAShow(reqShow);
-        return ResponseEntity.status(HttpStatus.CREATED).body(show);
+        ResShowDTO res = this.showService.convertShowToResShowDTO(show);
+        return ResponseEntity.status(HttpStatus.CREATED).body(res);
     }
 
     @GetMapping("/shows/{id}")
     @ApiMessage(value = "Fetch Show success")
-    public ResponseEntity<Show> fetchShowById(@PathVariable("id") long id) throws CommonException {
+    public ResponseEntity<ResShowDTO> fetchShowById(@PathVariable("id") long id) throws CommonException {
         log.debug("REST request to get a Show by id : {}", id);
         Show show = this.showService.fetchShowById(id);
         if (show == null) {
             throw new CommonException("Show not found");
         }
+        ResShowDTO res = this.showService.convertShowToResShowDTO(show);
 
-        return ResponseEntity.ok().body(show);
+        return ResponseEntity.ok().body(res);
     }
 
     @GetMapping("/shows")
@@ -69,14 +72,15 @@ public class ShowController {
 
     @PutMapping("/shows")
     @ApiMessage(value = "Update a Show success")
-    public ResponseEntity<Show> updateAShow(@RequestBody Show reqShow) throws CommonException {
+    public ResponseEntity<ResShowDTO> updateAShow(@RequestBody Show reqShow) throws CommonException {
         log.debug("REST request to update Show : {}", reqShow);
         Show show = this.showService.fetchShowById(reqShow.getId());
         if (show == null) {
             throw new CommonException("Show not found");
         }
         Show updatedShow = this.showService.handleUpdateAShow(reqShow);
-        return ResponseEntity.ok().body(updatedShow);
+        ResShowDTO res = this.showService.convertShowToResShowDTO(updatedShow);
+        return ResponseEntity.ok().body(res);
     }
 
     @DeleteMapping("/shows")

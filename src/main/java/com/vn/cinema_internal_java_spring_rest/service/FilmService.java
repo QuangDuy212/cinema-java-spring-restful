@@ -22,6 +22,7 @@ import com.vn.cinema_internal_java_spring_rest.domain.dto.film.ResFilmDTO;
 import com.vn.cinema_internal_java_spring_rest.repository.CategoryRepository;
 import com.vn.cinema_internal_java_spring_rest.repository.FilmRepository;
 import com.vn.cinema_internal_java_spring_rest.repository.ShowRepository;
+import com.vn.cinema_internal_java_spring_rest.repository.TimeRepository;
 import com.vn.cinema_internal_java_spring_rest.util.error.CommonException;
 
 @Service
@@ -30,12 +31,14 @@ public class FilmService {
     private final FilmRepository filmRepository;
     private final CategoryRepository categoryRepository;
     private final ShowRepository showRepository;
+    private final TimeRepository timeRepository;
 
     public FilmService(FilmRepository filmRepository, CategoryRepository categoryRepository,
-            ShowRepository showRepository) {
+            ShowRepository showRepository, TimeRepository timeRepository) {
         this.filmRepository = filmRepository;
         this.categoryRepository = categoryRepository;
         this.showRepository = showRepository;
+        this.timeRepository = timeRepository;
     }
 
     public boolean isExistsByNameAndDirector(String name, String director) {
@@ -50,6 +53,13 @@ public class FilmService {
                     .collect(Collectors.toList());
             List<Show> shows = this.showRepository.findByIdIn(listIds);
             reqFilm.setShows(shows);
+        }
+        if (reqFilm.getTimes() != null) {
+            List<Long> listIds = reqFilm.getTimes()
+                    .stream().map(i -> i.getId())
+                    .collect(Collectors.toList());
+            List<Time> times = this.timeRepository.findByIdIn(listIds);
+            reqFilm.setTimes(times);
         }
         return this.filmRepository.save(reqFilm);
     }

@@ -43,4 +43,8 @@ public class Show {
     @OneToMany(mappedBy = "show")
     private List<Seat> seats;
 
+    @ManyToOne
+    @JoinColumn(name = "time_id")
+    private Time timeShow;
+
 }

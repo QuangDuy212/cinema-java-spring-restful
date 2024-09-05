@@ -40,6 +40,7 @@ public class TimeService {
             List<Film> listFilms = this.filmRepository.findByIdIn(listIds);
             reqTime.setFilms(listFilms);
         }
+
         return this.timeRepository.save(reqTime);
     }
 
