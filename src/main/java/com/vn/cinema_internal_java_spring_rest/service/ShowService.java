@@ -140,4 +140,12 @@ public class ShowService {
         res.setTimeShow(time);
         return res;
     }
+
+    public List<Show> fetchShowsByFilmAndTime(long idFilm, long idTime) {
+        Optional<Film> film = this.filmRepository.findById(idFilm);
+        Optional<Time> time = this.timeRepository.findById(idTime);
+        if (film.isPresent() && time.isPresent())
+            return this.showRepository.findByFilmAndTime(film.get(), time.get());
+        return null;
+    }
 }

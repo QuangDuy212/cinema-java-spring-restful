@@ -13,27 +13,37 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.turkraft.springfilter.boot.Filter;
 import com.vn.cinema_internal_java_spring_rest.domain.Film;
 import com.vn.cinema_internal_java_spring_rest.domain.Show;
+import com.vn.cinema_internal_java_spring_rest.domain.Time;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.ResultPaginationDTO;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.show.ResShowDTO;
+import com.vn.cinema_internal_java_spring_rest.service.FilmService;
 import com.vn.cinema_internal_java_spring_rest.service.ShowService;
+import com.vn.cinema_internal_java_spring_rest.service.TimeService;
 import com.vn.cinema_internal_java_spring_rest.util.annotation.ApiMessage;
 import com.vn.cinema_internal_java_spring_rest.util.error.CommonException;
 
 import jakarta.validation.Valid;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1")
 public class ShowController {
     private final Logger log = LoggerFactory.getLogger(ShowService.class);
     private final ShowService showService;
+    private final FilmService filmService;
+    private final TimeService timeService;
 
-    public ShowController(ShowService showService) {
+    public ShowController(ShowService showService, FilmService filmService, TimeService timeService) {
         this.showService = showService;
+        this.filmService = filmService;
+        this.timeService = timeService;
     }
 
     @PostMapping("/shows")
@@ -94,4 +104,17 @@ public class ShowController {
         return ResponseEntity.ok().body(null);
     }
 
+    @GetMapping("/shows/by-film-time")
+    @ApiMessage(value = "Fetch Shows by film and time success")
+    public ResponseEntity<List<Show>> fetchShowsByFilmAndTime(@RequestParam("film") long filmId,
+            @RequestParam("time") long timeId) throws CommonException {
+        log.debug("REST request to get Shows by Film id: {} and Time id : {}", filmId, timeId);
+        Film film = this.filmService.fetchFilmById(filmId);
+        Time time = this.timeService.fetchTimeById(timeId);
+        if (film == null || time == null) {
+            throw new CommonException("Film or Time not existed");
+        }
+        List<Show> shows = this.showService.fetchShowsByFilmAndTime(filmId, timeId);
+        return ResponseEntity.ok().body(shows);
+    }
 }

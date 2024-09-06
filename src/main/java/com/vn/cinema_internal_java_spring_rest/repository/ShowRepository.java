@@ -7,11 +7,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
+import com.vn.cinema_internal_java_spring_rest.domain.Film;
 import com.vn.cinema_internal_java_spring_rest.domain.Show;
+import com.vn.cinema_internal_java_spring_rest.domain.Time;
 
 @Repository
 public interface ShowRepository extends JpaRepository<Show, Long>, JpaSpecificationExecutor<Show> {
     boolean existsByZoomNumberAndTime(int zoomNumber, String time);
 
     List<Show> findByIdIn(List<Long> listIds);
+
+    List<Show> findByFilmAndTime(Film film, Time time);
 }
