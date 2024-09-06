@@ -42,11 +42,10 @@ public class ShowService {
 
     public Show handleCreateAShow(Show reqShow) {
         log.debug("Request to create Show : {}", reqShow);
-        if (reqShow.getFilms() != null) {
-            List<Long> listIds = reqShow.getFilms().stream().map(i -> i.getId())
-                    .collect(Collectors.toList());
-            List<Film> films = this.filmRepository.findByIdIn(listIds);
-            reqShow.setFilms(films);
+        if (reqShow.getFilm() != null) {
+            Optional<Film> film = this.filmRepository.findById(reqShow.getFilm().getId());
+            if (film.isPresent())
+                reqShow.setFilm(film.get());
         }
 
         if (reqShow.getTimeShow() != null) {
@@ -118,11 +117,10 @@ public class ShowService {
             currentShow.setActive(reqShow.isActive());
         }
 
-        if (reqShow.getFilms() != null) {
-            List<Long> listIds = reqShow.getFilms().stream().map(i -> i.getId())
-                    .collect(Collectors.toList());
-            List<Film> films = this.filmRepository.findByIdIn(listIds);
-            currentShow.setFilms(films);
+        if (reqShow.getFilm() != null) {
+            Optional<Film> film = this.filmRepository.findById(reqShow.getFilm().getId());
+            if (film.isPresent())
+                currentShow.setFilm(film.get());
         }
         return this.showRepository.save(currentShow);
     }

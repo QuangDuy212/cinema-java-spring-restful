@@ -22,8 +22,14 @@ public class ResSeatDTO {
         private long id;
         private int zoomNumber;
         private double price;
-        private List<Film> films;
+        private FilmSeat film;
         private boolean isActive;
         private String time;
+    }
+
+    @Getter
+    @Setter
+    public static class FilmSeat {
+        private long id;
     }
 }

@@ -36,9 +36,9 @@ public class Show {
 
     private boolean isActive;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "shows")
-    @JsonIgnore
-    private List<Film> films;
+    @ManyToOne
+    @JoinColumn(name = "film_id")
+    private Film film;
 
     @OneToMany(mappedBy = "show")
     private List<Seat> seats;
