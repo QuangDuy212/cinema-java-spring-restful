@@ -17,5 +17,5 @@ public interface ShowRepository extends JpaRepository<Show, Long>, JpaSpecificat
 
     List<Show> findByIdIn(List<Long> listIds);
 
-    List<Show> findByFilmAndTime(Film film, Time time);
+    List<Show> findByFilmAndDay(Film film, Time day);
 }

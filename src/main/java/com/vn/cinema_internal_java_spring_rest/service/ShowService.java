@@ -141,11 +141,11 @@ public class ShowService {
         return res;
     }
 
-    public List<Show> fetchShowsByFilmAndTime(long idFilm, long idTime) {
+    public List<Show> fetchShowsByFilmAndDay(long idFilm, long idTime) {
         Optional<Film> film = this.filmRepository.findById(idFilm);
         Optional<Time> time = this.timeRepository.findById(idTime);
         if (film.isPresent() && time.isPresent())
-            return this.showRepository.findByFilmAndTime(film.get(), time.get());
+            return this.showRepository.findByFilmAndDay(film.get(), time.get());
         return null;
     }
 }

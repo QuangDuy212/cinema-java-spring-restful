@@ -31,6 +31,7 @@ import com.vn.cinema_internal_java_spring_rest.util.error.CommonException;
 import jakarta.validation.Valid;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -104,9 +105,9 @@ public class ShowController {
         return ResponseEntity.ok().body(null);
     }
 
-    @GetMapping("/shows/by-film-time")
+    @GetMapping("/shows/by-film-day")
     @ApiMessage(value = "Fetch Shows by film and time success")
-    public ResponseEntity<List<Show>> fetchShowsByFilmAndTime(@RequestParam("film") long filmId,
+    public ResponseEntity<List<ResShowDTO>> fetchShowsByFilmAndTime(@RequestParam("film") long filmId,
             @RequestParam("time") long timeId) throws CommonException {
         log.debug("REST request to get Shows by Film id: {} and Time id : {}", filmId, timeId);
         Film film = this.filmService.fetchFilmById(filmId);
@@ -114,7 +115,9 @@ public class ShowController {
         if (film == null || time == null) {
             throw new CommonException("Film or Time not existed");
         }
-        List<Show> shows = this.showService.fetchShowsByFilmAndTime(filmId, timeId);
-        return ResponseEntity.ok().body(shows);
+        List<Show> shows = this.showService.fetchShowsByFilmAndDay(filmId, timeId);
+        List<ResShowDTO> res = shows.stream().map(i -> this.showService.convertShowToResShowDTO(i))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok().body(res);
     }
 }
