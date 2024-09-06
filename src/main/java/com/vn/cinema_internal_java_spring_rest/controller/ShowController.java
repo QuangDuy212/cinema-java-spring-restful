@@ -108,7 +108,7 @@ public class ShowController {
     @GetMapping("/shows/by-film-day")
     @ApiMessage(value = "Fetch Shows by film and time success")
     public ResponseEntity<List<ResShowDTO>> fetchShowsByFilmAndTime(@RequestParam("film") long filmId,
-            @RequestParam("time") long timeId) throws CommonException {
+            @RequestParam("day") long timeId) throws CommonException {
         log.debug("REST request to get Shows by Film id: {} and Time id : {}", filmId, timeId);
         Film film = this.filmService.fetchFilmById(filmId);
         Time time = this.timeService.fetchTimeById(timeId);

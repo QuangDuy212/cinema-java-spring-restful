@@ -1,5 +1,6 @@
 package com.vn.cinema_internal_java_spring_rest.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -80,10 +81,15 @@ public class TimeService {
         ResTimeDTO res = new ResTimeDTO();
         res.setId(time.getId());
         res.setDate(time.getDate());
-        for (Show show : time.getShows()) {
-            ResTimeDTO.Show item = new ResTimeDTO.Show();
-            item.setId(show.getId());
-            item.setTime(show.getTime());
+        if (time.getShows() != null) {
+            List<ResTimeDTO.Show> shows = new ArrayList<ResTimeDTO.Show>();
+            for (Show show : time.getShows()) {
+                ResTimeDTO.Show item = new ResTimeDTO.Show();
+                item.setId(show.getId());
+                item.setTime(show.getTime());
+                shows.add(item);
+            }
+            res.setShows(shows);
         }
         return res;
     }

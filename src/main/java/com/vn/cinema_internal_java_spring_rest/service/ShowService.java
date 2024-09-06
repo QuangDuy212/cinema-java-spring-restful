@@ -134,6 +134,7 @@ public class ShowService {
         res.setId(show.getId());
         res.setZoomNumber(show.getZoomNumber());
         res.setPrice(show.getPrice());
+        res.setTime(show.getTime());
         ResShowDTO.Day day = new ResShowDTO.Day();
         day.setId(show.getDay().getId());
         day.setDate(show.getDay().getDate());

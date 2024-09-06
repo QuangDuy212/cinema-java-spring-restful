@@ -9,6 +9,7 @@ public class ResShowDTO {
     private long id;
     private int zoomNumber;
     private double price;
+    private String time;
     private Day day;
 
     @Getter
