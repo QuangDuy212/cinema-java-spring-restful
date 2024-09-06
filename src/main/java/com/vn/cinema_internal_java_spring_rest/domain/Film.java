@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.vn.cinema_internal_java_spring_rest.util.SecurityUtil;
 
 import jakarta.persistence.Column;
@@ -74,10 +75,6 @@ public class Film {
     // @JsonIgnoreProperties(value = { "roles" })
     @JoinTable(name = "show_film", joinColumns = @JoinColumn(name = "film_id"), inverseJoinColumns = @JoinColumn(name = "show_id"))
     private List<Show> shows;
-
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "films")
-    @JsonIgnore
-    private List<Time> times;
 
     @PrePersist
     private void handleBeforeCreate() {

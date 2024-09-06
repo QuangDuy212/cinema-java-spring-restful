@@ -54,13 +54,6 @@ public class FilmService {
             List<Show> shows = this.showRepository.findByIdIn(listIds);
             reqFilm.setShows(shows);
         }
-        if (reqFilm.getTimes() != null) {
-            List<Long> listIds = reqFilm.getTimes()
-                    .stream().map(i -> i.getId())
-                    .collect(Collectors.toList());
-            List<Time> times = this.timeRepository.findByIdIn(listIds);
-            reqFilm.setTimes(times);
-        }
         return this.filmRepository.save(reqFilm);
     }
 
@@ -162,16 +155,18 @@ public class FilmService {
         res.setUpdatedAt(film.getUpdatedAt());
         res.setUpdatedBy(film.getUpdatedBy());
         res.setOrigin(film.getOrigin());
-        res.setShows(film.getShows());
-        List<Time> listTimes = film.getTimes();
-        List<ResFilmDTO.TimeFilm> times = new ArrayList<ResFilmDTO.TimeFilm>();
-        for (Time item : listTimes) {
-            ResFilmDTO.TimeFilm time = new ResFilmDTO.TimeFilm();
-            time.setId(item.getId());
-            time.setDate(item.getDate());
-            times.add(time);
+        if (film.getShows() != null) {
+            List<Show> listShows = film.getShows();
+            List<ResFilmDTO.ShowFilm> shows = new ArrayList<ResFilmDTO.ShowFilm>();
+            for (Show item : listShows) {
+                ResFilmDTO.ShowFilm time = new ResFilmDTO.ShowFilm();
+                time.setId(item.getId());
+                time.setPrice(item.getPrice());
+                time.setTime(item.getTime());
+                time.setZoomNumber(item.getZoomNumber());
+                shows.add(time);
+            }
         }
-        res.setTimes(times);
         ResFilmDTO.CategoryFilm category = new ResFilmDTO.CategoryFilm();
         category.setId(film.getCategory() != null ? film.getCategory().getId() : null);
         category.setName(film.getCategory() != null ? film.getCategory().getName() : null);

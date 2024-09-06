@@ -7,9 +7,6 @@ import java.time.Instant;
 
 import java.util.List;
 
-import com.vn.cinema_internal_java_spring_rest.domain.Show;
-import com.vn.cinema_internal_java_spring_rest.domain.Time;
-
 @Getter
 @Setter
 public class ResFilmDTO {
@@ -24,7 +21,6 @@ public class ResFilmDTO {
     private long duration;
     private String trailer;
     private String origin;
-    private List<Show> shows;
     private List<TimeFilm> times;
     private Instant createdAt;
     private Instant updatedAt;
@@ -44,5 +40,14 @@ public class ResFilmDTO {
     public static class TimeFilm {
         private long id;
         private String date;
+    }
+
+    @Getter
+    @Setter
+    public static class ShowFilm {
+        private long id;
+        private int zoomNumber;
+        private String time;
+        private double price;
     }
 }

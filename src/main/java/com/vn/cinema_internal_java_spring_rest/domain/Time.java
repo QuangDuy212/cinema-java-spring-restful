@@ -29,11 +29,6 @@ public class Time {
 
     private String date;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "time_film", joinColumns = @JoinColumn(name = "time_id"), inverseJoinColumns = @JoinColumn(name = "film_id"))
-    private List<Film> films;
-
     @OneToMany(mappedBy = "timeShow")
-    @JsonIgnoreProperties({ "timeShow" })
     private List<Show> shows;
 }

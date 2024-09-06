@@ -12,8 +12,10 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.vn.cinema_internal_java_spring_rest.domain.Film;
+import com.vn.cinema_internal_java_spring_rest.domain.Show;
 import com.vn.cinema_internal_java_spring_rest.domain.Time;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.ResultPaginationDTO;
+import com.vn.cinema_internal_java_spring_rest.domain.dto.time.ResTimeDTO;
 import com.vn.cinema_internal_java_spring_rest.repository.FilmRepository;
 import com.vn.cinema_internal_java_spring_rest.repository.TimeRepository;
 
@@ -34,13 +36,6 @@ public class TimeService {
 
     public Time handleCreateTime(Time reqTime) {
         log.debug("Request to create a User: {}", reqTime);
-        if (reqTime.getFilms() != null) {
-            List<Long> listIds = reqTime.getFilms().stream().map(i -> i.getId())
-                    .collect(Collectors.toList());
-            List<Film> listFilms = this.filmRepository.findByIdIn(listIds);
-            reqTime.setFilms(listFilms);
-        }
-
         return this.timeRepository.save(reqTime);
     }
 
@@ -73,16 +68,27 @@ public class TimeService {
         if (reqTime.getDate() != null && !this.checkExistsByDate(reqTime.getDate())) {
             time.setDate(reqTime.getDate());
         }
-        if (reqTime.getFilms() != null) {
-            List<Long> listIds = reqTime.getFilms().stream().map(i -> i.getId())
-                    .collect(Collectors.toList());
-            List<Film> listFilms = this.filmRepository.findByIdIn(listIds);
-            time.setFilms(listFilms);
-        }
         return time;
     }
 
     public void handleDeleteTime(Time reqTime) {
         this.timeRepository.deleteById(reqTime.getId());
+    }
+
+    public ResTimeDTO convertTimeToResTimeDTo(Time time) {
+        ResTimeDTO res = new ResTimeDTO();
+        res.setId(time.getId());
+        res.setDate(time.getDate());
+        for (Show show : time.getShows()) {
+            ResTimeDTO.Show item = new ResTimeDTO.Show();
+            item.setId(show.getId());
+            item.setPrice(show.getPrice());
+            item.setZoomNumber(show.getZoomNumber());
+            ResTimeDTO.TimeShow timeShow = new ResTimeDTO.TimeShow();
+            timeShow.setId(show.getTimeShow().getId());
+            timeShow.setDate(show.getTimeShow().getDate());
+            item.setTimeShow(timeShow);
+        }
+        return res;
     }
 }

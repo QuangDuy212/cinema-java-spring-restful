@@ -136,7 +136,6 @@ public class ShowService {
         res.setId(show.getId());
         res.setZoomNumber(show.getZoomNumber());
         res.setPrice(show.getPrice());
-        res.setSeats(show.getSeats());
         ResShowDTO.TimeShow time = new ResShowDTO.TimeShow();
         time.setId(show.getTimeShow().getId());
         time.setDate(show.getTimeShow().getDate());
