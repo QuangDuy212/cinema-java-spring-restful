@@ -51,7 +51,11 @@ public class ShowController {
     @ApiMessage(value = "Create a Show success")
     public ResponseEntity<ResShowDTO> createAShow(@Valid @RequestBody Show reqShow) throws CommonException {
         log.debug("REST request to create Show : {}", reqShow);
-        boolean checkExist = this.showService.isExistsByZoomNumberAndTime(reqShow.getZoomNumber(), reqShow.getTime());
+        if (reqShow.getDay() == null || reqShow.getFilm() == null) {
+            throw new CommonException("Show must have day and film");
+        }
+        boolean checkExist = this.showService.isExists(reqShow.getZoomNumber(), reqShow.getTime(), reqShow.getDay(),
+                reqShow.getFilm());
         if (checkExist) {
             throw new CommonException("Show existed");
         }

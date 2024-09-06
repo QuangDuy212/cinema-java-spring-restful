@@ -13,7 +13,7 @@ import com.vn.cinema_internal_java_spring_rest.domain.Time;
 
 @Repository
 public interface ShowRepository extends JpaRepository<Show, Long>, JpaSpecificationExecutor<Show> {
-    boolean existsByZoomNumberAndTime(int zoomNumber, String time);
+    boolean existsByZoomNumberAndTimeAndDayAndFilm(int zoomNumber, String time, Time day, Film film);
 
     List<Show> findByIdIn(List<Long> listIds);
 

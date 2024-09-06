@@ -36,8 +36,8 @@ public class ShowService {
         this.timeRepository = timeRepository;
     }
 
-    public boolean isExistsByZoomNumberAndTime(int zNumber, String time) {
-        return this.showRepository.existsByZoomNumberAndTime(zNumber, time);
+    public boolean isExists(int zNumber, String time, Time day, Film film) {
+        return this.showRepository.existsByZoomNumberAndTimeAndDayAndFilm(zNumber, time, day, film);
     }
 
     public Show handleCreateAShow(Show reqShow) {
@@ -90,7 +90,8 @@ public class ShowService {
                         && reqShow.getZoomNumber() > 0)
                 || (reqShow.getZoomNumber() > 0 && !(currentShow.getZoomNumber() == reqShow.getZoomNumber())
                         && reqShow.getTime() != null)) {
-            boolean checkExist = this.isExistsByZoomNumberAndTime(reqShow.getZoomNumber(), reqShow.getTime());
+            boolean checkExist = this.isExists(reqShow.getZoomNumber(), reqShow.getTime(), reqShow.getDay(),
+                    reqShow.getFilm());
             if (checkExist)
                 throw new CommonException("Show existed");
             currentShow.setTime(reqShow.getTime());
@@ -99,7 +100,8 @@ public class ShowService {
 
         if (reqShow.getTime() != null && !currentShow.getTime().equals(reqShow.getTime())
                 && reqShow.getZoomNumber() == 0) {
-            boolean checkExist = this.isExistsByZoomNumberAndTime(currentShow.getZoomNumber(), reqShow.getTime());
+            boolean checkExist = this.isExists(currentShow.getZoomNumber(), reqShow.getTime(), reqShow.getDay(),
+                    reqShow.getFilm());
             if (checkExist)
                 throw new CommonException("Show existed");
             currentShow.setTime(reqShow.getTime());
@@ -107,7 +109,8 @@ public class ShowService {
 
         if (reqShow.getZoomNumber() > 0 && !(currentShow.getZoomNumber() == reqShow.getZoomNumber())
                 && reqShow.getTime() == null) {
-            boolean checkExist = this.isExistsByZoomNumberAndTime(reqShow.getZoomNumber(), currentShow.getTime());
+            boolean checkExist = this.isExists(reqShow.getZoomNumber(), currentShow.getTime(), reqShow.getDay(),
+                    reqShow.getFilm());
             if (checkExist)
                 throw new CommonException("Show existed");
             currentShow.setZoomNumber(reqShow.getZoomNumber());
