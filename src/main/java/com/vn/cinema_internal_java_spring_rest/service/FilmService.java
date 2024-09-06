@@ -155,6 +155,8 @@ public class FilmService {
         res.setUpdatedAt(film.getUpdatedAt());
         res.setUpdatedBy(film.getUpdatedBy());
         res.setOrigin(film.getOrigin());
+
+        // show
         if (film.getShows() != null) {
             List<Show> listShows = film.getShows();
             List<ResFilmDTO.ShowFilm> shows = new ArrayList<ResFilmDTO.ShowFilm>();
@@ -164,9 +166,16 @@ public class FilmService {
                 time.setPrice(item.getPrice());
                 time.setTime(item.getTime());
                 time.setZoomNumber(item.getZoomNumber());
+                ResFilmDTO.Day day = new ResFilmDTO.Day();
+                day.setId(item.getDay().getId());
+                day.setDate(item.getDay().getDate());
+                time.setDay(day);
                 shows.add(time);
             }
+            res.setShows(shows);
         }
+
+        // category
         ResFilmDTO.CategoryFilm category = new ResFilmDTO.CategoryFilm();
         category.setId(film.getCategory() != null ? film.getCategory().getId() : null);
         category.setName(film.getCategory() != null ? film.getCategory().getName() : null);

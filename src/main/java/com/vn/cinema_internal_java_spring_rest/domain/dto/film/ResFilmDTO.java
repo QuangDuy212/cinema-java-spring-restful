@@ -21,7 +21,7 @@ public class ResFilmDTO {
     private long duration;
     private String trailer;
     private String origin;
-    private List<TimeFilm> times;
+    private List<ShowFilm> shows;
     private Instant createdAt;
     private Instant updatedAt;
     private String createdBy;
@@ -37,7 +37,7 @@ public class ResFilmDTO {
 
     @Getter
     @Setter
-    public static class TimeFilm {
+    public static class Day {
         private long id;
         private String date;
     }
@@ -49,5 +49,6 @@ public class ResFilmDTO {
         private int zoomNumber;
         private String time;
         private double price;
+        private Day day;
     }
 }

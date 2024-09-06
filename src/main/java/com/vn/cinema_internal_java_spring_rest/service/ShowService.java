@@ -48,11 +48,11 @@ public class ShowService {
                 reqShow.setFilm(film.get());
         }
 
-        if (reqShow.getTimeShow() != null) {
-            long id = reqShow.getTimeShow().getId();
+        if (reqShow.getDay() != null) {
+            long id = reqShow.getDay().getId();
             Optional<Time> timeShow = this.timeRepository.findById(id);
             if (timeShow.isPresent())
-                reqShow.setTimeShow(timeShow.get());
+                reqShow.setDay(timeShow.get());
         }
         return this.showRepository.save(reqShow);
     }
@@ -134,10 +134,10 @@ public class ShowService {
         res.setId(show.getId());
         res.setZoomNumber(show.getZoomNumber());
         res.setPrice(show.getPrice());
-        ResShowDTO.TimeShow time = new ResShowDTO.TimeShow();
-        time.setId(show.getTimeShow().getId());
-        time.setDate(show.getTimeShow().getDate());
-        res.setTimeShow(time);
+        ResShowDTO.Day day = new ResShowDTO.Day();
+        day.setId(show.getDay().getId());
+        day.setDate(show.getDay().getDate());
+        res.setDay(day);
         return res;
     }
 

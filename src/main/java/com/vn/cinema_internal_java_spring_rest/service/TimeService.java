@@ -1,8 +1,6 @@
 package com.vn.cinema_internal_java_spring_rest.service;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +9,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import com.vn.cinema_internal_java_spring_rest.domain.Film;
 import com.vn.cinema_internal_java_spring_rest.domain.Show;
 import com.vn.cinema_internal_java_spring_rest.domain.Time;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.ResultPaginationDTO;
@@ -82,12 +79,7 @@ public class TimeService {
         for (Show show : time.getShows()) {
             ResTimeDTO.Show item = new ResTimeDTO.Show();
             item.setId(show.getId());
-            item.setPrice(show.getPrice());
-            item.setZoomNumber(show.getZoomNumber());
-            ResTimeDTO.TimeShow timeShow = new ResTimeDTO.TimeShow();
-            timeShow.setId(show.getTimeShow().getId());
-            timeShow.setDate(show.getTimeShow().getDate());
-            item.setTimeShow(timeShow);
+            item.setTime(show.getTime());
         }
         return res;
     }

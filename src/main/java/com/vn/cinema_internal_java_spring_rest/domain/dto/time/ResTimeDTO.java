@@ -18,15 +18,6 @@ public class ResTimeDTO {
     @Setter
     public static class Show {
         private long id;
-        private int zoomNumber;
-        private double price;
-        private TimeShow timeShow;
-    }
-
-    @Getter
-    @Setter
-    public static class TimeShow {
-        private long id;
-        private String date;
+        private String time;
     }
 }

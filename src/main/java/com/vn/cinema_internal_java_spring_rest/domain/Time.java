@@ -29,6 +29,6 @@ public class Time {
 
     private String date;
 
-    @OneToMany(mappedBy = "timeShow")
+    @OneToMany(mappedBy = "day")
     private List<Show> shows;
 }

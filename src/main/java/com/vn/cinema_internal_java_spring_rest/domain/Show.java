@@ -17,6 +17,7 @@ import lombok.Setter;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "shows")
@@ -45,6 +46,7 @@ public class Show {
 
     @ManyToOne
     @JoinColumn(name = "time_id")
-    private Time timeShow;
+    @JsonIgnoreProperties({ "shows" })
+    private Time day;
 
 }
