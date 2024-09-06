@@ -20,6 +20,7 @@ import com.vn.cinema_internal_java_spring_rest.domain.Category;
 import com.vn.cinema_internal_java_spring_rest.domain.Film;
 import com.vn.cinema_internal_java_spring_rest.domain.Time;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.ResultPaginationDTO;
+import com.vn.cinema_internal_java_spring_rest.domain.dto.time.ResTimeDTO;
 import com.vn.cinema_internal_java_spring_rest.service.TimeService;
 import com.vn.cinema_internal_java_spring_rest.util.annotation.ApiMessage;
 import com.vn.cinema_internal_java_spring_rest.util.error.CommonException;
@@ -39,24 +40,26 @@ public class TimeController {
 
     @PostMapping("/times")
     @ApiMessage(value = "Create a Time success")
-    public ResponseEntity<Time> createATime(@Valid @RequestBody Time reqTime) throws CommonException {
+    public ResponseEntity<ResTimeDTO> createATime(@Valid @RequestBody Time reqTime) throws CommonException {
         log.debug("REST request to create Time : {}", reqTime);
         boolean checkExist = this.timeService.checkExistsByDate(reqTime.getDate());
         if (checkExist)
             throw new CommonException("Time existed");
         Time time = this.timeService.handleCreateTime(reqTime);
-        return ResponseEntity.status(HttpStatus.CREATED).body(time);
+        ResTimeDTO res = this.timeService.convertTimeToResTimeDTO(time);
+        return ResponseEntity.status(HttpStatus.CREATED).body(res);
     }
 
     @GetMapping("/times/{id}")
     @ApiMessage(value = "Fetch Time success")
-    public ResponseEntity<Time> fetchTimeById(@PathVariable("id") long id) throws CommonException {
+    public ResponseEntity<ResTimeDTO> fetchTimeById(@PathVariable("id") long id) throws CommonException {
         log.debug("REST request to get a Time by id : {}", id);
         Time time = this.timeService.fetchTimeById(id);
         if (time == null) {
             throw new CommonException("Time not found");
         }
-        return ResponseEntity.ok().body(time);
+        ResTimeDTO res = this.timeService.convertTimeToResTimeDTO(time);
+        return ResponseEntity.ok().body(res);
     }
 
     @GetMapping("/times")
@@ -69,7 +72,7 @@ public class TimeController {
 
     @PutMapping("/times")
     @ApiMessage(value = "Update a Time success")
-    public ResponseEntity<Time> updateATime(@RequestBody Time reqTime) throws CommonException {
+    public ResponseEntity<ResTimeDTO> updateATime(@RequestBody Time reqTime) throws CommonException {
         log.debug("REST request to update Time : {}", reqTime);
         Time time = this.timeService.fetchTimeById(reqTime.getId());
         if (time == null) {
@@ -81,7 +84,8 @@ public class TimeController {
                 throw new CommonException("Time date is existd");
         }
         Time updatedTime = this.timeService.handleUpdateTime(reqTime);
-        return ResponseEntity.ok().body(updatedTime);
+        ResTimeDTO res = this.timeService.convertTimeToResTimeDTO(updatedTime);
+        return ResponseEntity.ok().body(res);
     }
 
     @DeleteMapping("/times")

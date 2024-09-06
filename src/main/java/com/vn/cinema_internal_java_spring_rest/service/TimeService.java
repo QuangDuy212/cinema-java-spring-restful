@@ -1,6 +1,8 @@
 package com.vn.cinema_internal_java_spring_rest.service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,6 +49,8 @@ public class TimeService {
     public ResultPaginationDTO fetchAllTimes(Specification<Time> spe, Pageable page) {
         log.debug("Request to get all Times");
         Page<Time> listTimes = this.timeRepository.findAll(spe, page);
+        List<ResTimeDTO> times = listTimes.stream().map(i -> this.convertTimeToResTimeDTO(i))
+                .collect(Collectors.toList());
         ResultPaginationDTO res = new ResultPaginationDTO();
         ResultPaginationDTO.Meta meta = new ResultPaginationDTO.Meta();
         meta.setPage(page.getPageNumber() + 1);
@@ -56,7 +60,7 @@ public class TimeService {
         meta.setTotal(listTimes.getTotalElements());
 
         res.setMeta(meta);
-        res.setResult(listTimes.getContent());
+        res.setResult(times);
         return res;
     }
 
@@ -72,7 +76,7 @@ public class TimeService {
         this.timeRepository.deleteById(reqTime.getId());
     }
 
-    public ResTimeDTO convertTimeToResTimeDTo(Time time) {
+    public ResTimeDTO convertTimeToResTimeDTO(Time time) {
         ResTimeDTO res = new ResTimeDTO();
         res.setId(time.getId());
         res.setDate(time.getDate());
