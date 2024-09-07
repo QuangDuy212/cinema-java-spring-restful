@@ -49,6 +49,7 @@ public class ResFilmDTO {
         private int zoomNumber;
         private String time;
         private double price;
+        private boolean isActive;
         private Day day;
     }
 }

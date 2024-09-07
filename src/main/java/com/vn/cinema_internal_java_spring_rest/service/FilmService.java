@@ -166,6 +166,7 @@ public class FilmService {
                 time.setPrice(item.getPrice());
                 time.setTime(item.getTime());
                 time.setZoomNumber(item.getZoomNumber());
+                time.setActive(item.isActive());
                 ResFilmDTO.Day day = new ResFilmDTO.Day();
                 day.setId(item.getDay().getId());
                 day.setDate(item.getDay().getDate());
