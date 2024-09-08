@@ -72,6 +72,8 @@ public class AuthController {
                                         currentUserDB.getId(),
                                         currentUserDB.getEmail(),
                                         currentUserDB.getFullName(),
+                                        currentUserDB.getPhone(),
+                                        currentUserDB.getAddress(),
                                         currentUserDB.getRole());
                         res.setUser(userLogin);
                 }
@@ -108,8 +110,10 @@ public class AuthController {
                 if (currentUserDB != null) {
                         userLogin.setId(currentUserDB.getId());
                         userLogin.setEmail(currentUserDB.getEmail());
-                        userLogin.setName(currentUserDB.getFullName());
+                        userLogin.setFullName(currentUserDB.getFullName());
                         userLogin.setRole(currentUserDB.getRole());
+                        userLogin.setAddress(currentUserDB.getAddress());
+                        userLogin.setPhone(currentUserDB.getPhone());
                         userGetAccount.setUser(userLogin);
                 }
                 return ResponseEntity.ok().body(userGetAccount);
@@ -141,6 +145,8 @@ public class AuthController {
                                         currentUserDB.getId(),
                                         currentUserDB.getEmail(),
                                         currentUserDB.getFullName(),
+                                        currentUserDB.getPhone(),
+                                        currentUserDB.getAddress(),
                                         currentUserDB.getRole());
                         res.setUser(userLogin);
                 }

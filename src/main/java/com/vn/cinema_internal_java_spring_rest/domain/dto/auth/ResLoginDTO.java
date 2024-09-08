@@ -22,7 +22,9 @@ public class ResLoginDTO {
     public static class UserLogin {
         private long id;
         private String email;
-        private String name;
+        private String fullName;
+        private String phone;
+        private String address;
         private Role role;
     }
 
