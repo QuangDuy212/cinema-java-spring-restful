@@ -5,10 +5,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import com.vn.cinema_internal_java_spring_rest.domain.Bill;
 import com.vn.cinema_internal_java_spring_rest.domain.Seat;
 import com.vn.cinema_internal_java_spring_rest.domain.Show;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.ResultPaginationDTO;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.seat.ResSeatDTO;
+import com.vn.cinema_internal_java_spring_rest.repository.BillRepository;
 import com.vn.cinema_internal_java_spring_rest.repository.SeatRepository;
 import com.vn.cinema_internal_java_spring_rest.repository.ShowRepository;
 import com.vn.cinema_internal_java_spring_rest.util.constant.SeatNameEnum;
@@ -21,10 +23,12 @@ import java.util.stream.Collectors;
 public class SeatService {
     private final SeatRepository seatRepository;
     private final ShowRepository showRepository;
+    private final BillRepository billRepository;
 
-    public SeatService(SeatRepository seatRepository, ShowRepository showRepository) {
+    public SeatService(SeatRepository seatRepository, ShowRepository showRepository, BillRepository billRepository) {
         this.seatRepository = seatRepository;
         this.showRepository = showRepository;
+        this.billRepository = billRepository;
     }
 
     public boolean checkExistByListIds(List<Long> listIds) {
@@ -46,6 +50,11 @@ public class SeatService {
         if (show.isPresent())
             reqSeat.setShow(show.get());
         reqSeat.setActive(true);
+        if (reqSeat.getBill() != null) {
+            Optional<Bill> bill = this.billRepository.findById(reqSeat.getBill().getId());
+            if (bill.isPresent())
+                reqSeat.setBill(bill.get());
+        }
         return this.seatRepository.save(reqSeat);
     }
 

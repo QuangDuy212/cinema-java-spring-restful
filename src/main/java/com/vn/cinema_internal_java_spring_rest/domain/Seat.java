@@ -30,11 +30,9 @@ public class Seat {
 
     @ManyToOne
     @JoinColumn(name = "show_id")
-
     private Show show;
 
     @ManyToOne
     @JoinColumn(name = "bill_id")
-    @JsonIgnore
     private Bill bill;
 }

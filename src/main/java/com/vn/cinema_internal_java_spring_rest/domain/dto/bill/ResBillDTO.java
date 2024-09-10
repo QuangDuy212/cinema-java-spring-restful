@@ -19,7 +19,7 @@ public class ResBillDTO {
     private long quantity;
     private StatusBillEnum status;
     private BillUser user;
-    private List<Seat> seats;
+    private List<BillSeat> seats;
     private Instant createdAt;
     private Instant updatedAt;
     private String createdBy;
@@ -29,6 +29,13 @@ public class ResBillDTO {
     @Setter
     public static class BillUser {
         private String email;
+    }
+
+    @Getter
+    @Setter
+    public static class BillSeat {
+        private long id;
+        private SeatNameEnum name;
     }
 
 }

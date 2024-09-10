@@ -10,13 +10,13 @@ import com.vn.cinema_internal_java_spring_rest.domain.Seat;
 import com.vn.cinema_internal_java_spring_rest.domain.User;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.ResultPaginationDTO;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.bill.ResBillDTO;
-import com.vn.cinema_internal_java_spring_rest.domain.dto.seat.ResSeatDTO;
 import com.vn.cinema_internal_java_spring_rest.repository.BillRepository;
 import com.vn.cinema_internal_java_spring_rest.repository.SeatRepository;
 import com.vn.cinema_internal_java_spring_rest.repository.UserRepository;
 import com.vn.cinema_internal_java_spring_rest.util.SecurityUtil;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -39,13 +39,13 @@ public class BillService {
         Optional<User> user = this.userRepository.findByEmail(email);
         if (user.isPresent())
             reqBill.setUser(user.get());
-        if (reqBill.getSeats() != null) {
-            List<Long> listIds = reqBill.getSeats()
-                    .stream().map(i -> i.getId())
-                    .collect(Collectors.toList());
-            List<Seat> seats = this.seatRepository.findByIdIn(listIds);
-            reqBill.setSeats(seats);
-        }
+        // if (reqBill.getSeats() != null) {
+        // List<Long> listIds = reqBill.getSeats()
+        // .stream().map(i -> i.getId())
+        // .collect(Collectors.toList());
+        // List<Seat> seats = this.seatRepository.findByIdIn(listIds);
+        // reqBill.setSeats(seats);
+        // }
         return this.billRepository.save(reqBill);
 
     }
@@ -63,7 +63,17 @@ public class BillService {
         res.setUpdatedAt(bill.getUpdatedAt());
         res.setCreatedBy(bill.getCreatedBy());
         res.setUpdatedBy(bill.getUpdatedBy());
-        res.setSeats(bill.getSeats());
+        if (bill.getSeats() != null) {
+
+            List<ResBillDTO.BillSeat> seats = new ArrayList<ResBillDTO.BillSeat>();
+            for (Seat s : bill.getSeats()) {
+                ResBillDTO.BillSeat seat = new ResBillDTO.BillSeat();
+                seat.setId(s.getId());
+                seat.setName(s.getName());
+                seats.add(seat);
+            }
+            res.setSeats(seats);
+        }
         return res;
     }
 
