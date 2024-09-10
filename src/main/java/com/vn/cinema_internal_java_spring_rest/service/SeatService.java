@@ -37,18 +37,16 @@ public class SeatService {
         return true;
     }
 
-    public boolean checkExistByListName(List<SeatNameEnum> listNames) {
-        return this.seatRepository.existsByNameIn(listNames);
+    public boolean checkExist(SeatNameEnum name, Show show) {
+        return this.seatRepository.existsByNameAndShow(name, show);
     }
 
-    public List<Seat> handleCreateSeat(List<Seat> reqListSeat) {
-        for (Seat seat : reqListSeat) {
-            Optional<Show> show = this.showRepository.findById(seat.getShow().getId());
-            if (show.isPresent())
-                seat.setShow(show.get());
-            seat.setActive(true);
-        }
-        return this.seatRepository.saveAll(reqListSeat);
+    public Seat handleCreateSeat(Seat reqSeat) {
+        Optional<Show> show = this.showRepository.findById(reqSeat.getShow().getId());
+        if (show.isPresent())
+            reqSeat.setShow(show.get());
+        reqSeat.setActive(true);
+        return this.seatRepository.save(reqSeat);
     }
 
     public ResSeatDTO convertSeatToResSeatDTO(Seat seat) {
@@ -76,8 +74,9 @@ public class SeatService {
         this.seatRepository.deleteAllById(listIds);
     }
 
-    public ResultPaginationDTO fetchListSeatsByShow(Show reqShow, Pageable page) {
-        Page<Seat> listSeats = this.seatRepository.findByShow(reqShow, page);
+    public ResultPaginationDTO fetchListSeatsByShow(long id, Pageable page) {
+        Optional<Show> reqShow = this.showRepository.findById(id);
+        Page<Seat> listSeats = this.seatRepository.findByShow(reqShow.get(), page);
         List<ResSeatDTO> listResSeats = listSeats.getContent()
                 .stream().map(i -> this.convertSeatToResSeatDTO(i))
                 .collect(Collectors.toList());

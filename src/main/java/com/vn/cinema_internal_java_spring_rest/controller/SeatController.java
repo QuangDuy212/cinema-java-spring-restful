@@ -50,22 +50,16 @@ public class SeatController {
 
     @PostMapping("/seats")
     @ApiMessage(value = "Create seats success")
-    public ResponseEntity<List<ResSeatDTO>> createListSeat(@Valid @RequestBody List<Seat> reqListSeats)
+    public ResponseEntity<ResSeatDTO> createListSeat(@Valid @RequestBody Seat reqSeat)
             throws CommonException {
-        log.debug("REST request to create Seat : {}", reqListSeats);
+        log.debug("REST request to create Seat : {}", reqSeat);
         // List<SeatNameEnum> listNames = reqListSeats.stream().map(i -> i.getName())
         // .collect(Collectors.toList());
-        List<SeatNameEnum> names = new ArrayList<SeatNameEnum>();
-        for (Seat seat : reqListSeats) {
-            names.add(seat.getName());
-        }
-        boolean checkExistsListName = this.seatService.checkExistByListName(names);
+        boolean checkExistsListName = this.seatService.checkExist(reqSeat.getName(), reqSeat.getShow());
         if (checkExistsListName)
             throw new CommonException("Name seat existed");
-        List<Seat> seats = this.seatService.handleCreateSeat(reqListSeats);
-
-        List<ResSeatDTO> res = seats.stream().map(i -> this.seatService.convertSeatToResSeatDTO(i))
-                .collect(Collectors.toList());
+        Seat seat = this.seatService.handleCreateSeat(reqSeat);
+        ResSeatDTO res = this.seatService.convertSeatToResSeatDTO(seat);
         return ResponseEntity.status(HttpStatus.CREATED).body(res);
     }
 
@@ -86,13 +80,13 @@ public class SeatController {
 
     @GetMapping("/seats/by-show")
     @ApiMessage(value = "Fetch seats by show success")
-    public ResponseEntity<ResultPaginationDTO> getListSeatsByShow(@RequestBody Show reqShow, Pageable page)
+    public ResponseEntity<ResultPaginationDTO> getListSeatsByShow(@RequestParam("id") long id, Pageable page)
             throws CommonException {
-        log.debug("REST request to get Seats : {}", reqShow);
-        Show show = this.showService.fetchShowById(reqShow.getId());
+        log.debug("REST request to get Seats by id show: {}", id);
+        Show show = this.showService.fetchShowById(id);
         if (show == null)
             throw new CommonException("Show not found");
-        ResultPaginationDTO res = this.seatService.fetchListSeatsByShow(reqShow, page);
+        ResultPaginationDTO res = this.seatService.fetchListSeatsByShow(id, page);
         return ResponseEntity.ok().body(res);
     }
 

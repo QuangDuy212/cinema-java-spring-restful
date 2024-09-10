@@ -23,4 +23,5 @@ public interface SeatRepository extends JpaRepository<Seat, Long>, JpaSpecificat
     Page<Seat> findByShow(Show show, Pageable page);
 
     List<Seat> findByIdIn(List<Long> listIds);
+
 }
