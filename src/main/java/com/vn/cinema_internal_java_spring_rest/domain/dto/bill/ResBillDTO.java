@@ -20,6 +20,7 @@ public class ResBillDTO {
     private StatusBillEnum status;
     private BillUser user;
     private List<BillSeat> seats;
+    private String nameFilm;
     private Instant createdAt;
     private Instant updatedAt;
     private String createdBy;

@@ -72,6 +72,8 @@ public class SeatService {
         if (seat.getShow().getFilm() != null) {
             ResSeatDTO.FilmSeat film = new ResSeatDTO.FilmSeat();
             film.setId(seat.getShow().getFilm().getId());
+            film.setName(seat.getShow().getFilm().getName());
+            show.setFilm(film);
         }
         res.setShow(show);
         return res;

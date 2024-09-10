@@ -31,5 +31,6 @@ public class ResSeatDTO {
     @Setter
     public static class FilmSeat {
         private long id;
+        private String name;
     }
 }

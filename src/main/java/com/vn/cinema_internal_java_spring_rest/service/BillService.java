@@ -71,6 +71,7 @@ public class BillService {
                 seat.setId(s.getId());
                 seat.setName(s.getName());
                 seats.add(seat);
+                res.setNameFilm(s.getShow().getFilm().getName());
             }
             res.setSeats(seats);
         }
