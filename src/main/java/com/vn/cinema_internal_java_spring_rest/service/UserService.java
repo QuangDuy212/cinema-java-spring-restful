@@ -41,7 +41,13 @@ public class UserService {
             Optional<Role> role = this.roleRepository.findById(reqUser.getRole().getId());
             if (role.isPresent())
                 reqUser.setRole(role.get());
+        } else {
+            Role role = this.roleRepository.findByName("USER");
+            if (role != null) {
+                reqUser.setRole(role);
+            }
         }
+
         return this.userRepository.save(reqUser);
     }
 
