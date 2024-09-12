@@ -121,7 +121,7 @@ public class BillService {
         return this.billRepository.save(currentBill);
     }
 
-    public void handleDeleteBill(Bill reqBill) {
-        this.billRepository.deleteById(reqBill.getId());
+    public void handleDeleteBill(long id) {
+        this.billRepository.deleteById(id);
     }
 }

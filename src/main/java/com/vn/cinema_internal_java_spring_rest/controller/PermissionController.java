@@ -77,14 +77,14 @@ public class PermissionController {
         return ResponseEntity.ok().body(res);
     }
 
-    @DeleteMapping("/permissions")
+    @DeleteMapping("/permissions/{id}")
     @ApiMessage(value = "Delete a permission success")
-    public ResponseEntity<Void> deleteAPer(@RequestBody Permission reqPer) throws CommonException {
-        log.debug("REST request to delete Permission : {}", reqPer);
-        Permission per = this.permissionService.fetchPermissionById(reqPer.getId());
+    public ResponseEntity<Void> deleteAPer(@PathVariable("id") long id) throws CommonException {
+        log.debug("REST request to delete Permission by Id: {}", id);
+        Permission per = this.permissionService.fetchPermissionById(id);
         if (per == null)
             throw new CommonException("Permission not found");
-        this.permissionService.handleDeletePer(reqPer);
+        this.permissionService.handleDeletePer(id);
         return ResponseEntity.ok().body(null);
     }
 

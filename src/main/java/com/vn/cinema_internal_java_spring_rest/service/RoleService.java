@@ -91,7 +91,7 @@ public class RoleService {
         return this.roleRepository.findByIdIn(listIds);
     }
 
-    public void handleDeleteRole(Role reqRole) {
-        this.roleRepository.deleteById(reqRole.getId());
+    public void handleDeleteRole(long id) {
+        this.roleRepository.deleteById(id);
     }
 }

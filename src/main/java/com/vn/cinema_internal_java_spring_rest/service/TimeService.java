@@ -73,8 +73,8 @@ public class TimeService {
         return time;
     }
 
-    public void handleDeleteTime(Time reqTime) {
-        this.timeRepository.deleteById(reqTime.getId());
+    public void handleDeleteTime(long id) {
+        this.timeRepository.deleteById(id);
     }
 
     public ResTimeDTO convertTimeToResTimeDTO(Time time) {

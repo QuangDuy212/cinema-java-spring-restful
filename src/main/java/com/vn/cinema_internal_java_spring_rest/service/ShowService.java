@@ -128,8 +128,8 @@ public class ShowService {
         return this.showRepository.save(currentShow);
     }
 
-    public void handleDeleteAShow(Show reqShow) {
-        this.showRepository.deleteById(reqShow.getId());
+    public void handleDeleteAShow(long id) {
+        this.showRepository.deleteById(id);
     }
 
     public ResShowDTO convertShowToResShowDTO(Show show) {

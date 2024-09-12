@@ -76,14 +76,14 @@ public class FilmController {
         return ResponseEntity.ok().body(this.filmService.convertFilmToResFilmDTO(updatedFilm));
     }
 
-    @DeleteMapping("/films")
+    @DeleteMapping("/films/{id}")
     @ApiMessage(value = "Delete a Film success")
-    public ResponseEntity<Void> deleteAFilm(@RequestBody Film reqFilm) throws CommonException {
-        log.debug("REST request to delete Film : {}", reqFilm);
-        Film film = this.filmService.fetchFilmById(reqFilm.getId());
+    public ResponseEntity<Void> deleteAFilm(@PathVariable("id") long id) throws CommonException {
+        log.debug("REST request to delete Film : {}", id);
+        Film film = this.filmService.fetchFilmById(id);
         if (film == null)
             throw new CommonException("Film not found");
-        this.filmService.handleDeleteAFilm(reqFilm);
+        this.filmService.handleDeleteAFilm(id);
         return ResponseEntity.ok().body(null);
     }
 

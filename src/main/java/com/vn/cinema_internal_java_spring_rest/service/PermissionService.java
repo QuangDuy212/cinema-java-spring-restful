@@ -115,7 +115,7 @@ public class PermissionService {
         return this.permissionRepository.save(currentPer);
     }
 
-    public void handleDeletePer(Permission reqPer) {
-        this.permissionRepository.deleteById(reqPer.getId());
+    public void handleDeletePer(long id) {
+        this.permissionRepository.deleteById(id);
     }
 }

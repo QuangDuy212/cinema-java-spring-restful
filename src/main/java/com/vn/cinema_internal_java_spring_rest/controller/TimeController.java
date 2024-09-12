@@ -88,14 +88,14 @@ public class TimeController {
         return ResponseEntity.ok().body(res);
     }
 
-    @DeleteMapping("/times")
+    @DeleteMapping("/times/{id}")
     @ApiMessage(value = "Delete a Time success")
-    public ResponseEntity<Void> deleteATime(@RequestBody Time reqTime) throws CommonException {
-        log.debug("REST request to delete Time : {}", reqTime);
-        Time time = this.timeService.fetchTimeById(reqTime.getId());
+    public ResponseEntity<Void> deleteATime(@PathVariable("id") long id) throws CommonException {
+        log.debug("REST request to delete Time by Id: {}", id);
+        Time time = this.timeService.fetchTimeById(id);
         if (time == null)
             throw new CommonException("Time not found");
-        this.timeService.handleDeleteTime(reqTime);
+        this.timeService.handleDeleteTime(id);
         return ResponseEntity.ok().body(null);
     }
 }

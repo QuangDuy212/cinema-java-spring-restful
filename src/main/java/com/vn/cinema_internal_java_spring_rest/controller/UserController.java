@@ -98,11 +98,11 @@ public class UserController {
         return ResponseEntity.ok().body(res);
     }
 
-    @DeleteMapping("/users")
+    @DeleteMapping("/users/{id}")
     @ApiMessage(value = "Delete a User success")
-    public ResponseEntity<Void> deleteAUser(@RequestBody User reqUser) throws CommonException {
-        log.debug("REST request to delete User : {}", reqUser);
-        User user = this.userService.fetchUserById(reqUser.getId());
+    public ResponseEntity<Void> deleteAUser(@PathVariable("id") long id) throws CommonException {
+        log.debug("REST request to delete User by id: {}", id);
+        User user = this.userService.fetchUserById(id);
         if (user == null)
             throw new CommonException("User not found");
         this.userService.handleDeleteUser(user);

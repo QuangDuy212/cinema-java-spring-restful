@@ -77,7 +77,7 @@ public class CategoryService {
         return this.categoryRepository.save(currentCat);
     }
 
-    public void handleDeleteCate(Category reqCate) {
-        this.categoryRepository.deleteById(reqCate.getId());
+    public void handleDeleteCate(long id) {
+        this.categoryRepository.deleteById(id);
     }
 }

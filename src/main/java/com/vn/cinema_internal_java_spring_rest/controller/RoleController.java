@@ -78,14 +78,14 @@ public class RoleController {
         return ResponseEntity.ok().body(currentRole);
     }
 
-    @DeleteMapping("/roles")
+    @DeleteMapping("/roles/{id}")
     @ApiMessage(value = "Delete a Role success")
-    public ResponseEntity<Void> deleteARole(@RequestBody Role reqRole) throws CommonException {
-        log.debug("REST request to delete Role : {}", reqRole);
-        Role role = this.roleService.fetchRoleById(reqRole.getId());
+    public ResponseEntity<Void> deleteARole(@PathVariable("id") long id) throws CommonException {
+        log.debug("REST request to delete Role by Id: {}", id);
+        Role role = this.roleService.fetchRoleById(id);
         if (role == null)
             throw new CommonException("Role not found");
-        this.roleService.handleDeleteRole(reqRole);
+        this.roleService.handleDeleteRole(id);
         return ResponseEntity.ok().body(null);
     }
 

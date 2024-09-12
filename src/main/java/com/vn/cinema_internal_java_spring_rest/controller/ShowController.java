@@ -98,14 +98,14 @@ public class ShowController {
         return ResponseEntity.ok().body(res);
     }
 
-    @DeleteMapping("/shows")
+    @DeleteMapping("/shows/{id}")
     @ApiMessage(value = "Delete a Show success")
-    public ResponseEntity<Void> deleteAShow(@RequestBody Show reqShow) throws CommonException {
-        log.debug("REST request to delete Show : {}", reqShow);
-        Show show = this.showService.fetchShowById(reqShow.getId());
+    public ResponseEntity<Void> deleteAShow(@PathVariable("id") long id) throws CommonException {
+        log.debug("REST request to delete Show by Id: {}", id);
+        Show show = this.showService.fetchShowById(id);
         if (show == null)
             throw new CommonException("Show not found");
-        this.showService.handleDeleteAShow(reqShow);
+        this.showService.handleDeleteAShow(id);
         return ResponseEntity.ok().body(null);
     }
 

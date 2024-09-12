@@ -84,14 +84,14 @@ public class CategoryController {
         return ResponseEntity.ok().body(newCate);
     }
 
-    @DeleteMapping("/categories")
+    @DeleteMapping("/categories/{id}")
     @ApiMessage(value = "Delete a Category success")
-    public ResponseEntity<Void> deleteACategory(@RequestBody Category reqCate) throws CommonException {
-        log.debug("REST request to delete Category : {}", reqCate);
-        Category cate = this.categoryService.fetchCategoryById(reqCate.getId());
+    public ResponseEntity<Void> deleteACategory(@PathVariable("id") long id) throws CommonException {
+        log.debug("REST request to delete Category by id : {}", id);
+        Category cate = this.categoryService.fetchCategoryById(id);
         if (cate == null)
             throw new CommonException("Category not found");
-        this.categoryService.handleDeleteCate(reqCate);
+        this.categoryService.handleDeleteCate(id);
         return ResponseEntity.ok().body(null);
     }
 }

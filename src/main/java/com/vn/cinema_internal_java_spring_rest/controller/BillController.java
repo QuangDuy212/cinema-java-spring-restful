@@ -92,14 +92,14 @@ public class BillController {
         return ResponseEntity.ok().body(res);
     }
 
-    @DeleteMapping("/bills")
+    @DeleteMapping("/bills/{id}")
     @ApiMessage(value = "Delete a Bill success")
-    public ResponseEntity<Void> deleteABill(@RequestBody Bill reqBill) throws CommonException {
-        log.debug("REST request to delete Bill : {}", reqBill);
-        Bill bill = this.billService.fetchBillById(reqBill.getId());
+    public ResponseEntity<Void> deleteABill(@PathVariable("id") long id) throws CommonException {
+        log.debug("REST request to delete Bill by Id: {}", id);
+        Bill bill = this.billService.fetchBillById(id);
         if (bill == null)
             throw new CommonException("Bill not found");
-        this.billService.handleDeleteBill(reqBill);
+        this.billService.handleDeleteBill(id);
         return ResponseEntity.ok().body(null);
     }
 }
