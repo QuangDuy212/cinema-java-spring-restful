@@ -194,5 +194,6 @@ public class UserService {
 
     public void handleDeleteUser(User user) {
         user.setActive(false);
+        this.userRepository.save(user);
     }
 }
