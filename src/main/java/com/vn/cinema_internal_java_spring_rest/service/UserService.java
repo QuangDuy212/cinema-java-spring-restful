@@ -1,6 +1,7 @@
 package com.vn.cinema_internal_java_spring_rest.service;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -47,6 +49,8 @@ public class UserService {
                 reqUser.setRole(role);
             }
         }
+
+        reqUser.setActive(true);
 
         return this.userRepository.save(reqUser);
     }
@@ -96,8 +100,13 @@ public class UserService {
 
     public ResultPaginationDTO fetchAllUsers(Specification<User> spe, Pageable page) {
         log.debug("Request to get all Users");
-        Page<User> listUsers = this.userRepository.findAll(spe, page);
-        List<ResFetchUserDTO> users = listUsers.stream().map(i -> this.convertUserToResFetchUserDTO(i))
+        Page<User> listUsers = this.userRepository.findAllByActiveIsTrue(page);
+        List<User> usersDisplay = new ArrayList<User>();
+        for (User l : listUsers) {
+            if (l.isActive())
+                usersDisplay.add(l);
+        }
+        List<ResFetchUserDTO> users = usersDisplay.stream().map(i -> this.convertUserToResFetchUserDTO(i))
                 .collect(Collectors.toList());
         ResultPaginationDTO res = new ResultPaginationDTO();
         ResultPaginationDTO.Meta meta = new ResultPaginationDTO.Meta();
@@ -184,6 +193,6 @@ public class UserService {
     }
 
     public void handleDeleteUser(User user) {
-        this.userRepository.deleteById(user.getId());
+        user.setActive(false);
     }
 }

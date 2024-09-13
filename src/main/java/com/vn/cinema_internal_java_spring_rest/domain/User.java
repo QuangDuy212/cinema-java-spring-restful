@@ -39,6 +39,7 @@ public class User {
     private String fullName;
     private String phone;
     private String address;
+    private boolean active;
     @Column(columnDefinition = "MEDIUMTEXT")
     private String refreshToken;
     private Instant createdAt;
