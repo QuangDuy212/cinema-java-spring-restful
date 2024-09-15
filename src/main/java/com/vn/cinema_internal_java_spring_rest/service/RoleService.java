@@ -84,6 +84,13 @@ public class RoleService {
         if (reqRole.isActive() != currentRole.isActive()) {
             currentRole.setActive(reqRole.isActive());
         }
+        if (reqRole.getPermissions() != null) {
+            List<Long> listIds = reqRole.getPermissions()
+                    .stream().map(i -> i.getId())
+                    .collect(Collectors.toList());
+            List<Permission> listPers = this.permissionRepository.findByIdIn(listIds);
+            currentRole.setPermissions(listPers);
+        }
         return this.roleRepository.save(currentRole);
     }
 
