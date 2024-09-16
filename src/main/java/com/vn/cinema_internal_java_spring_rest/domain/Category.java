@@ -30,6 +30,8 @@ public class Category {
     @NotBlank(message = "Name must not empty")
     private String name;
 
+    private boolean active;
+
     private Instant createdAt;
     private Instant updatedAt;
     private String createdBy;

@@ -11,11 +11,20 @@ public class ResShowDTO {
     private double price;
     private String time;
     private Day day;
+    private FilmShow film;
+    private boolean active;
 
     @Getter
     @Setter
     public static class Day {
         private long id;
         private String date;
+    }
+
+    @Getter
+    @Setter
+    public static class FilmShow {
+        private long id;
+        private String name;
     }
 }

@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import com.vn.cinema_internal_java_spring_rest.domain.Category;
 import com.vn.cinema_internal_java_spring_rest.domain.Film;
 import com.vn.cinema_internal_java_spring_rest.domain.Show;
-import com.vn.cinema_internal_java_spring_rest.domain.Time;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.ResultPaginationDTO;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.film.ResFilmDTO;
 import com.vn.cinema_internal_java_spring_rest.repository.CategoryRepository;
@@ -54,6 +53,7 @@ public class FilmService {
             List<Show> shows = this.showRepository.findByIdIn(listIds);
             reqFilm.setShows(shows);
         }
+        reqFilm.setActive(true);
         return this.filmRepository.save(reqFilm);
     }
 
@@ -135,6 +135,9 @@ public class FilmService {
             if (category.isPresent())
                 currentFilm.setCategory(category.get());
         }
+        if (reqFilm.isActive() != currentFilm.isActive()) {
+            currentFilm.setActive(false);
+        }
         return this.filmRepository.save(currentFilm);
     }
 
@@ -185,7 +188,9 @@ public class FilmService {
     }
 
     public void handleDeleteAFilm(long id) {
-        this.filmRepository.deleteById(id);
+        Film filmDB = this.fetchFilmById(id);
+        filmDB.setActive(false);
+        this.filmRepository.save(filmDB);
     }
 
 }

@@ -36,6 +36,7 @@ public class CategoryService {
 
     public Category handleCreateACategory(Category reqCa) {
         log.debug("Request to save Category : {}", reqCa);
+        reqCa.setActive(true);
         return this.categoryRepository.save(reqCa);
     }
 
@@ -72,12 +73,17 @@ public class CategoryService {
                     .stream().map(i -> i.getId())
                     .collect(Collectors.toList());
             List<Film> listFilms = this.filmRepository.findByIdIn(listIds);
-            reqCa.setFilms(listFilms);
+            currentCat.setFilms(listFilms);
+        }
+        if (reqCa.isActive() != currentCat.isActive()) {
+            currentCat.setActive(reqCa.isActive());
         }
         return this.categoryRepository.save(currentCat);
     }
 
     public void handleDeleteCate(long id) {
-        this.categoryRepository.deleteById(id);
+        Category cate = this.fetchCategoryById(id);
+        cate.setActive(false);
+        this.categoryRepository.save(cate);
     }
 }

@@ -142,6 +142,13 @@ public class ShowService {
         day.setId(show.getDay().getId());
         day.setDate(show.getDay().getDate());
         res.setDay(day);
+        if (show.getFilm() != null) {
+            ResShowDTO.FilmShow film = new ResShowDTO.FilmShow();
+            film.setId(show.getFilm().getId());
+            film.setName(show.getFilm().getName());
+            res.setFilm(film);
+        }
+        res.setActive(show.isActive());
         return res;
     }
 
