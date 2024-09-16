@@ -16,6 +16,7 @@ public class ResCreateUserDTO {
     private Instant createdAt;
     private Instant updatedAt;
     private RoleUser role;
+    private boolean active;
 
     @Setter
     @Getter

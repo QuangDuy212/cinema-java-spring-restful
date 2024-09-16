@@ -69,6 +69,7 @@ public class UserService {
         role.setId(user.getRole().getId());
         role.setName(user.getRole().getName());
         res.setRole(role);
+        res.setActive(user.isActive());
         return res;
     }
 
@@ -96,18 +97,14 @@ public class UserService {
         role.setId(user.getRole().getId());
         role.setName(user.getRole().getName());
         res.setRole(role);
+        res.setActive(user.isActive());
         return res;
     }
 
     public ResultPaginationDTO fetchAllUsers(Specification<User> spe, Pageable page) {
         log.debug("Request to get all Users");
-        Page<User> listUsers = this.userRepository.findAllByActiveIsTrue(page);
-        List<User> usersDisplay = new ArrayList<User>();
-        for (User l : listUsers) {
-            if (l.isActive())
-                usersDisplay.add(l);
-        }
-        List<ResFetchUserDTO> users = usersDisplay.stream().map(i -> this.convertUserToResFetchUserDTO(i))
+        Page<User> listUsers = this.userRepository.findAll(spe, page);
+        List<ResFetchUserDTO> users = listUsers.stream().map(i -> this.convertUserToResFetchUserDTO(i))
                 .collect(Collectors.toList());
         ResultPaginationDTO res = new ResultPaginationDTO();
         ResultPaginationDTO.Meta meta = new ResultPaginationDTO.Meta();
@@ -159,6 +156,7 @@ public class UserService {
         role.setId(user.getRole().getId());
         role.setName(user.getRole().getName());
         res.setRole(role);
+        res.setActive(user.isActive());
         return res;
     }
 

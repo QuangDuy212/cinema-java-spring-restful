@@ -18,6 +18,7 @@ public class ResFetchUserDTO {
     private String createdBy;
     private String udpatedBy;
     private RoleUser role;
+    private boolean active;
 
     @Setter
     @Getter
