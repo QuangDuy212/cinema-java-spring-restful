@@ -64,7 +64,6 @@ public class BillService {
         res.setCreatedBy(bill.getCreatedBy());
         res.setUpdatedBy(bill.getUpdatedBy());
         if (bill.getSeats() != null) {
-
             List<ResBillDTO.BillSeat> seats = new ArrayList<ResBillDTO.BillSeat>();
             for (Seat s : bill.getSeats()) {
                 ResBillDTO.BillSeat seat = new ResBillDTO.BillSeat();
@@ -72,6 +71,9 @@ public class BillService {
                 seat.setName(s.getName());
                 seats.add(seat);
                 res.setNameFilm(s.getShow().getFilm().getName());
+                res.setShow(s.getShow().getTime());
+                res.setZoomNumber(s.getShow().getZoomNumber());
+                res.setDate(s.getShow().getDay().getDate());
             }
             res.setSeats(seats);
         }

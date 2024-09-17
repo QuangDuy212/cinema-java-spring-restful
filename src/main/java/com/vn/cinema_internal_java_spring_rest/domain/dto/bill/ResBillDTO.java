@@ -17,6 +17,9 @@ public class ResBillDTO {
     private long id;
     private double total;
     private long quantity;
+    private int zoomNumber;
+    private String date;
+    private String show;
     private StatusBillEnum status;
     private BillUser user;
     private List<BillSeat> seats;
