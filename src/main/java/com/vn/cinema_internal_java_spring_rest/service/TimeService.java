@@ -36,6 +36,7 @@ public class TimeService {
 
     public Time handleCreateTime(Time reqTime) {
         log.debug("Request to create a User: {}", reqTime);
+        reqTime.setActive(true);
         return this.timeRepository.save(reqTime);
     }
 
@@ -70,7 +71,10 @@ public class TimeService {
         if (reqTime.getDate() != null && !this.checkExistsByDate(reqTime.getDate())) {
             time.setDate(reqTime.getDate());
         }
-        return time;
+        if (reqTime.isActive() != time.isActive()) {
+            time.setActive(reqTime.isActive());
+        }
+        return this.timeRepository.save(time);
     }
 
     public void handleDeleteTime(long id) {
@@ -81,6 +85,7 @@ public class TimeService {
         ResTimeDTO res = new ResTimeDTO();
         res.setId(time.getId());
         res.setDate(time.getDate());
+        res.setActive(time.isActive());
         if (time.getShows() != null) {
             List<ResTimeDTO.Show> shows = new ArrayList<ResTimeDTO.Show>();
             for (Show show : time.getShows()) {

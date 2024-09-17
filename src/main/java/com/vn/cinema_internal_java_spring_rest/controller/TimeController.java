@@ -80,8 +80,8 @@ public class TimeController {
         }
         if (reqTime.getDate() != null) {
             boolean checkDate = this.timeService.checkExistsByDate(reqTime.getDate());
-            if (checkDate)
-                throw new CommonException("Time date is existd");
+            if (checkDate && !time.getDate().equals(reqTime.getDate()))
+                throw new CommonException("Time date is existed");
         }
         Time updatedTime = this.timeService.handleUpdateTime(reqTime);
         ResTimeDTO res = this.timeService.convertTimeToResTimeDTO(updatedTime);

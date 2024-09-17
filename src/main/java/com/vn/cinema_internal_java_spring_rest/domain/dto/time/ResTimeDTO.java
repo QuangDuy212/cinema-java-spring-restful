@@ -12,6 +12,7 @@ import java.util.List;
 public class ResTimeDTO {
     private long id;
     private String date;
+    private boolean active;
     private List<Show> shows;
 
     @Getter
