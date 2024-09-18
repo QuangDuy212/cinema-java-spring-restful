@@ -134,8 +134,8 @@ public class UserService {
         if (reqUser.getAddress() != null)
             user.setAddress(reqUser.getAddress());
         if (reqUser.getRole() != null) {
-            Role role = this.roleRepository.findById(reqUser.getId()).isPresent()
-                    ? this.roleRepository.findById(reqUser.getId()).get()
+            Role role = this.roleRepository.findById(reqUser.getRole().getId()).isPresent()
+                    ? this.roleRepository.findById(reqUser.getRole().getId()).get()
                     : null;
             user.setRole(role);
         }
@@ -152,10 +152,12 @@ public class UserService {
         res.setPhone(user.getPhone());
         res.setCreatedAt(user.getCreatedAt());
         res.setUpdatedAt(user.getUpdatedAt());
-        ResUpdateUserDTO.RoleUser role = new ResUpdateUserDTO.RoleUser();
-        role.setId(user.getRole().getId());
-        role.setName(user.getRole().getName());
-        res.setRole(role);
+        if (user.getRole() != null) {
+            ResUpdateUserDTO.RoleUser role = new ResUpdateUserDTO.RoleUser();
+            role.setId(user.getRole().getId());
+            role.setName(user.getRole().getName());
+            res.setRole(role);
+        }
         res.setActive(user.isActive());
         return res;
     }

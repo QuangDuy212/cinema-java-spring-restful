@@ -52,7 +52,7 @@ public class AuthController {
 
         @PostMapping("/auth/login")
         @ApiMessage("Login success")
-        public ResponseEntity<ResLoginDTO> login(@Valid @RequestBody ReqLoginDTO loginDTO) {
+        public ResponseEntity<ResLoginDTO> login(@Valid @RequestBody ReqLoginDTO loginDTO) throws CommonException {
                 // Nạp input gồm username/password vào Security
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                                 loginDTO.getUsername(), loginDTO.getPassword());
@@ -67,6 +67,8 @@ public class AuthController {
                 // return api
                 ResLoginDTO res = new ResLoginDTO();
                 User currentUserDB = this.userService.handleGetUserByUsername(loginDTO.getUsername());
+                if (currentUserDB == null || currentUserDB.isActive() == false)
+                        throw new CommonException("Tài khoản không tồn tại!");
                 if (currentUserDB != null) {
                         ResLoginDTO.UserLogin userLogin = new ResLoginDTO.UserLogin(
                                         currentUserDB.getId(),
