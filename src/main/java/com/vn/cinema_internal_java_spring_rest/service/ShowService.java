@@ -129,7 +129,9 @@ public class ShowService {
     }
 
     public void handleDeleteAShow(long id) {
-        this.showRepository.deleteById(id);
+        Show show = this.fetchShowById(id);
+        show.setActive(false);
+        this.showRepository.save(show);
     }
 
     public ResShowDTO convertShowToResShowDTO(Show show) {

@@ -12,6 +12,7 @@ import java.util.List;
 public class ResFilmDTO {
     private long id;
     private String name;
+    private boolean active;
     private String director;
     private String image;
     private String performer;

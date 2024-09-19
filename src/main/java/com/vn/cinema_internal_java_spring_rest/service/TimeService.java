@@ -78,7 +78,9 @@ public class TimeService {
     }
 
     public void handleDeleteTime(long id) {
-        this.timeRepository.deleteById(id);
+        Time time = this.fetchTimeById(id);
+        time.setActive(false);
+        this.timeRepository.save(time);
     }
 
     public ResTimeDTO convertTimeToResTimeDTO(Time time) {

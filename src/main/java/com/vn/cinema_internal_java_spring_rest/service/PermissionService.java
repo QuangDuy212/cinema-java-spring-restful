@@ -45,6 +45,7 @@ public class PermissionService {
             List<Role> roles = this.roleService.fetchListRoleByListId(listIds);
             reqPer.setRoles(roles);
         }
+        reqPer.setActive(true);
         return this.permissionRepository.save(reqPer);
     }
 
@@ -112,10 +113,14 @@ public class PermissionService {
             currentPer.setName(reqPer.getName());
         if (reqPer.getModule() != null)
             currentPer.setModule(reqPer.getModule());
+        if (reqPer.isActive() != currentPer.isActive())
+            currentPer.setActive(reqPer.isActive());
         return this.permissionRepository.save(currentPer);
     }
 
     public void handleDeletePer(long id) {
-        this.permissionRepository.deleteById(id);
+        Permission per = this.fetchPermissionById(id);
+        per.setActive(false);
+        this.permissionRepository.save(per);
     }
 }

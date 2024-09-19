@@ -39,6 +39,7 @@ public class Permission {
 
     @NotBlank(message = "Module must not empty")
     private String module;
+    private boolean active;
     private Instant createdAt;
     private Instant updatedAt;
     private String createdBy;

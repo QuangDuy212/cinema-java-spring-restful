@@ -136,7 +136,7 @@ public class FilmService {
                 currentFilm.setCategory(category.get());
         }
         if (reqFilm.isActive() != currentFilm.isActive()) {
-            currentFilm.setActive(false);
+            currentFilm.setActive(reqFilm.isActive());
         }
         return this.filmRepository.save(currentFilm);
     }
@@ -158,7 +158,7 @@ public class FilmService {
         res.setUpdatedAt(film.getUpdatedAt());
         res.setUpdatedBy(film.getUpdatedBy());
         res.setOrigin(film.getOrigin());
-
+        res.setActive(film.isActive());
         // show
         if (film.getShows() != null) {
             List<Show> listShows = film.getShows();
