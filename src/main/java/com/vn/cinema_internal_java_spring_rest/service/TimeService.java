@@ -17,6 +17,8 @@ import com.vn.cinema_internal_java_spring_rest.domain.Time;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.ResultPaginationDTO;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.time.ResTimeDTO;
 import com.vn.cinema_internal_java_spring_rest.repository.FilmRepository;
+import com.vn.cinema_internal_java_spring_rest.repository.SeatRepository;
+import com.vn.cinema_internal_java_spring_rest.repository.ShowRepository;
 import com.vn.cinema_internal_java_spring_rest.repository.TimeRepository;
 
 @Service
@@ -24,10 +26,15 @@ public class TimeService {
     private final Logger log = LoggerFactory.getLogger(TimeService.class);
     private final TimeRepository timeRepository;
     private final FilmRepository filmRepository;
+    private final SeatRepository seatRepository;
+    private final ShowRepository showRepository;
 
-    public TimeService(TimeRepository timeRepository, FilmRepository filmRepository) {
+    public TimeService(TimeRepository timeRepository, FilmRepository filmRepository, SeatRepository seatRepository,
+            ShowRepository showRepository) {
         this.timeRepository = timeRepository;
         this.filmRepository = filmRepository;
+        this.seatRepository = seatRepository;
+        this.showRepository = showRepository;
     }
 
     public boolean checkExistsByDate(String date) {
@@ -78,6 +85,7 @@ public class TimeService {
     }
 
     public void handleDeleteTime(long id) {
+
         Time time = this.fetchTimeById(id);
         time.setActive(false);
         this.timeRepository.save(time);

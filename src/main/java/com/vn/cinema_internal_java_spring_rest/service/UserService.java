@@ -93,10 +93,12 @@ public class UserService {
         res.setUpdatedAt(user.getUpdatedAt());
         res.setCreatedBy(user.getCreatedBy());
         res.setCreatedBy(user.getCreatedBy());
-        ResFetchUserDTO.RoleUser role = new ResFetchUserDTO.RoleUser();
-        role.setId(user.getRole().getId());
-        role.setName(user.getRole().getName());
-        res.setRole(role);
+        if (user.getRole() != null) {
+            ResFetchUserDTO.RoleUser role = new ResFetchUserDTO.RoleUser();
+            role.setId(user.getRole().getId());
+            role.setName(user.getRole().getName());
+            res.setRole(role);
+        }
         res.setActive(user.isActive());
         return res;
     }
@@ -138,6 +140,9 @@ public class UserService {
                     ? this.roleRepository.findById(reqUser.getRole().getId()).get()
                     : null;
             user.setRole(role);
+        }
+        if (reqUser.isActive() != user.isActive()) {
+            user.setActive(reqUser.isActive());
         }
         return this.userRepository.save(user);
     }
