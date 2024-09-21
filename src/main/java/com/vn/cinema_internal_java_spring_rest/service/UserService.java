@@ -13,6 +13,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.vn.cinema_internal_java_spring_rest.domain.Permission;
 import com.vn.cinema_internal_java_spring_rest.domain.Role;
@@ -23,16 +24,20 @@ import com.vn.cinema_internal_java_spring_rest.domain.dto.user.ResFetchUserDTO;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.user.ResUpdateUserDTO;
 import com.vn.cinema_internal_java_spring_rest.repository.RoleRepository;
 import com.vn.cinema_internal_java_spring_rest.repository.UserRepository;
+import com.vn.cinema_internal_java_spring_rest.util.SecurityUtil;
+import com.vn.cinema_internal_java_spring_rest.util.error.CommonException;
 
 @Service
 public class UserService {
     private final Logger log = LoggerFactory.getLogger(UserService.class);
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, RoleRepository roleRepository) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public boolean isExistByEmail(String email) {
@@ -201,5 +206,22 @@ public class UserService {
     public void handleDeleteUser(User user) {
         user.setActive(false);
         this.userRepository.save(user);
+    }
+
+    public void changePassword(String currentClearTextPassword, String newPassword) throws CommonException {
+        String email = SecurityUtil.getCurrentUserLogin().isPresent()
+                ? SecurityUtil.getCurrentUserLogin().get()
+                : "";
+        Optional<User> user = this.userRepository.findByEmail(email);
+        if (!user.isPresent())
+            throw new CommonException("Chưa đăng nhập!");
+        String currentEncryptedPassword = user.get().getPassword();
+        if (!passwordEncoder.matches(currentClearTextPassword, currentEncryptedPassword)) {
+            throw new CommonException("Mật khẩu không chính xác!");
+        }
+        String encryptedPassword = passwordEncoder.encode(newPassword);
+        user.get().setPassword(encryptedPassword);
+        log.debug("Changed password for User: {}", user);
+        this.userRepository.save(user.get());
     }
 }

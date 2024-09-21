@@ -39,7 +39,7 @@ public class History {
     @NotBlank(message = "Date must not empty")
     private String date;
 
-    @NotBlank(message = "Show must not empty")
+    @NotBlank(message = "Time must not empty")
     private String time;
 
     private String seats;

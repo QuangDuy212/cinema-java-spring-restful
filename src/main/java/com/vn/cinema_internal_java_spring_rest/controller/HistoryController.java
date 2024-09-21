@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -70,5 +71,16 @@ public class HistoryController {
         log.debug("REST request to get histories by user ");
         ResultPaginationDTO res = this.historyService.fetchHistoryByUser(spe, page);
         return ResponseEntity.ok().body(res);
+    }
+
+    @DeleteMapping("/histories/{id}")
+    @ApiMessage(value = "Delete a History success")
+    public ResponseEntity<Void> deleteAHistory(@PathVariable("id") long id) throws CommonException {
+        log.debug("REST request to delete History : {}", id);
+        History his = this.historyService.fetchHistoryById(id);
+        if (his == null)
+            throw new CommonException("History not found");
+        this.historyService.handleDeleteHistory(id);
+        return ResponseEntity.ok().body(null);
     }
 }

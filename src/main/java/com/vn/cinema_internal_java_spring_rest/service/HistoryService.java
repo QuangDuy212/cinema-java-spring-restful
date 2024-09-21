@@ -34,11 +34,12 @@ public class HistoryService {
     }
 
     public History handleCreateHistory(History reqHis) {
-        if (reqHis.getUser() != null) {
-            Optional<User> user = this.userRepository.findById(reqHis.getUser().getId());
-            if (user.isPresent())
-                reqHis.setUser(user.get());
-        }
+        String email = SecurityUtil.getCurrentUserLogin().isPresent()
+                ? SecurityUtil.getCurrentUserLogin().get()
+                : "";
+        Optional<User> user = this.userRepository.findByEmail(email);
+        if (user.isPresent())
+            reqHis.setUser(user.get());
         return this.historyRepository.save(reqHis);
     }
 
@@ -112,5 +113,9 @@ public class HistoryService {
         res.setMeta(meta);
         res.setResult(listResHis);
         return res;
+    }
+
+    public void handleDeleteHistory(long id) {
+        this.historyRepository.deleteById(id);
     }
 }
