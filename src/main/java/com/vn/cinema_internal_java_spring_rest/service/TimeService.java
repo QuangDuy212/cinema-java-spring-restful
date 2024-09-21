@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import com.vn.cinema_internal_java_spring_rest.domain.Seat;
 import com.vn.cinema_internal_java_spring_rest.domain.Show;
 import com.vn.cinema_internal_java_spring_rest.domain.Time;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.ResultPaginationDTO;
@@ -87,8 +88,13 @@ public class TimeService {
     public void handleDeleteTime(long id) {
 
         Time time = this.fetchTimeById(id);
-        time.setActive(false);
-        this.timeRepository.save(time);
+        List<Show> shows = time.getShows();
+        for (Show show : shows) {
+            List<Seat> seats = show.getSeats();
+            this.seatRepository.deleteAll(seats);
+            this.showRepository.delete(show);
+        }
+        this.timeRepository.delete(time);
     }
 
     public ResTimeDTO convertTimeToResTimeDTO(Time time) {
