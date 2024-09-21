@@ -39,13 +39,6 @@ public class BillService {
         Optional<User> user = this.userRepository.findByEmail(email);
         if (user.isPresent())
             reqBill.setUser(user.get());
-        // if (reqBill.getSeats() != null) {
-        // List<Long> listIds = reqBill.getSeats()
-        // .stream().map(i -> i.getId())
-        // .collect(Collectors.toList());
-        // List<Seat> seats = this.seatRepository.findByIdIn(listIds);
-        // reqBill.setSeats(seats);
-        // }
         return this.billRepository.save(reqBill);
 
     }
@@ -124,6 +117,9 @@ public class BillService {
     }
 
     public void handleDeleteBill(long id) {
-        this.billRepository.deleteById(id);
+        Bill bill = this.fetchBillById(id);
+        List<Seat> seats = bill.getSeats();
+        this.seatRepository.deleteAll(seats);
+        this.billRepository.delete(bill);
     }
 }
