@@ -14,5 +14,4 @@ public class CinemaInternalJavaSpringRestApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CinemaInternalJavaSpringRestApplication.class, args);
 	}
-
 }

@@ -1,0 +1,162 @@
+2024-09-25 20:19:02,935 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 8.0.1.Final
+2024-09-25 20:19:03,027 INFO o.s.b.StartupInfoLogger [restartedMain] Starting CinemaInternalJavaSpringRestApplication using Java 17.0.9 with PID 7180 (D:\Workspace\project\cinema-internal\cinema-internal-java-spring-rest\build\classes\java\main started by duy2k in D:\Workspace\project\cinema-internal\cinema-internal-java-spring-rest)
+2024-09-25 20:19:03,030 INFO o.s.b.SpringApplication [restartedMain] No active profile set, falling back to 1 default profile: "default"
+2024-09-25 20:19:03,137 INFO o.s.b.l.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-09-25 20:19:03,138 INFO o.s.b.l.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-09-25 20:19:05,358 INFO o.s.d.r.c.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-25 20:19:05,494 INFO o.s.d.r.c.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 124 ms. Found 11 JPA repository interfaces.
+2024-09-25 20:19:06,956 INFO o.s.b.w.e.t.TomcatWebServer [restartedMain] Tomcat initialized with port 8080 (http)
+2024-09-25 20:19:06,972 INFO o.a.j.l.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2024-09-25 20:19:06,977 INFO o.a.j.l.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2024-09-25 20:19:06,978 INFO o.a.j.l.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/10.1.28]
+2024-09-25 20:19:07,079 INFO o.a.j.l.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2024-09-25 20:19:07,080 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 3941 ms
+2024-09-25 20:19:07,853 INFO o.h.j.i.u.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-25 20:19:07,998 INFO o.h.Version [restartedMain] HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-09-25 20:19:08,082 INFO o.h.c.i.RegionFactoryInitiator [restartedMain] HHH000026: Second-level cache disabled
+2024-09-25 20:19:08,566 INFO o.s.o.j.p.SpringPersistenceUnitInfo [restartedMain] No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-09-25 20:19:08,628 INFO c.z.h.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2024-09-25 20:19:09,098 INFO c.z.h.p.HikariPool [restartedMain] HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5af916a4
+2024-09-25 20:19:09,102 INFO c.z.h.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2024-09-25 20:19:11,201 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [restartedMain] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-09-25 20:19:11,462 INFO o.s.o.j.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-25 20:19:13,164 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-09-25 20:19:13,256 INFO o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer [restartedMain] Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2024-09-25 20:19:14,266 INFO o.s.b.a.e.w.EndpointLinksResolver [restartedMain] Exposing 1 endpoint beneath base path '/actuator'
+2024-09-25 20:19:15,810 INFO o.s.b.d.a.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2024-09-25 20:19:15,953 INFO o.a.j.l.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2024-09-25 20:19:15,992 INFO o.s.b.w.e.t.TomcatWebServer [restartedMain] Tomcat started on port 8080 (http) with context path '/'
+2024-09-25 20:19:16,036 INFO o.s.b.StartupInfoLogger [restartedMain] Started CinemaInternalJavaSpringRestApplication in 13.782 seconds (process running for 15.112)
+2024-09-25 20:19:17,081 INFO o.a.j.l.DirectJDKLog [RMI TCP Connection(2)-127.0.0.1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-09-25 20:19:17,084 INFO o.s.w.s.FrameworkServlet [RMI TCP Connection(2)-127.0.0.1] Initializing Servlet 'dispatcherServlet'
+2024-09-25 20:19:17,088 INFO o.s.w.s.FrameworkServlet [RMI TCP Connection(2)-127.0.0.1] Completed initialization in 3 ms
+2024-09-25 20:20:26,993 INFO o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener [File Watcher] Restarting due to 102 class path changes (0 additions, 102 deletions, 0 modifications)
+2024-09-25 20:20:27,002 INFO o.a.j.l.DirectJDKLog [Thread-5] Stopping ProtocolHandler ["http-nio-8080"]
+2024-09-25 20:20:27,347 INFO o.s.o.j.AbstractEntityManagerFactoryBean [Thread-5] Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-25 20:20:27,360 INFO c.z.h.HikariDataSource [Thread-5] HikariPool-1 - Shutdown initiated...
+2024-09-25 20:20:27,387 INFO c.z.h.HikariDataSource [Thread-5] HikariPool-1 - Shutdown completed.
+2024-09-25 20:20:27,679 INFO o.s.b.StartupInfoLogger [restartedMain] Starting CinemaInternalJavaSpringRestApplication using Java 17.0.9 with PID 7180 (D:\Workspace\project\cinema-internal\cinema-internal-java-spring-rest\build\classes\java\main started by duy2k in D:\Workspace\project\cinema-internal\cinema-internal-java-spring-rest)
+2024-09-25 20:20:27,684 INFO o.s.b.SpringApplication [restartedMain] No active profile set, falling back to 1 default profile: "default"
+2024-09-25 20:20:29,319 INFO o.s.d.r.c.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-25 20:20:29,325 INFO o.s.d.r.c.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 1 ms. Found 0 JPA repository interfaces.
+2024-09-25 20:20:29,996 INFO o.s.b.w.e.t.TomcatWebServer [restartedMain] Tomcat initialized with port 8080 (http)
+2024-09-25 20:20:30,000 INFO o.a.j.l.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2024-09-25 20:20:30,011 INFO o.a.j.l.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2024-09-25 20:20:30,012 INFO o.a.j.l.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/10.1.28]
+2024-09-25 20:20:30,094 INFO o.a.j.l.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2024-09-25 20:20:30,097 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 2394 ms
+2024-09-25 20:20:30,759 INFO o.h.j.i.u.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-25 20:20:30,849 INFO o.h.c.i.RegionFactoryInitiator [restartedMain] HHH000026: Second-level cache disabled
+2024-09-25 20:20:30,880 INFO o.s.o.j.p.SpringPersistenceUnitInfo [restartedMain] No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-09-25 20:20:30,885 INFO c.z.h.HikariDataSource [restartedMain] HikariPool-2 - Starting...
+2024-09-25 20:20:30,935 INFO c.z.h.p.HikariPool [restartedMain] HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@708c0be
+2024-09-25 20:20:30,937 INFO c.z.h.HikariDataSource [restartedMain] HikariPool-2 - Start completed.
+2024-09-25 20:20:30,981 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [restartedMain] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-09-25 20:20:30,986 INFO o.s.o.j.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-25 20:20:31,370 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-09-25 20:20:33,662 INFO o.s.b.a.e.w.EndpointLinksResolver [restartedMain] Exposing 1 endpoint beneath base path '/actuator'
+2024-09-25 20:20:33,900 INFO o.s.b.d.a.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2024-09-25 20:20:34,059 INFO o.a.j.l.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2024-09-25 20:20:34,069 INFO o.s.b.w.e.t.TomcatWebServer [restartedMain] Tomcat started on port 8080 (http) with context path '/'
+2024-09-25 20:20:34,096 INFO o.s.b.StartupInfoLogger [restartedMain] Started CinemaInternalJavaSpringRestApplication in 6.582 seconds (process running for 93.172)
+2024-09-25 20:20:34,207 INFO o.s.b.d.a.ConditionEvaluationDeltaLoggingListener [restartedMain] Condition evaluation delta:
+
+
+==========================
+CONDITION EVALUATION DELTA
+==========================
+
+
+Positive matches:
+-----------------
+
+   ManagementWebSecurityAutoConfiguration matched:
+      - found 'session' scope (OnWebApplicationCondition)
+      - AllNestedConditions 2 matched 0 did not; NestedCondition on DefaultWebSecurityCondition.Beans @ConditionalOnMissingBean (types: org.springframework.security.web.SecurityFilterChain; SearchStrategy: all) did not find any beans; NestedCondition on DefaultWebSecurityCondition.Classes @ConditionalOnClass found required classes 'org.springframework.security.web.SecurityFilterChain', 'org.springframework.security.config.annotation.web.builders.HttpSecurity' (DefaultWebSecurityCondition)
+
+   OAuth2ResourceServerJwtConfiguration.JwtDecoderConfiguration matched:
+      - @ConditionalOnMissingBean (types: org.springframework.security.oauth2.jwt.JwtDecoder; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+   OAuth2ResourceServerJwtConfiguration.OAuth2SecurityFilterChainConfiguration matched:
+      - AllNestedConditions 2 matched 0 did not; NestedCondition on DefaultWebSecurityCondition.Beans @ConditionalOnMissingBean (types: org.springframework.security.web.SecurityFilterChain; SearchStrategy: all) did not find any beans; NestedCondition on DefaultWebSecurityCondition.Classes @ConditionalOnClass found required classes 'org.springframework.security.web.SecurityFilterChain', 'org.springframework.security.config.annotation.web.builders.HttpSecurity' (DefaultWebSecurityCondition)
+
+   OAuth2ResourceServerOpaqueTokenConfiguration.OAuth2SecurityFilterChainConfiguration matched:
+      - AllNestedConditions 2 matched 0 did not; NestedCondition on DefaultWebSecurityCondition.Beans @ConditionalOnMissingBean (types: org.springframework.security.web.SecurityFilterChain; SearchStrategy: all) did not find any beans; NestedCondition on DefaultWebSecurityCondition.Classes @ConditionalOnClass found required classes 'org.springframework.security.web.SecurityFilterChain', 'org.springframework.security.config.annotation.web.builders.HttpSecurity' (DefaultWebSecurityCondition)
+
+
+Negative matches:
+-----------------
+
+   OAuth2ResourceServerJwtConfiguration.JwtDecoderConfiguration#jwtDecoderByIssuerUri:
+      Did not match:
+         - OpenID Connect Issuer URI Condition did not find issuer-uri property (IssuerUriCondition)
+
+   OAuth2ResourceServerJwtConfiguration.JwtDecoderConfiguration#jwtDecoderByJwkKeySetUri:
+      Did not match:
+         - @ConditionalOnProperty (spring.security.oauth2.resourceserver.jwt.jwk-set-uri) did not find property 'spring.security.oauth2.resourceserver.jwt.jwk-set-uri' (OnPropertyCondition)
+
+   OAuth2ResourceServerJwtConfiguration.JwtDecoderConfiguration#jwtDecoderByPublicKeyValue:
+      Did not match:
+         - Public Key Value Condition did not find public-key-location property (KeyValueCondition)
+
+   OAuth2ResourceServerJwtConfiguration.OAuth2SecurityFilterChainConfiguration#jwtSecurityFilterChain:
+      Did not match:
+         - @ConditionalOnBean (types: org.springframework.security.oauth2.jwt.JwtDecoder; SearchStrategy: all) did not find any beans of type org.springframework.security.oauth2.jwt.JwtDecoder (OnBeanCondition)
+
+   OAuth2ResourceServerOpaqueTokenConfiguration.OAuth2SecurityFilterChainConfiguration#opaqueTokenSecurityFilterChain:
+      Did not match:
+         - @ConditionalOnBean (types: org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector; SearchStrategy: all) did not find any beans of type org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector (OnBeanCondition)
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    None
+
+
+
+2024-09-25 20:20:35,777 INFO o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener [File Watcher] Restarting due to 105 class path changes (103 additions, 1 deletion, 1 modification)
+2024-09-25 20:20:35,781 INFO o.a.j.l.DirectJDKLog [Thread-7] Stopping ProtocolHandler ["http-nio-8080"]
+2024-09-25 20:20:36,262 INFO o.s.o.j.AbstractEntityManagerFactoryBean [Thread-7] Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-25 20:20:36,265 INFO c.z.h.HikariDataSource [Thread-7] HikariPool-2 - Shutdown initiated...
+2024-09-25 20:20:36,292 INFO c.z.h.HikariDataSource [Thread-7] HikariPool-2 - Shutdown completed.
+2024-09-25 20:38:08,928 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 8.0.1.Final
+2024-09-25 20:38:09,021 INFO o.s.b.StartupInfoLogger [restartedMain] Starting CinemaInternalJavaSpringRestApplication using Java 17.0.9 with PID 20108 (D:\Workspace\project\cinema-internal\cinema-internal-java-spring-rest\build\classes\java\main started by duy2k in D:\Workspace\project\cinema-internal\cinema-internal-java-spring-rest)
+2024-09-25 20:38:09,021 INFO o.s.b.SpringApplication [restartedMain] No active profile set, falling back to 1 default profile: "default"
+2024-09-25 20:38:09,112 INFO o.s.b.l.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-09-25 20:38:09,112 INFO o.s.b.l.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-09-25 20:38:11,927 INFO o.s.d.r.c.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-25 20:38:12,094 INFO o.s.d.r.c.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 153 ms. Found 11 JPA repository interfaces.
+2024-09-25 20:38:13,885 INFO o.s.b.w.e.t.TomcatWebServer [restartedMain] Tomcat initialized with port 8080 (http)
+2024-09-25 20:38:13,895 INFO o.a.j.l.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2024-09-25 20:38:13,915 INFO o.a.j.l.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2024-09-25 20:38:13,916 INFO o.a.j.l.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/10.1.28]
+2024-09-25 20:38:14,012 INFO o.a.j.l.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2024-09-25 20:38:14,012 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 4884 ms
+2024-09-25 20:38:14,713 INFO o.h.j.i.u.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-25 20:38:14,814 INFO o.h.Version [restartedMain] HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-09-25 20:38:14,897 INFO o.h.c.i.RegionFactoryInitiator [restartedMain] HHH000026: Second-level cache disabled
+2024-09-25 20:38:15,435 INFO o.s.o.j.p.SpringPersistenceUnitInfo [restartedMain] No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-09-25 20:38:15,481 INFO c.z.h.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2024-09-25 20:38:16,046 INFO c.z.h.p.HikariPool [restartedMain] HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@a65f83d
+2024-09-25 20:38:16,062 INFO c.z.h.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2024-09-25 20:38:19,140 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [restartedMain] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-09-25 20:38:19,426 INFO o.s.o.j.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-25 20:38:21,524 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-09-25 20:38:21,628 INFO o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer [restartedMain] Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2024-09-25 20:38:23,202 INFO o.s.b.a.e.w.EndpointLinksResolver [restartedMain] Exposing 1 endpoint beneath base path '/actuator'
+2024-09-25 20:38:24,974 INFO o.s.b.d.a.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2024-09-25 20:38:25,105 INFO o.a.j.l.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2024-09-25 20:38:25,145 INFO o.s.b.w.e.t.TomcatWebServer [restartedMain] Tomcat started on port 8080 (http) with context path '/'
+2024-09-25 20:38:25,190 INFO o.s.b.StartupInfoLogger [restartedMain] Started CinemaInternalJavaSpringRestApplication in 16.94 seconds (process running for 18.485)
+2024-09-25 20:38:26,274 INFO o.a.j.l.DirectJDKLog [RMI TCP Connection(2)-127.0.0.1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-09-25 20:38:26,274 INFO o.s.w.s.FrameworkServlet [RMI TCP Connection(2)-127.0.0.1] Initializing Servlet 'dispatcherServlet'
+2024-09-25 20:38:26,290 INFO o.s.w.s.FrameworkServlet [RMI TCP Connection(2)-127.0.0.1] Completed initialization in 16 ms
+2024-09-25 20:39:42,602 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-09-25 20:41:16,193 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
