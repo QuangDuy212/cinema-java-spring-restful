@@ -99,8 +99,6 @@ public class RoleService {
     }
 
     public void handleDeleteRole(long id) {
-        Role role = this.fetchRoleById(id);
-        role.setActive(false);
-        this.roleRepository.save(role);
+        this.roleRepository.deleteById(id);
     }
 }
