@@ -1,4 +1,4 @@
-package com.vn.cinema_internal_java_spring_rest.config;
+package com.vn.cinema_internal_java_spring_rest.config.permissionDatabase;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -56,11 +56,11 @@ public class DatabaseInitializer implements CommandLineRunner {
             arr.add(new Permission("Get a permission by id", "/api/v1/permissions/{id}", "GET", "PERMISSIONS"));
             arr.add(new Permission("Get permissions with pagination", "/api/v1/permissions", "GET", "PERMISSIONS"));
 
-            arr.add(new Permission("Create a resume", "/api/v1/resumes", "POST", "RESUMES"));
-            arr.add(new Permission("Update a resume", "/api/v1/resumes", "PUT", "RESUMES"));
-            arr.add(new Permission("Delete a resume", "/api/v1/resumes/{id}", "DELETE", "RESUMES"));
-            arr.add(new Permission("Get a resume by id", "/api/v1/resumes/{id}", "GET", "RESUMES"));
-            arr.add(new Permission("Get resumes with pagination", "/api/v1/resumes", "GET", "RESUMES"));
+            arr.add(new Permission("Create a film", "/api/v1/films", "POST", "FILMS"));
+            arr.add(new Permission("Update a film", "/api/v1/films", "PUT", "FILMS"));
+            arr.add(new Permission("Delete a film", "/api/v1/films/{id}", "DELETE", "FILMS"));
+            arr.add(new Permission("Get a film by id", "/api/v1/films/{id}", "GET", "FILMS"));
+            arr.add(new Permission("Get films with pagination", "/api/v1/films", "GET", "FILMS"));
 
             arr.add(new Permission("Create a role", "/api/v1/roles", "POST", "ROLES"));
             arr.add(new Permission("Update a role", "/api/v1/roles", "PUT", "ROLES"));
