@@ -16,13 +16,17 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "permissions")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Permission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -66,4 +70,15 @@ public class Permission {
         this.updatedBy = email;
         this.updatedAt = Instant.now();
     }
+
+    public Permission(@NotBlank(message = "Name must not empty") String name,
+            @NotBlank(message = "Apipath must not empty") String apiPath,
+            @NotBlank(message = "Method must not empty") String method,
+            @NotBlank(message = "Module must not empty") String module) {
+        this.name = name;
+        this.apiPath = apiPath;
+        this.method = method;
+        this.module = module;
+    }
+
 }
