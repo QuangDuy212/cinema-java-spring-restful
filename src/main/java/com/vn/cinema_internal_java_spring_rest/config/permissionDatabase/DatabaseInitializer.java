@@ -98,6 +98,9 @@ public class DatabaseInitializer implements CommandLineRunner {
             arr.add(new Permission("Get a history by id", "/api/v1/histories/{id}", "GET", "HISTORIES"));
             arr.add(new Permission("Get histories with pagination", "/api/v1/histories", "GET", "HISTORIES"));
 
+            arr.add(new Permission("Change password", "/api/v1/account/change-password", "POST", "ACCOUNT"));
+            arr.add(new Permission("Retry password", "/api/v1/account/retry-password", "POST", "ACCOUNT"));
+
             arr.add(new Permission("Download a file", "/api/v1/files", "POST", "FILES"));
             arr.add(new Permission("Upload a file", "/api/v1/files", "GET", "FILES"));
 

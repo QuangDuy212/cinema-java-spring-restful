@@ -86,6 +86,14 @@ public class UserService {
         return null;
     }
 
+    public User fetchUserByEmail(String email) {
+        log.debug("Request to get User by email : {}", email);
+        Optional<User> userOptional = this.userRepository.findByEmail(email);
+        if (userOptional.isPresent())
+            return userOptional.get();
+        return null;
+    }
+
     public ResFetchUserDTO convertUserToResFetchUserDTO(User user) {
         ResFetchUserDTO res = new ResFetchUserDTO();
         res.setId(user.getId());
