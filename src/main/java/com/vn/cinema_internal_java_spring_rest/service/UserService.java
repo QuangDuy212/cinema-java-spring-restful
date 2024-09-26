@@ -232,4 +232,19 @@ public class UserService {
         log.debug("Changed password for User: {}", user);
         this.userRepository.save(user.get());
     }
+
+    public void changePasswordForgot(String email, String newPassword)
+            throws CommonException {
+        Optional<User> user = this.userRepository.findByEmail(email);
+        if (!user.isPresent())
+            throw new CommonException("Email không chính xác!");
+        String encryptedPassword = passwordEncoder.encode(newPassword);
+        user.get().setPassword(encryptedPassword);
+        log.debug("Changed password for User: {}", user);
+        this.userRepository.save(user.get());
+    }
+
+    public User handleSaveUser(User user) {
+        return this.userRepository.save(user);
+    }
 }

@@ -27,7 +27,8 @@ public class SecurityConfiguration {
                                 "/", "/api/v1/auth/login", "/api/v1/auth/refresh", "/api/v1/auth/register",
                                 "/storage/**", "/api/v1/email/**",
                                 "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html",
-                                "/api/v1/account/retry-password"
+                                "/api/v1/account/retry-password", "/api/v1/account/change-password",
+                                "/api/v1/account/change-password-with-code"
                 };
                 http
                                 .csrf(c -> c.disable())

@@ -1,7 +1,9 @@
 package com.vn.cinema_internal_java_spring_rest.controller;
 
 import java.util.UUID;
+import java.time.Instant;
 
+import java.time.temporal.ChronoUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -12,12 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.vn.cinema_internal_java_spring_rest.domain.User;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.user.PasswordChangeDTO;
+import com.vn.cinema_internal_java_spring_rest.domain.dto.user.PasswordChangeWithCodeDTO;
+import com.vn.cinema_internal_java_spring_rest.domain.dto.user.ResFetchUserDTO;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.user.RetryPasswordDTO;
 import com.vn.cinema_internal_java_spring_rest.service.EmailService;
 import com.vn.cinema_internal_java_spring_rest.service.UserService;
 import com.vn.cinema_internal_java_spring_rest.util.annotation.ApiMessage;
 import com.vn.cinema_internal_java_spring_rest.util.constant.CodeSendEmail;
 import com.vn.cinema_internal_java_spring_rest.util.error.CommonException;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -44,7 +50,7 @@ public class AccountController {
 
     @PostMapping("/account/retry-password")
     @ApiMessage(value = "Retry password success")
-    public ResponseEntity<Void> retryPassword(@RequestBody RetryPasswordDTO retry)
+    public ResponseEntity<ResFetchUserDTO> retryPassword(@RequestBody RetryPasswordDTO retry)
             throws CommonException {
         // Check email
         User user = this.userService.fetchUserByEmail(retry.getEmail());
@@ -53,12 +59,39 @@ public class AccountController {
         }
 
         // Send mail
-        CodeSendEmail codeSendEmail = new CodeSendEmail();
-        codeSendEmail.setCode(UUID.randomUUID().toString());
-        codeSendEmail.active();
+        String codeId = UUID.randomUUID().toString();
+        user.setCodeId(codeId);
+        user.setCodeExpired(Instant.now().plus(5, ChronoUnit.MINUTES));
+        this.userService.handleSaveUser(user);
         this.emailService.sendEmailFromTemplateSync("duy2k4ml1234@gmail.com", "Test send email", "send-code",
                 retry.getEmail(),
-                codeSendEmail.getCode());
+                codeId);
+        ResFetchUserDTO res = this.userService.convertUserToResFetchUserDTO(user);
+        return ResponseEntity.ok().body(res);
+    }
+
+    @PostMapping("/account/change-password-with-code")
+    @ApiMessage(value = "Change password forgot success")
+    public ResponseEntity<Void> changePasswordWithCode(@Valid @RequestBody PasswordChangeWithCodeDTO data)
+            throws CommonException {
+        // Check email
+        User user = this.userService.fetchUserByEmail(data.getEmail());
+        if (user == null) {
+            throw new CommonException("Email không tồn tại");
+        }
+
+        // Check code
+        if (!data.getCode().equals(user.getCodeId()))
+            throw new CommonException("Mã xác thực nhập không chính xác.");
+        if (user.getCodeExpired().compareTo(Instant.now()) <= 0)
+            throw new CommonException("Mã xác thực đã hết hạn.");
+        if (!data.getNewPassword().equals(data.getConfirmPassword()))
+            throw new CommonException("Mật khẩu / xác nhận mật khẩu nhập không chính xác.");
+
+        this.userService.changePasswordForgot(data.getEmail(), data.getNewPassword());
+        user.setCodeId(null);
+        user.setCodeExpired(null);
+        this.userService.handleSaveUser(user);
         return ResponseEntity.ok().body(null);
     }
 }

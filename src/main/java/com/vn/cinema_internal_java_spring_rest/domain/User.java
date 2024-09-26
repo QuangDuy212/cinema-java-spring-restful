@@ -42,6 +42,8 @@ public class User {
     private boolean active;
     @Column(columnDefinition = "MEDIUMTEXT")
     private String refreshToken;
+    private String codeId;
+    private Instant codeExpired;
     private Instant createdAt;
     private Instant updatedAt;
     private String createdBy;
