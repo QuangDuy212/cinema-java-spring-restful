@@ -14,6 +14,9 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 
+import com.vn.cinema_internal_java_spring_rest.domain.Bill;
+import com.vn.cinema_internal_java_spring_rest.domain.dto.bill.ResBillDTO;
+
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 
@@ -61,6 +64,17 @@ public class EmailService {
         Context context = new Context();
         context.setVariable("email", email);
         context.setVariable("codeSendEmail", codeSendEmail);
+        String content = this.templateEngine.process(templateName, context);
+        this.sendEmailSync(to, subject, content, false, true);
+    }
+
+    @Async
+    public void sendBillToEmail(String to, String subject, String templateName,
+            ResBillDTO bill
+    // Object value
+    ) {
+        Context context = new Context();
+        context.setVariable("bill", bill);
         String content = this.templateEngine.process(templateName, context);
         this.sendEmailSync(to, subject, content, false, true);
     }

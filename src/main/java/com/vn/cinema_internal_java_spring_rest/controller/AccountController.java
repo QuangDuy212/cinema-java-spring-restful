@@ -63,7 +63,7 @@ public class AccountController {
         user.setCodeId(codeId);
         user.setCodeExpired(Instant.now().plus(5, ChronoUnit.MINUTES));
         this.userService.handleSaveUser(user);
-        this.emailService.sendEmailFromTemplateSync("duy2k4ml1234@gmail.com", "Test send email", "send-code",
+        this.emailService.sendEmailFromTemplateSync("duy2k4ml1234@gmail.com", "Forgot password", "send-code",
                 retry.getEmail(),
                 codeId);
         ResFetchUserDTO res = this.userService.convertUserToResFetchUserDTO(user);

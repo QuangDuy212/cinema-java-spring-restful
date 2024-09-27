@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Email Confirmation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
+        /**
+   * Google webfonts. Recommended to include the .woff version for cross-client compatibility.
+   */
+        @media screen {
+            @font-face {
+                font-family: 'Source Sans Pro';
+                font-style: normal;
+                font-weight: 400;
+                src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'), url(https://fonts.gstatic.com/s/sourcesanspro/v10/ODelI1aHBYDBqgeIAH2zlBM0YzuT7MdOe03otPbuUS0.woff) format('woff');
+            }
+
+            @font-face {
+                font-family: 'Source Sans Pro';
+                font-style: normal;
+                font-weight: 700;
+                src: local('Source Sans Pro Bold'), local('SourceSansPro-Bold'), url(https://fonts.gstatic.com/s/sourcesanspro/v10/toadOcfmlt9b38dHJxOBGFkQc6VGVFSmCnC_l7QZG60.woff) format('woff');
+            }
+        }
+
+        /**
+   * Avoid browser level font resizing.
+   * 1. Windows Mobile
+   * 2. iOS / OSX
+   */
+        body,
+        table,
+        td,
+        a {
+            -ms-text-size-adjust: 100%;
+            /* 1 */
+            -webkit-text-size-adjust: 100%;
+            /* 2 */
+        }
+
+        /**
+   * Remove extra space added to tables and cells in Outlook.
+   */
+        table,
+        td {
+            mso-table-rspace: 0pt;
+            mso-table-lspace: 0pt;
+        }
+
+        /**
+   * Better fluid images in Internet Explorer.
+   */
+        img {
+            -ms-interpolation-mode: bicubic;
+        }
+
+        /**
+   * Remove blue links for iOS devices.
+   */
+        a[x-apple-data-detectors] {
+            font-family: inherit !important;
+            font-size: inherit !important;
+            font-weight: inherit !important;
+            line-height: inherit !important;
+            color: inherit !important;
+            text-decoration: none !important;
+        }
+
+        /**
+   * Fix centering issues in Android 4.4.
+   */
+        div[style*="margin: 16px 0;"] {
+            margin: 0 !important;
+        }
+
+        body {
+            width: 100% !important;
+            height: 100% !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        /**
+   * Collapse table borders to avoid space between cells.
+   */
+        table {
+            border-collapse: collapse !important;
+        }
+
+        a {
+            color: #1a82e2;
+        }
+
+        img {
+            height: auto;
+            line-height: 100%;
+            text-decoration: none;
+            border: 0;
+            outline: none;
+        }
+
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td,
+        th {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            text-align: left;
+            padding: 8px;
+        }
+    </style>
+
+</head>
+
+<body style="background-color: #e9ecef; padding: 20px; display: flex; justify-content: center; align-items: center;">
+    <div style="background-color: #fff; border-radius: 10px; 
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    min-width: 600px; padding: 30px; ">
+        <div>
+            <h1>Hóa đơn thanh toán</h1>
+        </div>
+        <div style="margin-top: 10px; font-size: 16px; font-weight: 700;">Thông tin phim</div>
+        <div style="margin-top: 10px; font-size: 16px;">
+            <div style="font-size: 16px;">Phim</div>
+            <div style="font-weight: 600; font-size: 16px;" th:text="${bill.nameFilm}">BÁO THỦ ĐI TÌM CHỦ-K- LỒNG
+                TIẾNG</div>
+        </div>
+        <div style="display: flex;margin-top: 10px;">
+            <div style="width: 50%;font-size: 16px;">
+                <div style="font-size: 16px;">Ngày giờ chiếu</div>
+                <div style="font-weight: 600;font-size: 16px;"><span style="color: #F97316;"
+                        th:text="${bill.show}">10:00</span> - <span th:text="${bill.date}">2-10-2024</span>
+                </div>
+            </div>
+            <div style="width: 50%;">
+                <div style="font-size: 16px;">Ghế
+
+                </div>
+                <div style="font-weight: 600;font-size: 16px;">
+                    <!-- A8,A9,A10 -->
+                    <span th:each="seat : ${bill.seats}" th:text="${seat}&nbsp;"></span>
+                </div>
+            </div>
+        </div>
+        <div style="display: flex;margin-top: 10px;">
+            <div style="width: 50%;">
+                <div style="font-size: 16px;">Định dạng</div>
+                <div style="font-weight: 600;font-size: 16px;">2D</div>
+            </div>
+            <div style="width: 50%;">
+                <div style="font-size: 16px;">Phòng chiếu</div>
+                <div style="font-weight: 600;font-size: 16px;" th:text="${bill.zoomNumber}">2</div>
+            </div>
+        </div>
+
+        <div style="margin-top: 20px;">
+            <table>
+                <tr>
+                    <th>Danh mục</th>
+                    <th>Số lượng</th>
+                    <th>Tổng tiền</th>
+                </tr>
+                <tr>
+                    <td>Ghế (
+                        <span th:each="seat : ${bill.seats}" th:text="${seat}&nbsp;"></span>)
+                    </td>
+                    <td th:text="${bill.quantity}">0</td>
+                    <td th:text="${bill.total}">10000</td>
+                </tr>
+            </table>
+        </div>
+        <div style="margin-top: 20px; font-size: 16px; font-weight: 600;">
+            Chúc quý khán giả có một buổi xem phim thật vui vẻ.
+        </div>
+        <div style="margin-top: 20px; font-size: 16px;">
+            Thân ái,
+        </div>
+        <div style="font-size: 16px;">Quang Duy</div>
+
+    </div>
+    </div>
+</body>
+
+
+</html>
