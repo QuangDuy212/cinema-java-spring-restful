@@ -116,76 +116,84 @@
             text-align: left;
             padding: 8px;
         }
+
+        .center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
     </style>
 
 </head>
 
-<body style="background-color: #e9ecef; padding: 20px; display: flex; justify-content: center; align-items: center;">
-    <div style="background-color: #fff; border-radius: 10px; 
+<body style="background-color: #e9ecef; padding: 20px; ">
+    <div align="center">
+        <div style="background-color: #fff; border-radius: 10px; 
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     min-width: 600px; padding: 30px; ">
-        <div>
-            <h1>Hóa đơn thanh toán</h1>
-        </div>
-        <div style="margin-top: 10px; font-size: 16px; font-weight: 700;">Thông tin phim</div>
-        <div style="margin-top: 10px; font-size: 16px;">
-            <div style="font-size: 16px;">Phim</div>
-            <div style="font-weight: 600; font-size: 16px;" th:text="${bill.nameFilm}">BÁO THỦ ĐI TÌM CHỦ-K- LỒNG
-                TIẾNG</div>
-        </div>
-        <div style="display: flex;margin-top: 10px;">
-            <div style="width: 50%;font-size: 16px;">
-                <div style="font-size: 16px;">Ngày giờ chiếu</div>
-                <div style="font-weight: 600;font-size: 16px;"><span style="color: #F97316;"
-                        th:text="${bill.show}">10:00</span> - <span th:text="${bill.date}">2-10-2024</span>
+            <div>
+                <h1>Hóa đơn thanh toán</h1>
+            </div>
+            <div style="margin-top: 10px; font-size: 16px; font-weight: 700;">Thông tin phim</div>
+            <div style="margin-top: 10px; font-size: 16px;text-align: left;">
+                <div style="font-size: 16px;">Phim</div>
+                <div style="font-weight: 600; font-size: 16px;" th:text="${bill.nameFilm}">BÁO THỦ ĐI TÌM CHỦ-K-
+                    LỒNG
+                    TIẾNG</div>
+            </div>
+            <div style="display: flex;margin-top: 10px; width: 100%;text-align: left;">
+                <div style="width: 50%;font-size: 16px;">
+                    <div style="font-size: 16px;">Ngày giờ chiếu</div>
+                    <div style="font-weight: 600;font-size: 16px;">
+                        <span style="color: #F97316;" th:text="${bill.time}"></span>
+                        -
+                        <span th:text="${bill.date}"></span>
+                    </div>
+                </div>
+                <div style="width: 50%;">
+                    <div style="font-size: 16px;">Ghế
+                    </div>
+                    <div style="font-weight: 600;font-size: 16px;">
+                        <span th:text="${bill.seats}"></span>
+                    </div>
                 </div>
             </div>
-            <div style="width: 50%;">
-                <div style="font-size: 16px;">Ghế
-
+            <div style="display: flex;margin-top: 10px;text-align: left;">
+                <div style="width: 50%;">
+                    <div style="font-size: 16px;">Định dạng</div>
+                    <div style="font-weight: 600;font-size: 16px;">2D</div>
                 </div>
-                <div style="font-weight: 600;font-size: 16px;">
-                    <!-- A8,A9,A10 -->
-                    <span th:each="seat : ${bill.seats}" th:text="${seat}&nbsp;"></span>
+                <div style="width: 50%;">
+                    <div style="font-size: 16px;">Phòng chiếu</div>
+                    <div style="font-weight: 600;font-size: 16px;" th:text="${bill.zoomNumber}">2</div>
                 </div>
             </div>
-        </div>
-        <div style="display: flex;margin-top: 10px;">
-            <div style="width: 50%;">
-                <div style="font-size: 16px;">Định dạng</div>
-                <div style="font-weight: 600;font-size: 16px;">2D</div>
-            </div>
-            <div style="width: 50%;">
-                <div style="font-size: 16px;">Phòng chiếu</div>
-                <div style="font-weight: 600;font-size: 16px;" th:text="${bill.zoomNumber}">2</div>
-            </div>
-        </div>
 
-        <div style="margin-top: 20px;">
-            <table>
-                <tr>
-                    <th>Danh mục</th>
-                    <th>Số lượng</th>
-                    <th>Tổng tiền</th>
-                </tr>
-                <tr>
-                    <td>Ghế (
-                        <span th:each="seat : ${bill.seats}" th:text="${seat}&nbsp;"></span>)
-                    </td>
-                    <td th:text="${bill.quantity}">0</td>
-                    <td th:text="${bill.total}">10000</td>
-                </tr>
-            </table>
-        </div>
-        <div style="margin-top: 20px; font-size: 16px; font-weight: 600;">
-            Chúc quý khán giả có một buổi xem phim thật vui vẻ.
-        </div>
-        <div style="margin-top: 20px; font-size: 16px;">
-            Thân ái,
-        </div>
-        <div style="font-size: 16px;">Quang Duy</div>
+            <div style="margin-top: 20px;">
+                <table>
+                    <tr>
+                        <th>Danh mục</th>
+                        <th>Số lượng</th>
+                        <th>Tổng tiền</th>
+                    </tr>
+                    <tr>
+                        <td>Ghế (
+                            <span th:text="${bill.seats}"></span>)
+                        </td>
+                        <td th:text="${bill.quantity}">0</td>
+                        <td th:text="${bill.total}">10000</td>
+                    </tr>
+                </table>
+            </div>
+            <div style="margin-top: 20px; font-size: 16px; font-weight: 600;">
+                Chúc quý khán giả có một buổi xem phim thật vui vẻ.
+            </div>
+            <div style="margin-top: 20px; font-size: 16px;text-align: left;">
+                Thân ái,
+            </div>
+            <div style="font-size: 16px; text-align: left;">Quang Duy</div>
 
-    </div>
+        </div>
     </div>
 </body>
 

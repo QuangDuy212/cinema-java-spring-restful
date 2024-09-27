@@ -15,6 +15,7 @@ import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 
 import com.vn.cinema_internal_java_spring_rest.domain.Bill;
+import com.vn.cinema_internal_java_spring_rest.domain.dto.bill.BillSendEmailDTO;
 import com.vn.cinema_internal_java_spring_rest.domain.dto.bill.ResBillDTO;
 
 import jakarta.mail.MessagingException;
@@ -70,7 +71,7 @@ public class EmailService {
 
     @Async
     public void sendBillToEmail(String to, String subject, String templateName,
-            ResBillDTO bill
+            BillSendEmailDTO bill
     // Object value
     ) {
         Context context = new Context();

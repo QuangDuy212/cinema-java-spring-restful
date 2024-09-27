@@ -50,7 +50,6 @@ public class BillController {
         log.debug("REST request to create Bill : {}", reqBill);
         Bill bill = this.billService.handleCreateABill(reqBill);
         ResBillDTO res = this.billService.converBillToResBillDTO(bill);
-        this.emailService.sendBillToEmail("duy2k4ml1234@gmail.com", "Bill", "bill", res);
         return ResponseEntity.status(HttpStatus.CREATED).body(res);
     }
 
