@@ -2304,3 +2304,164 @@ Consider defining a bean of type 'com.vn.cinema_internal_java_spring_rest.servic
 
 2024-09-27 21:04:42,356 INFO o.s.b.StartupInfoLogger [restartedMain] Starting CinemaInternalJavaSpringRestApplication using Java 17.0.9 with PID 10636 (D:\Workspace\project\cinema-internal\cinema-internal-java-spring-rest\build\classes\java\main started by duy2k in D:\Workspace\project\cinema-internal\cinema-internal-java-spring-rest)
 2024-09-27 21:04:42,356 INFO o.s.b.SpringApplication [restartedMain] No active profile set, falling back to 1 default profile: "default"
+2024-09-27 21:04:42,759 INFO o.s.d.r.c.RepositoryConfigurationDelegate [restartedMain] Multiple Spring Data modules found, entering strict repository configuration mode
+2024-09-27 21:04:42,760 INFO o.s.d.r.c.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-27 21:04:42,803 INFO o.s.d.r.c.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 42 ms. Found 11 JPA repository interfaces.
+2024-09-27 21:04:42,806 INFO o.s.d.r.c.RepositoryConfigurationDelegate [restartedMain] Multiple Spring Data modules found, entering strict repository configuration mode
+2024-09-27 21:04:42,806 INFO o.s.d.r.c.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-09-27 21:04:42,810 INFO o.s.d.r.c.RepositoryConfigurationExtensionSupport [restartedMain] Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.vn.cinema_internal_java_spring_rest.repository.BillRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-09-27 21:04:42,811 INFO o.s.d.r.c.RepositoryConfigurationExtensionSupport [restartedMain] Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.vn.cinema_internal_java_spring_rest.repository.CategoryRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-09-27 21:04:42,812 INFO o.s.d.r.c.RepositoryConfigurationExtensionSupport [restartedMain] Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.vn.cinema_internal_java_spring_rest.repository.FilmRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-09-27 21:04:42,813 INFO o.s.d.r.c.RepositoryConfigurationExtensionSupport [restartedMain] Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.vn.cinema_internal_java_spring_rest.repository.HistoryRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-09-27 21:04:42,814 INFO o.s.d.r.c.RepositoryConfigurationExtensionSupport [restartedMain] Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.vn.cinema_internal_java_spring_rest.repository.PermissionRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-09-27 21:04:42,815 INFO o.s.d.r.c.RepositoryConfigurationExtensionSupport [restartedMain] Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.vn.cinema_internal_java_spring_rest.repository.RoleRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-09-27 21:04:42,817 INFO o.s.d.r.c.RepositoryConfigurationExtensionSupport [restartedMain] Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.vn.cinema_internal_java_spring_rest.repository.SeatNameRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-09-27 21:04:42,818 INFO o.s.d.r.c.RepositoryConfigurationExtensionSupport [restartedMain] Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.vn.cinema_internal_java_spring_rest.repository.SeatRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-09-27 21:04:42,819 INFO o.s.d.r.c.RepositoryConfigurationExtensionSupport [restartedMain] Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.vn.cinema_internal_java_spring_rest.repository.ShowRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-09-27 21:04:42,820 INFO o.s.d.r.c.RepositoryConfigurationExtensionSupport [restartedMain] Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.vn.cinema_internal_java_spring_rest.repository.TimeRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-09-27 21:04:42,821 INFO o.s.d.r.c.RepositoryConfigurationExtensionSupport [restartedMain] Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.vn.cinema_internal_java_spring_rest.repository.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-09-27 21:04:42,822 INFO o.s.d.r.c.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 15 ms. Found 0 Redis repository interfaces.
+2024-09-27 21:04:43,014 INFO o.s.b.w.e.t.TomcatWebServer [restartedMain] Tomcat initialized with port 8080 (http)
+2024-09-27 21:04:43,015 INFO o.a.j.l.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2024-09-27 21:04:43,016 INFO o.a.j.l.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2024-09-27 21:04:43,016 INFO o.a.j.l.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/10.1.28]
+2024-09-27 21:04:43,044 INFO o.a.j.l.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2024-09-27 21:04:43,045 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 686 ms
+2024-09-27 21:04:43,217 INFO o.h.j.i.u.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-27 21:04:43,220 INFO o.h.c.i.RegionFactoryInitiator [restartedMain] HHH000026: Second-level cache disabled
+2024-09-27 21:04:43,232 INFO o.s.o.j.p.SpringPersistenceUnitInfo [restartedMain] No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-09-27 21:04:43,235 INFO c.z.h.HikariDataSource [restartedMain] HikariPool-19 - Starting...
+2024-09-27 21:04:43,253 INFO c.z.h.p.HikariPool [restartedMain] HikariPool-19 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7a7579af
+2024-09-27 21:04:43,254 INFO c.z.h.HikariDataSource [restartedMain] HikariPool-19 - Start completed.
+2024-09-27 21:04:43,404 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [restartedMain] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-09-27 21:04:43,538 INFO o.s.o.j.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-27 21:04:44,004 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-09-27 21:04:44,027 INFO o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer [restartedMain] Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2024-09-27 21:04:44,262 INFO o.s.b.a.e.w.EndpointLinksResolver [restartedMain] Exposing 1 endpoint beneath base path '/actuator'
+2024-09-27 21:04:44,674 INFO o.s.b.d.a.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2024-09-27 21:04:44,690 INFO o.a.j.l.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2024-09-27 21:04:44,702 INFO o.s.b.w.e.t.TomcatWebServer [restartedMain] Tomcat started on port 8080 (http) with context path '/'
+2024-09-27 21:04:44,709 INFO o.s.b.StartupInfoLogger [restartedMain] Started CinemaInternalJavaSpringRestApplication in 2.377 seconds (process running for 1942.049)
+2024-09-27 21:04:44,723 INFO o.s.b.d.a.ConditionEvaluationDeltaLoggingListener [restartedMain] Condition evaluation unchanged
+2024-09-27 21:04:59,740 INFO o.a.j.l.DirectJDKLog [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-09-27 21:04:59,740 INFO o.s.w.s.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2024-09-27 21:04:59,745 INFO o.s.w.s.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 4 ms
+2024-09-27 21:05:02,570 WARN o.s.w.s.h.AbstractHandlerExceptionResolver [http-nio-8080-exec-8] Resolved [org.springframework.web.servlet.resource.NoResourceFoundException: No static resource film/undefined.]
+2024-09-27 21:16:43,629 INFO o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener [File Watcher] Restarting due to 12 class path changes (0 additions, 12 deletions, 0 modifications)
+2024-09-27 21:16:43,673 INFO o.a.j.l.DirectJDKLog [Thread-71] Stopping ProtocolHandler ["http-nio-8080"]
+2024-09-27 21:16:44,908 INFO o.s.o.j.AbstractEntityManagerFactoryBean [Thread-71] Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-27 21:16:44,915 INFO c.z.h.HikariDataSource [Thread-71] HikariPool-19 - Shutdown initiated...
+2024-09-27 21:16:44,958 INFO c.z.h.HikariDataSource [Thread-71] HikariPool-19 - Shutdown completed.
+2024-09-27 21:16:45,464 INFO o.s.b.StartupInfoLogger [restartedMain] Starting CinemaInternalJavaSpringRestApplication using Java 17.0.9 with PID 10636 (D:\Workspace\project\cinema-internal\cinema-internal-java-spring-rest\build\classes\java\main started by duy2k in D:\Workspace\project\cinema-internal\cinema-internal-java-spring-rest)
+2024-09-27 21:16:45,466 INFO o.s.b.SpringApplication [restartedMain] No active profile set, falling back to 1 default profile: "default"
+2024-09-27 21:16:47,237 WARN o.s.c.s.AbstractApplicationContext [restartedMain] Exception encountered during context initialization - cancelling refresh attempt: java.lang.IllegalStateException: Error processing condition on org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration.propertySourcesPlaceholderConfigurer
+2024-09-27 21:16:47,250 INFO o.s.b.a.l.ConditionEvaluationReportLogger [restartedMain] 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2024-09-27 21:16:47,265 ERROR o.s.b.SpringApplication [restartedMain] Application run failed
+java.lang.IllegalStateException: Error processing condition on org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration.propertySourcesPlaceholderConfigurer
+	at org.springframework.boot.autoconfigure.condition.SpringBootCondition.matches(SpringBootCondition.java:60)
+	at org.springframework.context.annotation.ConditionEvaluator.shouldSkip(ConditionEvaluator.java:108)
+	at org.springframework.context.annotation.ConfigurationClassBeanDefinitionReader.loadBeanDefinitionsForBeanMethod(ConfigurationClassBeanDefinitionReader.java:183)
+	at org.springframework.context.annotation.ConfigurationClassBeanDefinitionReader.loadBeanDefinitionsForConfigurationClass(ConfigurationClassBeanDefinitionReader.java:144)
+	at org.springframework.context.annotation.ConfigurationClassBeanDefinitionReader.loadBeanDefinitions(ConfigurationClassBeanDefinitionReader.java:120)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.processConfigBeanDefinitions(ConfigurationClassPostProcessor.java:429)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.postProcessBeanDefinitionRegistry(ConfigurationClassPostProcessor.java:290)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanDefinitionRegistryPostProcessors(PostProcessorRegistrationDelegate.java:349)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:118)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:789)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:607)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352)
+	at com.vn.cinema_internal_java_spring_rest.CinemaInternalJavaSpringRestApplication.main(CinemaInternalJavaSpringRestApplication.java:15)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: java.lang.IllegalStateException: Failed to introspect Class [com.vn.cinema_internal_java_spring_rest.config.permissionDatabase.PermissionInterceptorConfiguration] from ClassLoader [org.springframework.boot.devtools.restart.classloader.RestartClassLoader@2f4cad84]
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:483)
+	at org.springframework.util.ReflectionUtils.doWithMethods(ReflectionUtils.java:360)
+	at org.springframework.util.ReflectionUtils.getUniqueDeclaredMethods(ReflectionUtils.java:417)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.lambda$getTypeForFactoryMethod$1(AbstractAutowireCapableBeanFactory.java:750)
+	at java.base/java.util.concurrent.ConcurrentHashMap.computeIfAbsent(ConcurrentHashMap.java:1708)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.getTypeForFactoryMethod(AbstractAutowireCapableBeanFactory.java:749)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.determineTargetType(AbstractAutowireCapableBeanFactory.java:682)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.predictBeanType(AbstractAutowireCapableBeanFactory.java:653)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.isFactoryBean(AbstractBeanFactory.java:1687)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doGetBeanNamesForType(DefaultListableBeanFactory.java:562)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeanNamesForType(DefaultListableBeanFactory.java:534)
+	at org.springframework.boot.autoconfigure.condition.OnBeanCondition.collectBeanNamesForType(OnBeanCondition.java:247)
+	at org.springframework.boot.autoconfigure.condition.OnBeanCondition.getBeanNamesForType(OnBeanCondition.java:240)
+	at org.springframework.boot.autoconfigure.condition.OnBeanCondition.getBeanNamesForType(OnBeanCondition.java:230)
+	at org.springframework.boot.autoconfigure.condition.OnBeanCondition.getMatchingBeans(OnBeanCondition.java:183)
+	at org.springframework.boot.autoconfigure.condition.OnBeanCondition.getMatchOutcome(OnBeanCondition.java:158)
+	at org.springframework.boot.autoconfigure.condition.SpringBootCondition.matches(SpringBootCondition.java:47)
+	... 22 common frames omitted
+Caused by: java.lang.NoClassDefFoundError: com/vn/cinema_internal_java_spring_rest/config/permissionDatabase/PermissionInterceptor
+	at java.base/java.lang.Class.getDeclaredMethods0(Native Method)
+	at java.base/java.lang.Class.privateGetDeclaredMethods(Class.java:3402)
+	at java.base/java.lang.Class.getDeclaredMethods(Class.java:2504)
+	at org.springframework.util.ReflectionUtils.getDeclaredMethods(ReflectionUtils.java:465)
+	... 38 common frames omitted
+Caused by: java.lang.ClassNotFoundException: com.vn.cinema_internal_java_spring_rest.config.permissionDatabase.PermissionInterceptor
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:520)
+	at java.base/java.lang.Class.forName0(Native Method)
+	at java.base/java.lang.Class.forName(Class.java:467)
+	at org.springframework.boot.devtools.restart.classloader.RestartClassLoader.loadClass(RestartClassLoader.java:121)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:520)
+	... 42 common frames omitted
+2024-09-27 21:16:50,759 INFO o.s.b.StartupInfoLogger [restartedMain] Starting CinemaInternalJavaSpringRestApplication using Java 17.0.9 with PID 10636 (D:\Workspace\project\cinema-internal\cinema-internal-java-spring-rest\build\classes\java\main started by duy2k in D:\Workspace\project\cinema-internal\cinema-internal-java-spring-rest)
+2024-09-27 21:16:50,761 INFO o.s.b.SpringApplication [restartedMain] No active profile set, falling back to 1 default profile: "default"
+2024-09-27 21:16:51,881 INFO o.s.d.r.c.RepositoryConfigurationDelegate [restartedMain] Multiple Spring Data modules found, entering strict repository configuration mode
+2024-09-27 21:16:51,881 INFO o.s.d.r.c.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-27 21:16:51,934 INFO o.s.d.r.c.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 50 ms. Found 11 JPA repository interfaces.
+2024-09-27 21:16:51,939 INFO o.s.d.r.c.RepositoryConfigurationDelegate [restartedMain] Multiple Spring Data modules found, entering strict repository configuration mode
+2024-09-27 21:16:51,940 INFO o.s.d.r.c.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2024-09-27 21:16:51,945 INFO o.s.d.r.c.RepositoryConfigurationExtensionSupport [restartedMain] Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.vn.cinema_internal_java_spring_rest.repository.BillRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-09-27 21:16:51,947 INFO o.s.d.r.c.RepositoryConfigurationExtensionSupport [restartedMain] Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.vn.cinema_internal_java_spring_rest.repository.CategoryRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-09-27 21:16:51,948 INFO o.s.d.r.c.RepositoryConfigurationExtensionSupport [restartedMain] Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.vn.cinema_internal_java_spring_rest.repository.FilmRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-09-27 21:16:51,950 INFO o.s.d.r.c.RepositoryConfigurationExtensionSupport [restartedMain] Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.vn.cinema_internal_java_spring_rest.repository.HistoryRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-09-27 21:16:51,951 INFO o.s.d.r.c.RepositoryConfigurationExtensionSupport [restartedMain] Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.vn.cinema_internal_java_spring_rest.repository.PermissionRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-09-27 21:16:51,953 INFO o.s.d.r.c.RepositoryConfigurationExtensionSupport [restartedMain] Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.vn.cinema_internal_java_spring_rest.repository.RoleRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-09-27 21:16:51,954 INFO o.s.d.r.c.RepositoryConfigurationExtensionSupport [restartedMain] Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.vn.cinema_internal_java_spring_rest.repository.SeatNameRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-09-27 21:16:51,955 INFO o.s.d.r.c.RepositoryConfigurationExtensionSupport [restartedMain] Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.vn.cinema_internal_java_spring_rest.repository.SeatRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-09-27 21:16:51,956 INFO o.s.d.r.c.RepositoryConfigurationExtensionSupport [restartedMain] Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.vn.cinema_internal_java_spring_rest.repository.ShowRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-09-27 21:16:51,958 INFO o.s.d.r.c.RepositoryConfigurationExtensionSupport [restartedMain] Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.vn.cinema_internal_java_spring_rest.repository.TimeRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-09-27 21:16:51,959 INFO o.s.d.r.c.RepositoryConfigurationExtensionSupport [restartedMain] Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.vn.cinema_internal_java_spring_rest.repository.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+2024-09-27 21:16:51,960 INFO o.s.d.r.c.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 19 ms. Found 0 Redis repository interfaces.
+2024-09-27 21:16:52,310 INFO o.s.b.w.e.t.TomcatWebServer [restartedMain] Tomcat initialized with port 8080 (http)
+2024-09-27 21:16:52,330 INFO o.a.j.l.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2024-09-27 21:16:52,333 INFO o.a.j.l.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2024-09-27 21:16:52,335 INFO o.a.j.l.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/10.1.28]
+2024-09-27 21:16:52,396 INFO o.a.j.l.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2024-09-27 21:16:52,397 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 1634 ms
+2024-09-27 21:16:52,651 INFO o.h.j.i.u.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-27 21:16:52,656 INFO o.h.c.i.RegionFactoryInitiator [restartedMain] HHH000026: Second-level cache disabled
+2024-09-27 21:16:52,670 INFO o.s.o.j.p.SpringPersistenceUnitInfo [restartedMain] No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-09-27 21:16:52,673 INFO c.z.h.HikariDataSource [restartedMain] HikariPool-20 - Starting...
+2024-09-27 21:16:52,696 INFO c.z.h.p.HikariPool [restartedMain] HikariPool-20 - Added connection com.mysql.cj.jdbc.ConnectionImpl@486c4db7
+2024-09-27 21:16:52,697 INFO c.z.h.HikariDataSource [restartedMain] HikariPool-20 - Start completed.
+2024-09-27 21:16:52,930 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [restartedMain] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-09-27 21:16:53,150 INFO o.s.o.j.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-27 21:16:53,715 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-09-27 21:16:53,738 INFO o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer [restartedMain] Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2024-09-27 21:16:53,973 INFO o.s.b.a.e.w.EndpointLinksResolver [restartedMain] Exposing 1 endpoint beneath base path '/actuator'
+2024-09-27 21:16:54,453 INFO o.s.b.d.a.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2024-09-27 21:16:54,483 INFO o.a.j.l.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2024-09-27 21:16:54,490 INFO o.s.b.w.e.t.TomcatWebServer [restartedMain] Tomcat started on port 8080 (http) with context path '/'
+2024-09-27 21:16:54,505 INFO o.s.b.StartupInfoLogger [restartedMain] Started CinemaInternalJavaSpringRestApplication in 3.785 seconds (process running for 2671.844)
+2024-09-27 21:16:54,523 INFO o.s.b.d.a.ConditionEvaluationDeltaLoggingListener [restartedMain] Condition evaluation unchanged
+2024-09-27 21:17:07,322 INFO o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener [File Watcher] Restarting due to 6 class path changes (0 additions, 6 deletions, 0 modifications)
+2024-09-27 21:17:07,326 INFO o.a.j.l.DirectJDKLog [Thread-78] Stopping ProtocolHandler ["http-nio-8080"]
+2024-09-27 21:17:07,825 INFO o.s.o.j.AbstractEntityManagerFactoryBean [Thread-78] Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-27 21:17:07,827 INFO c.z.h.HikariDataSource [Thread-78] HikariPool-20 - Shutdown initiated...
+2024-09-27 21:17:07,838 INFO c.z.h.HikariDataSource [Thread-78] HikariPool-20 - Shutdown completed.
+2024-09-27 21:17:08,323 INFO o.s.b.StartupInfoLogger [restartedMain] Starting CinemaInternalJavaSpringRestApplication using Java 17.0.9 with PID 10636 (D:\Workspace\project\cinema-internal\cinema-internal-java-spring-rest\build\classes\java\main started by duy2k in D:\Workspace\project\cinema-internal\cinema-internal-java-spring-rest)
+2024-09-27 21:17:08,324 INFO o.s.b.SpringApplication [restartedMain] No active profile set, falling back to 1 default profile: "default"
