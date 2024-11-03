@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: cinema-internal-java-spring-rest
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/cinemainternal
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true
+  servlet:
+    multipart:
+      max-request-size: 50MB
+      max-file-size: 50MB
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: severemail2k4@gmail.com
+    password: kumhnguaruosxgxq
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+quangduy:
+  jwt:
+    base64-secret: qoAEABDke07+AVLepXB4aCMtsT0wMAqR5x2VFyldsnx6e75YQkJH2UcZKTjEyoNgG71SBCXfq5N6NVZxWOfsHQ==
+    access-token-validity-in-seconds: 86400
+    refresh-token-validity-in-seconds: 86400
+  upload-file:
+    base-uri: file:///D:/Workspace/project/cinema-internal/upload/
